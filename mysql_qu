@@ -1,0 +1,183 @@
+
+
+
+create table `pm_recepients`
+(
+`pm_id` INT(5) unsigned NOT NULL,
+`pm_sent_to_uid` MEDIUMINT(5) unsigned NOT NULL, 
+`pm_labels` varchar(60) NOT NULL default -1,
+`pm_is_read` TINYINT(3) NOT NULL ,
+`pm_is_new` TINYINT(3) NOT NULL , 
+`pm_is_deleted` TINYINT(3) NOT NULL
+)
+
+create index pm_id_idx on pm_recepients (pm_id) using BTREE
+
+create index pm_sent_to_uid_idx on pm_recepients (pm_sent_to_uid) using BTREE
+
+create table `pm`
+(
+`pm_id` int(10) unsigned not null primary key auto_increment,
+`pm_id_head` int(10) unsigned not null,
+`pm_from_uid` int(5) unsigned not null,
+`pm_deleted_by_sender` tinyint(3) unsigned not null, 
+`pm_from_name` varchar(255), 
+`pm_sent_time` int(10) unsigned, 
+`pm_subject` varchar(100),
+`pm_body` text
+)
+
+
+create table `wall_post` 
+(
+`id` int(10) PRIMARY KEY NOT NULL auto_increment ,
+`on_uid` int(10) unsigned ,
+`by_uid` int(10) unsigned , 
+`content` text  , 
+`date` int(10) unsigned not null default 0
+)
+
+ALTER TABLE `wall_post` ADD INDEX idx_on_uid (`on_uid`)
+
+
+create table `wall_post_reply` 
+(
+`wpr_id` int(10) unsigned auto_increment primary  key,
+`wpr_content` text,
+`wpr_by_uid` int(10) unsigned, 
+`wpr_date` int(10) unsigned,
+`wall_post_id` int(10) unsigned
+)
+
+alter table `wall_post_reply` change `wall_post_id` `wp_id` int(10) unsigned
+
+Change Column Name:::
+alter table `wall_post` change `date` `wp_date` int(10) unsigned not null 
+
+
+alter table `wall_post` modify `wp_on_uid` int(11) unsigned not null 
+
+alter table `wall_post` add index `idx_wp_by_uid` (`wp_by_uid` )
+
+
+alter tables add MULTIPLE Columns:::
+alter table `users` 
+add column (
+`about` longtext, 
+`dob` timestamp,
+`sex` char(1), 
+`displaypic_url` varchar(255),
+`website_url` varchar(255), 
+`perfume` varchar(255)
+)
+
+
+
+alter tables add DROP Columns:::
+alter table `users` 
+drop column `about`,
+drop column `dob`, 
+drop column  `sex`, 
+drop column  `displaypic_url` ,
+drop column `website_url`  , 
+drop column `perfume`
+
+
+executed alter table to change many columns:::
+alter table `wall_post` change  `id` `wp_id` int(10) NOT NULL AUTO_INCREMENT,
+alter table `wall_post` change  `on_uid` `wp_on_uid` int(10) unsigned DEFAULT NULL,
+alter table `wall_post` change  `by_uid` `wp_by_uid` int(10) unsigned DEFAULT NULL,
+alter table `wall_post` change  `post` `wp_post` text,
+alter table `wall_post` change  `date` `wp_date` int(10) unsigned NOT NULL DEFAULT '0',
+
+
+
+
+Alter table modify column:::
+
+ALTER TABLE <table> COMMENT = 'blah blah blah';
+ALTER TABLE <table> MODIFY COLUMN <column> <col params> COMMENT = 'blah blah blah';
+e.g.
+
+ALTER TABLE `sales` MODIFY COLUMN ID INT NOT NULL COMMENT = 'blah blah blah';
+
+Alter table MODIFY Column & ADD COMMENT:::
+alter table `wall_post` modify column `wpr_id` text COMMENT '#wall_post_reply table ids associated with this wall_post id#'
+
+
+Alter table ADD Column & ADD COMMENT:::
+alter table `wall_post` add column `wpr_id` text COMMENT '#wall_post_reply table ids associated with this wall_post id#'
+
+
+Altered table users added column:
+alter table `users` modify column  `is_banned` tinyint(1) unsigned;
+
+
+created some AI tables:::
+
+create table ai_logs
+(
+`ai_id` bigint unsigned auto_increment not null primary key,
+`users_uid` bigint not null,
+`reason` varchar(255) COMMENT 'whether cause happened or action was taken etc for the effect to happen',
+`type` varchar(255) COMMENT 'which type of reason happened, like spam_words was the type of reason cause',
+`any_definition` text COMMENT 'any definition abt the cause or action taken, etc, like cause spam_words happened at this time etc, the why?',
+`datetime` int(5) DEFAULT 0
+`ai_u_l_id` int(5) COMMENT 'corresponding id of the ai_user_logs,, foreign key for the column'
+)
+
+alter table `ai_logs` add column `aiul_ai_u_l_id` int(5) COMMENT '#corresponding id (ai_u_l_id) of the ai_user_logs table, foreign key for that column#'
+
+
+create table ai_keyword_definitions
+(
+`ai_keydef_id` int(5) auto_increment primary key,
+`keyword` varchar(255) COMMENT '#keywords that have some defintions#',
+`definition` text COMMENT '#the definition of the keyword#'
+)
+
+
+create table ai_user_logs
+(
+`ai_u_l_id` int(5) auto_increment primary key not null, 
+`users_uid` int(5), 
+`event` text COMMENT '#what event happened, like, what did the user do at this time, what happened?#', 
+`time` int(5) DEFAULT 0
+)
+
+create table ai_causes
+(
+`ai_cause_id` int(5) auto_increment primary key, 
+`cause_name` varchar(255), 
+`c_severity_level` int(4),
+`ai_action_actname` varchar(255) COMMENT '#Corresponds to the action_name column in the ai_actions table#'
+)
+
+create table ai_causes
+(
+`ai_cause_id` int(5) auto_increment primary key, 
+`cause_name` varchar(255), 
+`c_severity_level` int(4),
+`ai_e_effect_name` varchar(255) COMMENT '#Corresponds to the effect name column of the ai_effects table#'
+)
+
+create table ai_effects
+(
+`ai_effect_id` int(5) auto_increment primary key,  
+`effect_name` varchar(255) COMMENT '#Name of the final effect that is the resultant#',
+`ai_action_actname` varchar(255) COMMENT '#Corresponds to the action_name column in the ai_actions table#'
+)
+
+create table ai_actions
+(
+`ai_actions_id` int(5) auto_increment primary key, 
+`action_name` varchar(255) COMMENT '#Action function to run#', 
+`a_severity_level` int(4),
+/*`warning_name` varchar(255) COMMENT '#warning function to run#'*/
+`unit_of_time` varchar(255) COMMENT '#Unit of time to keep the action alive#'
+)
+
+
+
+
+

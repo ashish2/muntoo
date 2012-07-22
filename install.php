@@ -70,6 +70,7 @@ if(isset($_POST['dbinstall']))
 	if(!is_writable($dirName) )
 	{
 		$error['dir_unwritable'] = 'Directory "' . $dirName . '" does not seem to be writable, please try changing permissions, and submit the form again.';
+		die();
 	}
 	
 	if(!empty($error))
@@ -95,6 +96,12 @@ if(isset($_POST['dbinstall']))
 	'$globals["themedir"] = $themedir = \'' . $dirName . "/themes" . "'; \n" . 
 //			'$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['REQUEST_URI']) . "'; \n" . 
 	'$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['SCRIPT_NAME']) . "'; \n" . 
+	
+	// '$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['REQUEST_URI']) . "'; \n" . 
+	// '$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['SCRIPT_NAME']) . "'; \n" . 
+	// '$globals["boardurl"] = $boardurl = \'http://' . $_SERVER['SERVER_NAME'] . "'; \n" . 
+	'$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['SCRIPT_NAME']) . "'; \n" . 
+	
 	
 	'$globals["cookiename"] = $cookiename = \'MFCOOKIE44' . "'; \n" . 
 	'// Will have to write the below things in this file at installation ' . "\n" . 

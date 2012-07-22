@@ -1,0 +1,68 @@
+
+Left:
+viewProfile:
+Permissions
+
+modifyProfile:
+Permissions
+
+
+Now:
+doing replies page:
+select replies
+
+then,
+add replies page, to topics, 
+INSERT replies into replies table, 
+corresponding to topic id $_GET[topic]
+
+
+create topic in board.
+createTopic.php page
+for which replies will be added
+
+
+bannedList.php
+banned table
+
+banned: 
+uid (user id is KEY, search based on uid, & whether his email/ip is baned)
+ip
+email
+
+showBanned list
+show the whole banned table to admin
+
+removeBannedList.php
+remove bans
+(delete the user id row from ban table)
+
+// nuthin new, just create a table where msgs will go.
+Messaging System:
+send msg to friends
+
+Email system:
+send email to friends
+
+Logging & Log files:
+write logging functions.
+everytime any activity happens, it gets logged in 
+into the database
+
+Wall:
+writing wall system with ajax enabled 
+using jQuery for it 
+
+
+// memcached
+adding cache system 
+
+
+
+
+
+
+
+
+
+
