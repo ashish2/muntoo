@@ -68,7 +68,6 @@ if(isset($_POST['dbinstall']))
 	if(!is_writable($dirName) )
 	{
 		$error['dir_unwritable'] = 'Directory "' . $dirName . '" does not seem to be writable, please try changing permissions, and submit the form again.';
-		die();
 	}
 	
 	if(!empty($error))
