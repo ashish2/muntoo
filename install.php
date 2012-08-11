@@ -15,6 +15,8 @@ function mysql_dead($str)
 	$s .= '<br />';
 	$s .= 'Error: ' . mysql_error();
 	$s .= '<br />';
+	$s .= 'Please go back and submit the form again.';
+	$s .= '<br />';
 	echo $s;
 	die();
 }
