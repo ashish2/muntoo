@@ -96,15 +96,15 @@ if(isset($_POST['dbinstall']))
 	'$globals["themedir"] = $themedir = \'' . $dirName . "/themes" . "'; \n" . 
 	////'$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['REQUEST_URI']) . "'; \n" . 
 	'$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['SCRIPT_NAME']) . "'; \n" . 
-<<<<<<< Updated upstream
+////<<<<<<< Updated upstream
 	
 	// '$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['REQUEST_URI']) . "'; \n" . 
 	// '$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['SCRIPT_NAME']) . "'; \n" . 
 	// '$globals["boardurl"] = $boardurl = \'http://' . $_SERVER['SERVER_NAME'] . "'; \n" . 
 	////'$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['SCRIPT_NAME']) . "'; \n" . 
 	
-=======
->>>>>>> Stashed changes
+////=======
+////>>>>>>> Stashed changes
 	
 	'$globals["cookiename"] = $cookiename = \'MFCOOKIE44' . "'; \n" . 
 	'// Will have to write the below things in this file at installation ' . "\n" . 
