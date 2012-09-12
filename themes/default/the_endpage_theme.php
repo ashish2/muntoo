@@ -2,8 +2,6 @@
 
 // if not defined
 
-//modifyprofile_theme();
-
 function the_endpage_theme()
 {
 	global $globals, $mysql, $theme, $done, $error, $errors;

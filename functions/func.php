@@ -396,7 +396,7 @@ function errorLogging($array = array(), $format="s_s")
 //************************************************************//
 
 
-function setSomeDefaults()
+function setSomeDefaults_User()
 {
 	global $user;
 	
@@ -545,7 +545,11 @@ function loadlang_ori($langfile = '')
 	$lang = (!empty($langfile) ? $langfile : $theme['name']);
 	
 //	include_once($globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $theme['name'] .'_lang.php');
+	$globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $lang .'_lang.php';
+	
+	
 	include_once($globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $lang .'_lang.php');
+	
 	
 }
 
@@ -558,7 +562,6 @@ function loadlang($langfile = '', $langfunc='')
 	global $user;
 	global $l;
 	global $admin;
-	
 	
 	if($admin['settings']['lang']['func_run'] == 'sing' )
 		loadlang_new($langfile, $langfunc);
@@ -574,7 +577,7 @@ function loadlang($langfile = '', $langfunc='')
 
 
 //************************************************************//
-//   Array Traversal //
+//   Array Traversal starts //
 //************************************************************//
 
 // Finds key in a MultiDimensional array, 

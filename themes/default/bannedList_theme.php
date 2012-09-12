@@ -143,7 +143,9 @@ function ban_theme()
 	
 }
 
-
+// Below this nothing is used at this point
+// topics_theme() etc., functions all used in thier specific files
+/*
 function topics_theme()
 {
 	global $globals, $mysql, $theme, $done, $errors, $l;
@@ -158,11 +160,9 @@ function topics_theme()
 	
 	echo '
 		<a href="'.$globals['ind'].'action=createTopic&board='.$_GET['board'].'">Create Topic</a>
-		
 		';
 	
-	echo "<br />";
-	echo "<br />";
+	echbr(2);
 	
 	echo '
 		<table border="1" width="90%">
@@ -252,5 +252,6 @@ function topicReplies_theme()
 	
 	
 }
+*/
 
 ?>

@@ -13,23 +13,23 @@ function sendMessage()
 	global $par;
 	global $db;
 	
-	$theme['name'] = "messages";
-	$theme['call_theme_func'] = "sendMessage";
+	$theme['name'] = 'messages';
+	$theme['call_theme_func'] = 'sendMessage';
 	
 	loadlang();
 	
-	fheader($title = "Send Message");
+	fheader($title = 'Send Message');
 	
 	//$con = array();
-	//$con["dbname"] = "myforum_3_testing";
+	//$con['dbname'] = 'myforum_3_testing';
 	//dbconn( $con );
 	
-	if( isset($_POST["sendMess"] ) )
+	if( isset($_POST['sendMess'] ) )
 	{
 		$mess = array();
-		$mess["to"] = check_input( mandff($_POST["to"], "to empty" ) ); 
-		$mess["subject"] =  check_input( optff( $_POST["subject"] ) );
-		$mess["body"] = check_input( mandff( $_POST["body"], "body empty" ) );
+		$mess['to'] = check_input( mandff($_POST['to'], "$l[to_emp]" ) ); 
+		$mess['body'] = check_input( mandff( $_POST['body'], "$l[body_emp]" ) );
+		$mess['subject'] =  check_input( optff( $_POST['subject'] ) );
 		
 		if($errors || $error)
 			return false;
@@ -43,9 +43,9 @@ function sendMessage()
 		//$q2 = db_query($q2);
 		
 		$toArr = array();
-		$toArr = explode( ",", $mess["to"] );
+		$toArr = explode( ",", $mess['to'] );
 		
-		$str = "";
+		$str = '';
 		foreach( $toArr as $k => $v )
 		{
 			$toArr[$k] = $v = trim( $v );
@@ -62,7 +62,7 @@ function sendMessage()
 		
 		while( $row = mysql_fetch_assoc($q22) )
 		{
-			$userGot[$row["uid"]] = $row["username"];
+			$userGot[$row['uid']] = $row['username'];
 		}
 		
 		$userNotGot = array();
@@ -70,7 +70,7 @@ function sendMessage()
 		
 		if( !empty($userNotGot) )
 		{
-			$error[] = "Users not done: " . implode(", ", $userNotGot ) . "";
+			$error[] = 'Users not done: ' . implode(", ", $userNotGot ) . "";
 		}
 		
 		foreach( $userGot as $k => $v )
@@ -105,7 +105,6 @@ add column (
 `website_url` varchar(255), 
 `perfume` varchar(255)
 )
-
 */
 	
 	

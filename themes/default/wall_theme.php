@@ -25,7 +25,7 @@ function wall_theme()
 				<table>
 					<tr>
 						<td valign="center">
-							Thoughts: 
+							'.$l['thoughts'].'
 						</td>
 						<td>
 							<textarea name="post" rows="3" cols="70"></textarea>
@@ -44,8 +44,8 @@ function wall_theme()
 			<table border=".5" width="90%">
 				<tr>
 					<td>By </td>
-					<td width="60%" valign="middle" align="center">Post </td>
-					<td width="20%">Date </td>
+					<td width="60%" valign="middle" align="center">'.$l['post'].'</td>
+					<td width="20%">'.$l['date'].'</td>
 				</tr>
 				';
 		
@@ -64,13 +64,13 @@ function wall_theme()
 				$q11 = "SELECT * from `wall_post_reply` `wpr` JOIN `users` `u` ON `wpr`.`wpr_by_uid`=`u`.`uid` WHERE `wpr_id` IN ($i[wpr_id])";
 				$res = db_query($q11);
 				
-				$st .= "<ul>";
+				$st .= '<ul>';
 				while( $row = mysql_fetch_assoc($res) )
 				{
 					$st .= "<li style='decoration: none;'>(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]</li>";
 //					$st .= "<br /><br />(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]";
 				}
-				$st .= "</ul>";
+				$st .= '</ul>';
 				
 			}
 			
@@ -81,7 +81,7 @@ function wall_theme()
 				<tr>
 					<td valign="top"><a href='.$globals['ind'].'action=viewProfile&uid='.$i['uid'].'>'.$i['username'].'</a></td>
 					<td>'.$i['wp_post'].'
-					<a href="'.$globals['ind'].'action=addReply&uid='.$uid.'&post='.$i['wp_id'].'">add reply</a>
+					<a href="'.$globals['ind'].'action=addReply&uid='.$uid.'&post='.$i['wp_id'].'">'.$l['add_rep'].'</a>
 					'.$st.'
 					</td>
 					<td>'.date("g:i a d-F-Y", $i['wp_date'] ).'
@@ -94,14 +94,14 @@ function wall_theme()
 			</table>
 			</center>
 			';
-		
+			
 	}
 	else
 	{
 		$str .= '
-			<center><b>
-				Wall empty! You can start posting something on your wall to get responses from friends and others.
-			</b></center>';
+			<center><b>'.
+				$l['wall_emp_msg']
+			.'</b></center>';
 	}
 	
 	echo $str;

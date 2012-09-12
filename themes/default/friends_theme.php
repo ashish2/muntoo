@@ -29,17 +29,17 @@ function friendsList_theme()
 	$str = '';
 	if( $show )
 	{
-		if( mysql_num_rows( $qu) > 0 )
+		if( mysql_num_rows($qu) > 0 )
 		{
-			$str .= '<center><div><b>Friends:</b> <br />';
+			$str .= '<center><div><b>'.$l['frnds'].'</b> <br />';
 			
 			while( $row = mysql_fetch_assoc ($qu) )
 			{
-				$str .= "<p>
-".null//					<span>
-	//					$row[uid] | 
-		//			</span>
-	."				<span>
+				$str .= "<p>". null .
+					//<span>
+						//$row[uid] | 
+					//</span>
+					"<span>
 						$row[username] | 
 					</span>
 					<span>

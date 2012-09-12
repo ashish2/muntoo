@@ -77,9 +77,10 @@ function topics_theme()
 	global $qu;
 	global $board;
 	
+	
+	
 	echo '
-		<a href="'.$globals['ind'].'action=createTopic&board='.$_GET['board'].'">Create Topic</a>
-		
+		<a href="'.$globals['ind'].'action=createTopic&board='.$_GET['board'].'">'.$l['cr_top'].'</a>
 		';
 	
 	echbr(2);

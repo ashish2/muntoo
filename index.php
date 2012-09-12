@@ -48,10 +48,10 @@ if(!file_exists('config.php') )
 			// all the procedures, which are called frequently, 
 			// Procedure functions will in turn will have different algos 
 			// doing the job for it.
+			
 			// Code Still To be Done
 			//#// errorLoggingProc($array, $format); // errorLoggingProcedure() func.
 			//#// errorLogging($array, $format);
-			
 			header('Location: install.php');
 			exit();
 		}
@@ -60,7 +60,6 @@ if(!file_exists('config.php') )
 	{
 		header('Location: install.php');
 		exit();
-		
 	}
 }
 
@@ -121,8 +120,8 @@ if(!empty($error))
 }
 */
 
-// Setting some Defaults
-setSomeDefaults();
+// Setting some Defaults for User
+setSomeDefaults_User();
 // a few things that can be used in the setSomeDefaults function, or else,
 // supposed to be used from the select query for user from DB
 // REMOVE IT LATER, bcoz u have to take this values from DB
@@ -166,9 +165,10 @@ $reqPrivs['board']['loginReq'] = 1;
 // Required privileges
 //$required = array();
 
-
 // including header and footer and navigation bar themes
-include_once($rootdir . '/hnf.php');
+//include_once($rootdir . '/hnf.php');
+// now hnf are coming from themes, rather than, the root directory
+include_once($themedir.'/'.$user['theme_type']. '/hnf.php');
 
 // fheader($title = 'Mainboard');
 // fnav();
@@ -177,7 +177,7 @@ include_once($rootdir . '/hnf.php');
 // if admin['settings']['ai'] = 1, then load ai
 if($admin['settings']['ai'])
 {
-	include $funcdir.'/ai.php';
+	include_once $funcdir.'/ai.php';
 	$ai = new AI_Execute;
 }
 
@@ -202,14 +202,16 @@ function main()
 	echbr(1);
 	
 	
-	
+	// Logout should be happening before this, infact check for logout should be happening before anything, 
+	// logout can not be in the massive action array
+	// $_GET['action'] is giving error , for undefined index, in cases when the $_GET is not set
 	if( isset( $user['is_banned']) && $user['is_banned'] && $_GET['action'] != 'logout')
 	{
 		// get this reason from database, the endpage table reasons
 		// for the moment hard coding it.
-		$endpage_msg['reason'] = 'Wow dude, u have been banned!!!';
-		include_once($sourcedir . "/the_endpage".$php);
-		return "the_endpage";
+		$endpage_msg['reason'] = 'Wow dude, you have been banned!!!';
+		include_once($sourcedir . '/the_endpage'.$php);
+		return 'the_endpage';
 	}
 	
 	
@@ -228,7 +230,7 @@ function main()
 	}
 	*/
 	
-	if(isset($_GET["action"]))
+	if(isset($_GET['action']))
 	{
 		// ?action=actionname is array of page.php to be included 
 		// and func to be run
@@ -236,31 +238,32 @@ function main()
 		// so, board => array('board', 'topics') 
 		// ?action="board" in url, will result in, board.php included, & topics() function runs
 		$actionarr = array(
-			// "ACTION" => array("PAGE", "FUNC")
-			"addFriend" => array( "friends", "addOrDelFriend" ),
-			"addReply" => array("addReply", "addReply" ),
-			"admin" => array("admin", "adminMain" ),
-			"ban" => array("bannedList", "ban"),
-			"bannedList" => array("bannedList", "bannedList"),
-			"board" => array("board", "topics"),
-			"createTopic" => array("addReply", "createTopic"),
-			"friendsList" => array("friends", "friendsList"),
-			"listUsers" => array("list", "listUsers" ),
-			"login" => array("login", "login"),
-			"logout" => array("logout", "logout"),
-			"mainBoard" => array("board", "board"),
-			"messages" => array("messages", "sendMessage" ),
-			"modifyprofile" => array("modifyprofile", "modifyprofile"),
-//			"permissions" => array("permissions", "permissions" ),
-			"permissions" => array("permissions", "permissions_test" ),
-			"register" => array("register", "register"),
-			"topic" => array("board", "topicReplies"),
-			"unban" => array("bannedList", "ban"),
-			"unFriend" => array( "friends", "addOrDelFriend" ),
-			"viewProfile" => array("viewProfile", "viewProfile"),
-			"wall" => array( "wall", "wall" ),
-		
-		
+			// 'ACTION' => array('PAGE', 'FUNC')
+			// 'ACTION' => array('PAGE', 'FUNC', 'Link Name')
+			'addFriend' => array( 'friends', 'addOrDelFriend', 'Add or Delete Friends'),
+			'addReply' => array('addReply', 'addReply' ),
+			'admin' => array('admin', 'adminMain' ),
+			'ban' => array('bannedList', 'ban'),
+			'bannedList' => array('bannedList', 'bannedList'),
+			'board' => array('board', 'topics'),
+			'createTopic' => array('addReply', 'createTopic'),
+			'friendsList' => array('friends', 'friendsList'),
+			'listUsers' => array('list', 'listUsers' ),
+			'login' => array('login', 'login'),
+			'logout' => array('logout', 'logout'),
+			'mainBoard' => array('board', 'board'),
+			'messages' => array('messages', 'sendMessage' ),
+			'modifyprofile' => array('modifyprofile', 'modifyprofile'),
+			//'permissions' => array('permissions', 'permissions' ),
+			'permissions' => array('permissions', 'permissions_test' ),
+			'register' => array('register', 'register'),
+			'topic' => array('board', 'topicReplies'),
+			'unban' => array('bannedList', 'ban'),
+			'unFriend' => array( 'friends', 'addOrDelFriend' ),
+			'viewProfile' => array('viewProfile', 'viewProfile'),
+			'wall' => array( 'wall', 'wall' ),
+			
+			
 		// /opt/lampp/htdocs/www/forums/myForum/3/sources/register.php
 		// /opt/lampp/htdocs/www/forums/myForum/3/sources/login.php
 		);

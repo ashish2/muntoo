@@ -49,11 +49,11 @@ function permissions_theme()
 	';
 	
 	printf( 
-	'User %s in group %s %s %s.', 
-	$user, 
-	$userClass->getGroup(), 
-	$userClass->can($temp->priv ) ? 'can' : "can't", 
-	$action
+		'User %s in group %s %s %s.', 
+		$user, 
+		$userClass->getGroup(), 
+		$userClass->can($temp->priv ) ? 'can' : "can't", 
+		$action
 	);
 	
 	

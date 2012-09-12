@@ -1,31 +1,9 @@
 <?php
 
-// Not many errors show, when 1 is set
-// -1 for all errors
+// Not many errors show, as 1 si set
 error_reporting(-1);
 
-$dir = dirname(__FILE__);
-include_once($dir.'/functions/func.php');
-include_once($dir.'/themes/default/hnf.php');
-$dir = null;
-
-
-// guess header will go in the if conditions as, the title needs to be changed in each if condition
-fheader('Installation', 'themes/default/css/style.css');
-echbr(2);
-
-// If somehow user starts the installation, by, renaming the config and .config files, 
-// and during the installation, in the middle, 
-// but then this will deny showing the last page of installation, 
-// which is, 'installation complete, u can now click here to go to index page'
-// as over here, it will straightaway redirect
-//if(file_exists('config.php') || file_exists('.config.php.bak') )
-	//header('Location: index.php');
-
-//printrr($_SERVER);
-
-echo '<center>';
-//</center>
+include_once('functions/func.php');
 
 function mysql_dead($str)
 {
@@ -37,17 +15,12 @@ function mysql_dead($str)
 	$s .= '<br />';
 	$s .= 'Error: ' . mysql_error();
 	$s .= '<br />';
-	$s .= 'Please go back and submit the form again.';
-	$s .= '<br />';
 	echo $s;
 	die();
 }
 
 if(!isset($_GET['step']))
 {
-	//<input type="button" value="Start Install" onClick="javascript:location.href=\'install.php?step=1\'">
-	//<a href="?step=1">Start Install</a>
-	// should put simple link instead of a button and then javascript to redirect to another url
 	echo '
 	<input type="button" value="Start Install" onClick="javascript:location.href=\'install.php?step=1\'">
 	';
@@ -55,11 +28,9 @@ if(!isset($_GET['step']))
 
 //echo "<br />";
 
-$host = 'http://'.(empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST']);
-$host = $host . dirname($_SERVER['SCRIPT_NAME']);
 if(isset($_POST['dbinstall']))
 {
-	//$host = mandff($_POST['host'], 'Invalid Host');
+	$host = mandff($_POST['host'], 'Invalid Host');
 	$dbuser = mandff($_POST['dbuser'], 'Invalid DB User');
 	$dbpass = optff($_POST['dbpass']);
 	$dbname = mandff($_POST['dbname'], 'Invalid Database');
@@ -87,6 +58,9 @@ if(isset($_POST['dbinstall']))
 	}
 	
 	
+	
+	
+	
 	$dirName = dirname(__FILE__);
 	
 	// if directory is_writable only then move forward, 
@@ -94,7 +68,6 @@ if(isset($_POST['dbinstall']))
 	if(!is_writable($dirName) )
 	{
 		$error['dir_unwritable'] = 'Directory "' . $dirName . '" does not seem to be writable, please try changing permissions, and submit the form again.';
-		die();
 	}
 	
 	if(!empty($error))
@@ -118,20 +91,12 @@ if(isset($_POST['dbinstall']))
 	'$globals["cachedir"] = $cachedir = \'' . $dirName . "/cache" . "'; \n" . 
 	'$globals["sourcedir"] = $sourcedir = \'' . $dirName . "/sources" . "'; \n" . 
 	'$globals["themedir"] = $themedir = \'' . $dirName . "/themes" . "'; \n" . 
-	////'$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['REQUEST_URI']) . "'; \n" . 
-	'$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['SCRIPT_NAME']) . "'; \n" . 
-////<<<<<<< Updated upstream
-	// i think, this should be the one for '$boardurl'
-	// $host = 'http://'.(empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST']);
-	// '$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['REQUEST_URI']) . "'; \n" . 
-	
 	// '$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['REQUEST_URI']) . "'; \n" . 
 	// '$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['SCRIPT_NAME']) . "'; \n" . 
 	// '$globals["boardurl"] = $boardurl = \'http://' . $_SERVER['SERVER_NAME'] . "'; \n" . 
-	////'$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['SCRIPT_NAME']) . "'; \n" . 
-	
-////=======
-////>>>>>>> Stashed changes
+	'$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['SCRIPT_NAME']) . "'; \n" . 
+	// '$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['REQUEST_URI']) . "'; \n" . 
+	'$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['SCRIPT_NAME']) . "'; \n" . 
 	
 	'$globals["cookiename"] = $cookiename = \'MFCOOKIE44' . "'; \n" . 
 	'// Will have to write the below things in this file at installation ' . "\n" . 
@@ -195,6 +160,7 @@ if(isset($_POST['dbinstall']))
 	
 	fclose($fh);
 	
+	
 	if(file_exists('config.php'))
 	{
 		// Redirect to other location`
@@ -203,7 +169,7 @@ if(isset($_POST['dbinstall']))
 	}
 	else
 	{
-		//return 'Config file does not exists';
+//			return 'Config file does not exists';
 		echo 'Config file does not exists';
 		exit(1);
 	}
@@ -218,21 +184,21 @@ if(isset($_GET['step']) && $_GET['step'] == 1)
 	Host: 
 	<small>(Your hostname. On local machines, its generally: <i>localhost</i>)</small>
 	<br />
-	<input type="text" size=30 name="host" id="host" value="'.($host).'"><br />
+	<input type="text" name="host" id="host" value="'.( isset($_POST['host']) ? $_POST['host'] : '' ).'"><br />
 	DB-User: 
 	<small>(Database Username)</small>
 	<br />
-	<input type="text" size=30 name="dbuser" id="dbuser" value="'.(isset($_POST['dbuser']) ? $_POST['dbuser'] : '').'">
+	<input type="text" name="dbuser" id="dbuser" value="'.( isset($_POST['dbuser']) ? $_POST['dbuser'] : '' ).'">
 	<br />
 	DB-Pass: 
 	<small>(Database Password)</small>
 	<br />
-	<input type="text" size=30 name="dbpass" id="dbpass" value="'.(isset($_POST['dbpass']) ? $_POST['dbpass'] : '').'">
+	<input type="text" name="dbpass" id="dbpass" value="'.( isset($_POST['dbpass']) ? $_POST['dbpass'] : '' ).'">
 	<br />
 	DB-Name: 
 	<small>(Database name to connect to)</small>
 	<br />
-	<input type="text" size=30 name="dbname" id="dbname" value="'.(isset($_POST['dbname']) ? $_POST['dbname'] : '').'">
+	<input type="text" name="dbname" id="dbname" value="'.( isset($_POST['dbname']) ? $_POST['dbname'] : '' ).'">
 	<br />
 	<br />
 	<input type="submit" value="Next >>" name="dbinstall">
@@ -410,8 +376,5 @@ if(isset($_GET['step']) && $_GET['step'] == 3)
 	
 }
 
-echbr(2);
-
-ffooter();
 
 ?>

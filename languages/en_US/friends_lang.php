@@ -1,4 +1,6 @@
 <?php
 
+$l['frnds'] = 'Friends';
+
 
 ?>

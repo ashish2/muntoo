@@ -8,7 +8,7 @@ function adminMain_theme()
 {
 	global $globals, $mysql, $theme, $done, $errors;
 	global $user;
-	global $q;
+	global $q, $l;
 	
 	if( $errors )
 	{
@@ -17,10 +17,10 @@ function adminMain_theme()
 	}
 	
 	
-	echo "Welcome to the Admin Section...! Still Work in Progress...";
+	echo 'Welcome to the Admin Section...! Still Work in Progress...';
 	
 	echbr(2);
-	echo '<a href="index.php?action=listUsers">List Users</a>';
+	echo '<a href="index.php?action=listUsers">'.$l['l_users'].'</a>';
 	
 	
 	

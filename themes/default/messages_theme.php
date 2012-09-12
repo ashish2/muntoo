@@ -9,6 +9,7 @@ function sendMessage_theme()
 	global $user;
 	global $par;
 	global $db;
+	global $l;
 	
 	error_handler($error);
 	
@@ -16,7 +17,7 @@ function sendMessage_theme()
 		<form method="post" action="" name="form1">
 			<table align="center" width="90%" border="0">
 				<tr>
-					<td width="30%"> To: </td>
+					<td width="30%">'.$l['to'].'</td>
 					<td><input type="text" name="to"> </td>
 				</tr>'.
 				/*
@@ -34,11 +35,11 @@ function sendMessage_theme()
 				</tr>
 				*/
 				'<tr>
-					<td>Subject: </td>
+					<td>'.$l['subj'].'</td>
 					<td><input type="text" name="subject"> </td>
 				</tr>
 				<tr>
-					<td>Body:</td>
+					<td>'.$l['body'].'</td>
 					<td><textarea rows="15" cols="60" name="body"></textarea> </td>
 				</tr>
 			</table>

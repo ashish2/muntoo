@@ -11,9 +11,10 @@ function register_theme()
 	
 	error_handler($error);
 	
+	// if exists, then 'email exists' error, etc. (still to put)
 	if( $done )
 	{
-		echo $l['thanks'] . '<a href="index.php?action=login">Login</a> here';
+		echo $l['thanks'] . '<a href="index.php?action=login">'.$l['login'].'</a> here';
 	}
 	else
 	{
@@ -22,19 +23,19 @@ function register_theme()
 			<form action="" method="post">
 				<table align="center">
 					<tr>
-						<td width="70%"> Username </td>
+						<td width="70%">'.$l['usrnm'].'</td>
 						<td><input type="text" name="username"> </td>
 					</tr>
 					<tr>
-						<td>Password</td>
+						<td>'.$l['pass'].'</td>
 						<td><input type="text" name="password"></td>
 					</tr>
 					<tr>
-						<td>Email</td>
+						<td>'.$l['email'].'</td>
 						<td><input type="text" name="email"> </td>
 					</tr>
 					<tr>
-						<td>Website Url</td>
+						<td>'.$l['web_url'].'</td>
 						<td><input type="text" name="url"> </td>
 					</tr>
 				</table>

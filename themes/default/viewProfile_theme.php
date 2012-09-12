@@ -8,7 +8,7 @@ function viewProfile_theme()
 {
 	global $globals, $mysql, $theme, $done, $errors, $notice;
 	global $user, $reqPrivs;
-	global $q, $qu;
+	global $q, $qu, $l;
 	
 	error_handler($errors);
 	notice_handler($notice);
@@ -17,7 +17,7 @@ function viewProfile_theme()
 	
 	$str = '';
 	$str .= '<center>
-	<h3>User Profile</h3>
+	<h3>'.$l['usr_prof'].'</h3>
 	<table border="1">';
 	
 	foreach( $row as $k => $v )
@@ -50,6 +50,10 @@ function viewProfile_theme()
 		$row2 = mysql_fetch_assoc( $qu[2]);
 		foreach( $row2 as $ke => $va )
 		{
+			// taking directly the, DB column name 
+			// as the column name for the html table
+			// so replacing, underscore, in the DB column names, 
+			// and showing it here as it is.
 			$ke = str_replace("_", " ", $ke) ;
 			$ke = ucfirst($ke);
 			
@@ -66,8 +70,8 @@ function viewProfile_theme()
 	
 	$str .=  '</table><br /><br />';
 	
-	$str .= '<a href="index.php?action=wall&uid='.$uid. '">Wall</a>
-	| <a href="index.php?action=modifyprofile&uid='.$uid. '">Modify Profile</a>';
+	$str .= '<a href="index.php?action=wall&uid='.$uid. '">'.$l['wall'].'</a>
+	| <a href="index.php?action=modifyprofile&uid='.$uid. '">'.$l['mod_prof'].'</a>';
 	
 	// if he is the admin, and it is admins profile, dont show ban link
 	// but, if he is admin, and the profile is of someone else, u show Ban link.
@@ -75,9 +79,9 @@ function viewProfile_theme()
 	if( ( (int) $user['g_priv'] & (int) $reqPrivs['delete']['a_priv'] ) && $uid != 1 ) 
 	{
 		if( isset( $row2['banned'] ) &&  $row2['banned'] )
-			$str .= ' | <a href="index.php?action=unban&uid='.$uid. '">Unban him</a>';
+			$str .= ' | <a href="index.php?action=unban&uid='.$uid. '">'.$l['unban'].'</a>';
 		else
-			$str .= ' | <a href="index.php?action=ban&uid='.$uid. '">Ban him!!!</a>';
+			$str .= ' | <a href="index.php?action=ban&uid='.$uid. '">'.$l['ban'].'</a>';
 	}
 	
 	$friends = array();
@@ -87,9 +91,9 @@ function viewProfile_theme()
 	if($uid != $user['uid'])
 	{
 		if( !(in_array( $_GET['uid'], $friends ) ) )
-			$str .= ' | <a href="index.php?action=addFriend&uid='.$_GET['uid'].'">Add Friend</a>';
+			$str .= ' | <a href="index.php?action=addFriend&uid='.$_GET['uid'].'">'.$l['add_frnd'].'</a>';
 		else
-			$str .= ' | <a href="index.php?action=unFriend&uid='.$_GET['uid'].'">UnFriend</a>';
+			$str .= ' | <a href="index.php?action=unFriend&uid='.$_GET['uid'].'">'.$l['unfrnd'].'</a>';
 	}
 	
 	$str .= '</center>';

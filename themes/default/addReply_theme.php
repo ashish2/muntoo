@@ -29,11 +29,11 @@ function createTopic_theme()
 		<form method="post" action="">
 			<table align="center">
 				<tr>
-					<td valign="center">'.$l["t_name"].'</td>
+					<td valign="center">'.$l['top_name'].'</td>
 					<td><input type="text" name="subject" value=""></td>
 				</tr>
 				<tr>
-					<td valign="top">Topic Description </td>
+					<td valign="top">'.$l['top_desc'].'</td>
 					<td><textarea name="desc" rows="6" cols="35"></textarea></td>
 				</tr>
 			</table>
@@ -71,7 +71,7 @@ function addReply_theme()
 	if( !isset($_GET['post'] ) )
 	{
 		$subject = '<tr>
-					<td valign="center">Subject: </td>
+					<td valign="center">'.$l['subj'].'</td>
 					<td><input type="text" name="subject" value=""></td>
 			</tr>';
 	}
@@ -81,7 +81,7 @@ function addReply_theme()
 			<table align="center">
 			'.$subject.'
 					<tr>
-						<td valign="top">Reply: </td>
+						<td valign="top">'.$l['reply'].'</td>
 						<td><textarea name="reply" rows="6" cols="35"></textarea></td>
 					</tr>
 				</table>

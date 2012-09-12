@@ -718,11 +718,11 @@ INSERT INTO `wall_post_reply` (`wpr_id`, `wpr_content`, `wpr_by_uid`, `wpr_date`
 (33, '', 1, 1339235631, 22),
 (34, '', 3, 1339275184, 22),
 (35, '', 3, 1339275710, 22),
-(36, 'this is a fuck', 1, 1339329602, 22),
-(37, 'this is a fuck', 1, 1339329623, 22),
-(38, 'this is a fuck', 1, 1339329632, 22),
-(39, 'this is a fuck', 1, 1339329674, 22),
-(40, 'this is a fuck', 1, 1339334846, 22);
+(36, 'this is a not', 1, 1339329602, 22),
+(37, 'this is a nops', 1, 1339329623, 22),
+(38, 'this is a No', 1, 1339329632, 22),
+(39, 'this is a NO', 1, 1339329674, 22),
+(40, 'this is a no', 1, 1339334846, 22);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

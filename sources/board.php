@@ -40,7 +40,13 @@ function topics()
 	$theme['name'] = 'board';
 	$theme['call_theme_func'] = 'topics';
 	
-	loadlang($l = 'board');
+	
+	// why should assignment like this, $l = 'board' , create a problem
+	// $l = 'board' , is actually creating unpredictable behaviour
+	///loadlang($l = 'board');
+	loadlang('board');
+	//printrr($l);
+	
 	
 	//$q1 = "SELECT `bname` FROM `board` WHERE `bid` = $_GET[board]";
 	$q1 = "SELECT * FROM `board` WHERE `bid` = $_GET[board] LIMIT 1";

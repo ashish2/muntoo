@@ -25,15 +25,15 @@ function board_theme()
 		<form method="post" action="">
 			<table align="center">
 				<tr>
-					<td width="70%"> Board Name </td>
+					<td width="70%">'.$l['b_nm'].'</td>
 					<td><input type="text" name="bname"> </td>
 				</tr>
 				<tr>
-					<td>Board Description</td>
+					<td>'.$l['b_desc'].'</td>
 					<td><textarea name="bdesc" rows="6" cols="35"></textarea></td>
 				</tr>
 				<tr>
-					<td>Fave Perfume</td>
+					<td>'.$l['fav_perf'].'</td>
 					<td><input type="text" name="perfume"> </td>
 				</tr>
 			</table>

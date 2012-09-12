@@ -16,24 +16,23 @@ function login_theme()
 	
 	if( $done )
 	{
-//		echo $l['thanks'] . '<a href="index.php?action=login">Login</a> here';
-		echo 'You will now be redirected to Index page';
+		//echo $l['thanks'] . '<a href="index.php?action=login">Login</a> here';
+		echo $l['redirection'];
 	}
 	else
 	{
-	
 		echo '<center>';
-		echo '<b>Admin login.<br />Username: admin<br />Pass: pass <br /><br />';
-		echo 'Test User login.<br />Username: a3u<br />Pass: a3p</b><br /><br /><br />';
+		echo $l['test_login_msg'];
+		
 		echo '
 			<form action="" method="post">
 				<table align="center">
 					<tr>
-						<td width="70%"> Username/Email </td>
+						<td width="70%">'.$l['user_email'].'</td>
 						<td><input type="text" name="email"> </td>
 					</tr>
 					<tr>
-						<td>Password</td>
+						<td>'.$l['pass'].'</td>
 						<td><input type="password" name="password"></td>
 					</tr>
 				</table>

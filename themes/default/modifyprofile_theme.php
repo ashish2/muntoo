@@ -55,32 +55,32 @@ function modifyprofile_theme()
 		<form method="post" action="">
 			<table align="center" width="100%" border="1">
 				<tr>
-					<td>Username</td>
+					<td>'.$l['usrnm'].'</td>
 					<td>'.$row['username'].'</td>
 				</tr>
 				<tr>
-					<td>About</td>
+					<td>'.$l['abt'].'</td>
 					<td><textarea name="about" rows="7" cols="40">'.$row['about'].'</textarea></td>
 				</tr>
 				<tr>
-					<td>DOB</td>
+					<td>'.$l['dob'].'</td>
 					<td><input type="text" name="dob" value='.$row['dob'].'></td>
 				</tr>
 				<tr>
-					<td>Display Pic Url</td>
+					<td>'.$l['dp_url'].'</td>
 					<td><input type="text" name="display_pic_url" value='.$row['display_pic_url'].'></td>
 				</tr>
 				<tr>
-					<td>Fave Perfume</td>
+					<td>'.$l['fav_perf'].'</td>
 					<td><input type="text" name="perfume" value='.$row['perfume'].'></td>
 				</tr>
 				<tr>
-					<td width="50%"> DisplayName </td>
+					<td width="50%">'.$l['dp_nm'].'</td>
 					<td><input type="text" name="display_name" value='.$row['display_name'].'></td>
 				</tr>'.
 				/*
 				<tr>
-					<td>Age </td>
+					<td>'.$l['age'].'</td>
 					<td><input type="text" name="age"></td>
 				</tr>'.
 				<tr>
@@ -93,15 +93,15 @@ function modifyprofile_theme()
 				</tr>
 				*/
 				'<tr>
-					<td>Email </td>
+					<td>'.$l['email'].'</td>
 					<td>'.$row['email'].'</td>
 				</tr>
 				<tr>
-					<td width="50%">Web URL</td>
+					<td width="50%">'.$l['web_url'].'</td>
 					<td><input type="text" name="url" value='.$row['url'].'></td>
 				</tr>
 				<tr>
-					<td>Sex</td>
+					<td>'.$l['sex'].'</td>
 					<td>
 						<select name="sex">';
 						

@@ -1,7 +1,6 @@
 <?php
-error_reporting(E_ALL & ~E_NOTICE);
-// error_reporting(-1);
-
+// error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(-1);
 
 $mc = new Memcached();
 $mc->addServer("localhost", 11211);
@@ -17,9 +16,6 @@ $arr = array(
 // var_dump($arr);
 
 print_r( $arr);
-
-
-phpinfo();
 
 
 ?>

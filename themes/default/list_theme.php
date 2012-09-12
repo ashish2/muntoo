@@ -8,19 +8,19 @@ function listUsers_theme()
 {
 	global $globals, $mysql, $theme, $done, $errors;
 	global $user;
-	global $q;
+	global $q, $l;
 	
 	error_handler($errors);
 	
 	echo '<center>
-	<h3>List Users</h3>
+	<h3>'.$l['list_users'].'</h3>
 	<table border="1">
 		<tr>
-			<td><b>Listing</td>
-			<td><b>Uid</b></td>
-			<td><b>Username</b></td>
-			<td><b>Email</b></td>
-			<td><b>Url</b></td>
+			<td><b>'.$l['listing'].'</td>
+			<td><b>'.$l['uid'].'</b></td>
+			<td><b>'.$l['username'].'</b></td>
+			<td><b>'.$l['email'].'</b></td>
+			<td><b>'.$l['url'].'</b></td>
 		</tr>';
 		
 	$i=1;
@@ -51,7 +51,8 @@ function listUsers_theme()
 		$i++;
 	}
 	
-	$row= null;
+	// setting $row as null, clearing/cleaning/emptying php memory
+	$row=null;
 	
 	echo '</table>';
 	

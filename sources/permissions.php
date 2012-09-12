@@ -15,9 +15,10 @@ function permissions()
 	
 	loadlang();
 	
-	fheader($title = 'Permissions');
+	//fheader($title = 'Permissions');
+	fheader('Permissions');
 	
-	include "$globals[rootdir]"."/classes/User.php";
+	include "$globals[rootdir]".'/classes/User.php';
 	
 	//$actions = array( 'view', 'edit', 'publish', 'delete' );
 	//$users = array( 'a1u', 'a2u', 'a3u', 'a4u' );
@@ -60,11 +61,13 @@ function permissions()
 function permissions_test()
 {
 	
+	//fheader('Permissions');
+	
 	$u = 7; // 00000111
 	$n = 1; // 00000001
 	
-//	$d = $u & $n;
-//	$d = $u | $n;
+	//$d = $u & $n;
+	//$d = $u | $n;
 	$d = $u ^ $n;
 	
 	echo "d: " . $d;
