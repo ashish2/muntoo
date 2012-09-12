@@ -1,1 +1,11 @@
+# Folders
 ignore
+
+# Files
+config.php
+.config.php.bak
+
+# All files that Ends with a particular extension
+*~
+
+
