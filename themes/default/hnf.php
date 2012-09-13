@@ -16,7 +16,7 @@ function fheader($title='', $css='', $js='')
 		<html>
 		<head>
 		<title>
-		'.( !empty($title) ? $title : 'Muntoo!' ).
+		'.( !empty($title) ? $title : 'Muntoo' ).
 		'
 		</title>
 		<link rel="stylesheet" type="text/css" href="'.$css.'">
@@ -93,7 +93,7 @@ function ffooter($time_elapsed=0)
 		<table width="100%" style="background-color:lightgrey; border: 1px solid blue">
 			<tr>
 			<td>
-			<i>Muntoo!</i>&nbsp;
+			<i>Muntoo</i>&nbsp;
 			</td>
 			<td align="right">
 			'.
