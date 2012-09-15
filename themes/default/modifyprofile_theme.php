@@ -8,7 +8,7 @@ function modifyprofile_theme()
 {
 	global $globals, $mysql, $theme, $done, $error, $errors;
 	global $user, $privs, $row;
-	global $q, $qe;
+	global $q, $qe, $l;
 	
 	error_handler($errors);
 	

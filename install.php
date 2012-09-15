@@ -222,9 +222,9 @@ if(isset($_GET['step']) && $_GET['step'] == 1)
 	echo '
 	<form action="" method="POST">
 	Host: 
-	<small>(Your hostname. On local machines, its generally: <i>localhost</i>)</small>
+	<small>(Your hostname without the http://. On local machines, its generally: <i>localhost</i>)</small>
 	<br />
-	<input type="text" size=30 name="host" id="host" value="'.($host).'"><br />
+	<input type="text" size=30 name="host" id="host" value="'.($dbhost).'"><br />
 	DB-User: 
 	<small>(Database Username)</small>
 	<br />
