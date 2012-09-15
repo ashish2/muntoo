@@ -88,11 +88,11 @@ function topics_theme()
 	echo '
 		<table border="1" width="90%">
 			<tr>
-				<td>Topic id</td>
-				<td>Topic Name </td>
-				<td>Started By </td>
-				<td>Created On </td>
-				<td>Last Post </td>
+				<td>'.$l['t_id'].'</td>
+				<td>'.$l['t_name'].'</td>
+				<td>'.$l['s_by'].'</td>
+				<td>'.$l['created_on'].'</td>
+				<td>'.$l['last_post'].'</td>
 			</tr>
 			';
 			
@@ -135,23 +135,22 @@ function topicReplies_theme()
 	global $board, $replies;
 	global $qu;
 	global $board;
-	
+	global $l;
 	
 	echo '<a href="index.php?action=addReply&topic='.$_GET['topic'].'">add reply</a>';
 	
 	echbr(2);
 	$row = mysql_fetch_assoc($qu[1] ) ;
 	
-	
 	echo '<center>';
-	echo '<b>Topic Name: ' . $row['tname'] . '</b><br /><br />';
+	echo "<b>$l[t_name]: " . $row['tname'] . '</b><br /><br />';
 	
 	echo '
 		<table border="1" width="90%">
 			<tr>
-				<td width="20%">Created By Username</td>
-				<td width="60%">Description</td>
-				<td width="10%">Date</td>
+				<td width="20%">'.$l['bcreatedby'].'</td>
+				<td width="60%">'.$l['desc'].'</td>
+				<td width="10%">'.$l['date'].'</td>
 			</tr>
 			';
 			
@@ -170,9 +169,9 @@ function topicReplies_theme()
 	echo '
 		<table border="1" width="90%">
 			<tr>
-				<td width="20%">Reply by User id.(put username here)</td>
-				<td width="60%"> Body </td>
-				<td width="60%">Date </td>
+				<td width="20%">'.$l['rep_by'].'</td>
+				<td width="60%">'.$l['body'].'</td>
+				<td width="60%">'.$l['date'].'</td>
 			</tr>
 			';
 	

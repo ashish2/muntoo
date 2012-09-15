@@ -122,10 +122,6 @@ if(!empty($error))
 
 // Setting some Defaults for User
 setSomeDefaults_User();
-// a few things that can be used in the setSomeDefaults function, or else,
-// supposed to be used from the select query for user from DB
-// REMOVE IT LATER, bcoz u have to take this values from DB
-$user['ip'] = $_SERVER['REMOTE_ADDR'];
 
 
 //$_SESSION['user']['loggedIn'] = 1;
@@ -199,7 +195,7 @@ function main()
 	
 	
 	$php = '.php';
-	echbr(1);
+	//echbr(1);
 	
 	
 	// Logout should be happening before this, infact check for logout should be happening before anything, 
@@ -309,7 +305,7 @@ function main()
 }
 // func main ends
 
-// Calling the Navigation bar
+// Calling the Navigation bar, just before the theme file is loaded, and theme func is called below
 fnav();
 echbr(3);
 
@@ -332,6 +328,7 @@ else
 {
 	//call some default theme func
 }
+
 
 //printrr(get_included_files() );
 

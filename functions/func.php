@@ -395,15 +395,33 @@ function errorLogging($array = array(), $format="s_s")
 //   Setting Some Defaults //
 //************************************************************//
 
-
 function setSomeDefaults_User()
 {
 	global $user;
 	
+	// This line will overwrite any $user assignement before this function, 
 	$user = ( isset($_SESSION['user'] ) ? $_SESSION['user'] : array() );
 	
-	$user["theme_type"] = ( isset($user["theme_type"] )  ) ? $user["theme_type"] : "default";
-	$user["lang"] = ( isset($user["lang"] )  ) ? $user["lang"] : "en_US";
+	/*
+	// This will not overwrite any previous $user assignment
+	if(isset($_SESSION['user']))
+		foreach($_SESSION['user'] as $k => $v)
+			$user[$k] = $_SESSION['user'][$k];
+	*/
+	
+	// a few things that can be used in the setSomeDefaults function, or else,
+	// supposed to be used from the select query for user from DB
+	// REMOVE IT LATER, bcoz u have to take this values from DB
+	$user['ip'] = $_SERVER['REMOTE_ADDR'];
+	
+	// Temporary setting theme as 'smashing_magazine', will be removed later
+	//$user['theme_type'] = 'default';
+	$user['theme_type'] = 'smashing_magazine';
+	
+	$user['theme_type'] = ( isset($user['theme_type'] )  ) ? $user['theme_type'] : 'default';
+	$user['lang'] = ( isset($user['lang'] )  ) ? $user['lang'] : 'en_US';
+	
+	//printrr($user);
 	
 }
 
@@ -489,7 +507,6 @@ function assignANumber( $num )
 
 function echbr( $number )
 {
-	
 	//$number = ( ifLessThanEq($number, 10 ) ? $number : 10 ) ;
 	$number = ( $number <= 10 ) ? $number : 10;
 	
@@ -499,7 +516,6 @@ function echbr( $number )
 		echo "<br />";
 		$i++;
 	}
-	
 }
 
 //************************************************************//

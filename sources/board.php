@@ -91,7 +91,9 @@ function topicReplies()
 	$theme['name'] = 'board';
 	$theme['call_theme_func'] = 'topicReplies';
 	
-	loadlang($l = 'board');
+	// This is creating some funny problem of $l first character being something else
+	//loadlang($l = 'board');
+	loadlang('board');
 	
 	fheader("Topic Replies to $_GET[topic]");
 	

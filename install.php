@@ -55,8 +55,11 @@ if(!isset($_GET['step']))
 
 //echo "<br />";
 
-$host = 'http://'.(empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST']);
-$host = $host . dirname($_SERVER['SCRIPT_NAME']);
+//$host = 'http://'.(empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST']);
+$dbhost = (empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST']);
+//$host = 'http://' . $dbhost . dirname($_SERVER['SCRIPT_NAME']);
+$host = 'http://' . $dbhost;
+
 if(isset($_POST['dbinstall']))
 {
 	//$host = mandff($_POST['host'], 'Invalid Host');
@@ -74,7 +77,8 @@ if(isset($_POST['dbinstall']))
 	
 	$dbname = un_sql_inj($dbname);
 	
-	$dbconn = mysql_connect($host, $dbuser, $dbpass) or mysql_dead('Could not establish connection to the Database.');
+	//$dbconn = mysql_connect($host, $dbuser, $dbpass) or mysql_dead('Could not establish connection to the Database.');
+	$dbconn = mysql_connect($dbhost, $dbuser, $dbpass) or mysql_dead('Could not establish connection to the Database.');
 	$select_db = mysql_select_db($dbname, $dbconn) or mysql_dead('Could not select DB, please check if DB exists.');
 	
 	if(!empty($error))
@@ -94,7 +98,7 @@ if(isset($_POST['dbinstall']))
 	if(!is_writable($dirName) )
 	{
 		$error['dir_unwritable'] = 'Directory "' . $dirName . '" does not seem to be writable, please try changing permissions, and submit the form again.';
-		die();
+		//die();
 	}
 	
 	if(!empty($error))
@@ -110,6 +114,7 @@ if(isset($_POST['dbinstall']))
 	$fh = @fopen('config.php', "w+");
 	$str = '<?php ' . "\n" .
 	'$globals["host"] = $host = \'' . $host. "'; \n" . 
+	'$globals["dbhost"] = $dbhost = \'' . $dbhost. "'; \n" . 
 	'$globals["dbuser"] = $dbuser = \'' . $dbuser . "'; \n" . 
 	'$globals["dbpass"] = $dbpass = \'' . $dbpass . "'; \n" . 
 	'$globals["dbname"] = $dbname = \'' . $dbname . "'; \n" . 
@@ -119,7 +124,8 @@ if(isset($_POST['dbinstall']))
 	'$globals["sourcedir"] = $sourcedir = \'' . $dirName . "/sources" . "'; \n" . 
 	'$globals["themedir"] = $themedir = \'' . $dirName . "/themes" . "'; \n" . 
 	////'$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['REQUEST_URI']) . "'; \n" . 
-	'$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['SCRIPT_NAME']) . "'; \n" . 
+	//'$globals["boardurl"] = $boardurl = \'http://' . $host . dirname($_SERVER['SCRIPT_NAME']) . "'; \n" . 
+	'$globals["boardurl"] = $boardurl = \'' .$host . dirname($_SERVER['SCRIPT_NAME']) . "'; \n" . 
 ////<<<<<<< Updated upstream
 	// i think, this should be the one for '$boardurl'
 	// $host = 'http://'.(empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST']);
@@ -312,7 +318,8 @@ if(isset($_POST['admin_set']))
 	// as config file has been written in previous step
 	include('config.php');
 	
-	$conn = mysql_connect($host, $dbuser, $dbpass) or mysql_dead('No Db connection');
+	//$conn = mysql_connect($host, $dbuser, $dbpass) or mysql_dead('No Db connection');
+	$conn = mysql_connect($dbhost, $dbuser, $dbpass) or mysql_dead('No Db connection');
 	$select_db = mysql_select_db($dbname) or mysql_dead('No DB selected');
 	
 	if($select_db)
