@@ -413,7 +413,7 @@ if(isset($_GET['step']) && $_GET['step'] == 2)
 if(isset($_GET['step']) && $_GET['step'] == 3)
 {
 	echo 'Installation completed, you can now go to the 
-	<a href="index.php">index</a> page to login.';
+	<a href="index.php">index</a> page.';
 	
 }
 
