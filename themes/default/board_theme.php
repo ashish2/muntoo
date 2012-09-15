@@ -147,7 +147,7 @@ function topicReplies_theme()
 	
 	echo '
 		<table border="1" width="90%">
-			<tr>
+			<tr id="disp_table">
 				<td width="20%">'.$l['bcreatedby'].'</td>
 				<td width="60%">'.$l['desc'].'</td>
 				<td width="10%">'.$l['date'].'</td>
@@ -168,7 +168,7 @@ function topicReplies_theme()
 	
 	echo '
 		<table border="1" width="90%">
-			<tr>
+			<tr id="disp_table">
 				<td width="20%">'.$l['rep_by'].'</td>
 				<td width="60%">'.$l['body'].'</td>
 				<td width="60%">'.$l['date'].'</td>
