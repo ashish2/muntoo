@@ -611,6 +611,7 @@ CREATE TABLE IF NOT EXISTS `topics` (
 --
 */
 
+/*
 $q[] = "
 INSERT INTO `topics` (`tid`, `tname`, `tdesc`, `tdate`, `tcreatedby`, `tcreatedbyuid`, `tcreatedbyuid_IPv4`, `tcreatedbyuid_IPv6`, `board_bid`) VALUES
 (1, 'topic1', 'this is topic 1', 'today', 'a1u', 1, NULL, NULL, 1),
@@ -626,6 +627,37 @@ INSERT INTO `topics` (`tid`, `tname`, `tdesc`, `tdate`, `tcreatedby`, `tcreatedb
 (33, 'topic no 6', 'this is topic 6.', '1333664713', '', 1, '\0\0', NULL, 1),
 (36, 'topic no 7', 'description of topic number 7.', '1333664917', '', 1, '\0\0', NULL, 1),
 (37, 'topic 20', 'this is topic nmbr 20.', '1334088951', 'admin', 1, '\0\0', NULL, 1),
+";
+*/
+
+$q[] = "
+INSERT INTO `topics` (`tid`, `tname`, `tdesc`, `tdate`, `tcreatedby`, `tcreatedbyuid`, `tcreatedbyuid_IPv4`, `tcreatedbyuid_IPv6`, `board_bid`) VALUES
+(1, 'topic1', 'this is topic 1', 'today', 'a1u', 1, NULL, NULL, 1),
+(2, 'topic2', 'this is topic2', 'today2', 'a1u', 1, NULL, NULL, 1),
+(3, 'topic3', 'this is topic3', 'today3', 'a1u', 1, NULL, NULL, 1),
+(4, 'funnyTopic1', 'description of top', '1319668760', '', 1, NULL, 'þ€ €\0\0\0\0\0\0\0\0\0\0\0', 2),
+(18, 'funnyTopic2', 'this is funny topic number2.', '1319669908', '', 1, NULL, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 2),
+(17, 'funnyTopic2', 'this is funny topic number2.', '1319669903', '', 1, NULL, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 2),
+(19, 'funnyTopic1', 'akjfkj haksjh hf kh', '1319711428', '', 1, '\0\0', NULL, 2),
+(20, 'funnyTopic1', 'akjfkj haksjh hf kh', '1319711460', '', 1, '\0\0', NULL, 2),
+(21, 'funnyTopic1', 'akjfkj haksjh hf kh', '1319711497', '', 1, '\0\0', NULL, 2),
+(22, 'funnyTopic1', 'akjfkj haksjh hf kh', '1319711516', '', 1, '\0\0', NULL, 2),
+(23, 'funnyTopic1', 'akjfkj haksjh hf kh', '1319711554', '', 1, '\0\0', NULL, 2),
+(24, '', '', '1327016747', '', 1, '\0\0', NULL, 1),
+(25, '', '', '1327016761', '', 1, '\0\0', NULL, 1),
+(26, 'topic3', 'this is topic number 3.', '1327016779', '', 1, '\0\0', NULL, 1),
+(27, '', '', '1327016805', '', 1, '\0\0', NULL, 1),
+(28, 'topic4', 'topic number 4', '1327016820', '', 1, '\0\0', NULL, 1),
+(29, '', '', '1327016836', '', 1, '\0\0', NULL, 1),
+(30, 'topic5', 'topic number 5', '1327016847', '', 1, '\0\0', NULL, 1),
+(31, '', '', '1327016866', '', 1, '\0\0', NULL, 1),
+(32, '', '', '1327090467', '', 1, '\0\0', NULL, 1),
+(33, 'topic no 6', 'this is topic 6.', '1333664713', '', 1, '\0\0', NULL, 1),
+(34, 'topic no 6', 'this is topic 6.', '1333664752', '', 1, '\0\0', NULL, 1),
+(35, 'topic no 6', 'this is topic 6.', '1333664789', '', 1, '\0\0', NULL, 1),
+(36, 'topic no 7', 'description of topic number 7.', '1333664917', '', 1, '\0\0', NULL, 1),
+(37, 'topic 20', 'this is topic nmbr 20.', '1334088951', 'admin', 1, '\0\0', NULL, 1),
+(38, 'topic 31', 'this is topic nmbr 31', '1334258724', 'admin', 1, '\0\0', NULL, 1);
 ";
 
 /*
