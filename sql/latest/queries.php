@@ -625,7 +625,7 @@ INSERT INTO `topics` (`tid`, `tname`, `tdesc`, `tdate`, `tcreatedby`, `tcreatedb
 (31, '', '', '1327016866', '', 1, '\0\0', NULL, 1),
 (33, 'topic no 6', 'this is topic 6.', '1333664713', '', 1, '\0\0', NULL, 1),
 (36, 'topic no 7', 'description of topic number 7.', '1333664917', '', 1, '\0\0', NULL, 1),
-(37, 'topic 20', 'this is topic nmbr 20.', '1334088951', 'admin', 1, '\0\0', NULL, 1),
+(37, 'topic 20', 'this is topic nmbr 20.', '1334088951', 'admin', 1, '\0\0', NULL, 1)
 ";
 
 /*
@@ -811,7 +811,7 @@ INSERT INTO `wall_post_reply` (`wpr_id`, `wpr_content`, `wpr_by_uid`, `wpr_date`
 (30, 'hi.', 1, 1338636361, 22),
 (31, '', 1, 1339235408, 22),
 (32, '', 1, 1339235486, 22),
-(33, '', 1, 1339235631, 22),
+(33, '', 1, 1339235631, 22)
 ";
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
