@@ -611,7 +611,6 @@ CREATE TABLE IF NOT EXISTS `topics` (
 --
 */
 
-/*
 $q[] = "
 INSERT INTO `topics` (`tid`, `tname`, `tdesc`, `tdate`, `tcreatedby`, `tcreatedbyuid`, `tcreatedbyuid_IPv4`, `tcreatedbyuid_IPv6`, `board_bid`) VALUES
 (1, 'topic1', 'this is topic 1', 'today', 'a1u', 1, NULL, NULL, 1),
@@ -628,7 +627,8 @@ INSERT INTO `topics` (`tid`, `tname`, `tdesc`, `tdate`, `tcreatedby`, `tcreatedb
 (36, 'topic no 7', 'description of topic number 7.', '1333664917', '', 1, '\0\0', NULL, 1),
 (37, 'topic 20', 'this is topic nmbr 20.', '1334088951', 'admin', 1, '\0\0', NULL, 1),
 ";
-*/
+
+/*
 
 $q[] = "
 INSERT INTO `topics` (`tid`, `tname`, `tdesc`, `tdate`, `tcreatedby`, `tcreatedbyuid`, `tcreatedbyuid_IPv4`, `tcreatedbyuid_IPv6`, `board_bid`) VALUES
@@ -659,6 +659,8 @@ INSERT INTO `topics` (`tid`, `tname`, `tdesc`, `tdate`, `tcreatedby`, `tcreatedb
 (37, 'topic 20', 'this is topic nmbr 20.', '1334088951', 'admin', 1, '\0\0', NULL, 1),
 (38, 'topic 31', 'this is topic nmbr 31', '1334258724', 'admin', 1, '\0\0', NULL, 1);
 ";
+*/
+
 
 /*
 -- --------------------------------------------------------
