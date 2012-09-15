@@ -9,7 +9,7 @@ $l['uid'] = 'Uid';
 $l['username'] = 'Username';
 $l['email'] = 'Email';
 $l['url'] = 'Url';
-
+$l['friend_uid'] = 'Friends';
 
 
 ?>

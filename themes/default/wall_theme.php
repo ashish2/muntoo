@@ -42,7 +42,7 @@ function wall_theme()
 		$str .= '
 		<center>
 			<table border=".5" width="90%">
-				<tr>
+				<tr id="disp_table">
 					<td>By </td>
 					<td width="60%" valign="middle" align="center">'.$l['post'].'</td>
 					<td width="20%">'.$l['date'].'</td>

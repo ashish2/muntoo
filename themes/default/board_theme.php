@@ -87,7 +87,7 @@ function topics_theme()
 	
 	echo '
 		<table border="1" width="90%">
-			<tr>
+			<tr id="disp_table">
 				<td>'.$l['t_id'].'</td>
 				<td>'.$l['t_name'].'</td>
 				<td>'.$l['s_by'].'</td>
