@@ -87,6 +87,7 @@ dbconn();
 
 // Permissions
 
+//printrr( $_GET );
 //printrr( $_SESSION["uid"] );
 
 //echo "$globals[only_ind]action=login " ;
@@ -193,6 +194,8 @@ function main()
 	
 	global $endpage_msg;
 	
+	global $linkarr, $actionarr;
+	
 	
 	$php = '.php';
 	//echbr(1);
@@ -235,6 +238,45 @@ function main()
 		// ?action="board" in url, will result in, board.php included, & topics() function runs
 		$actionarr = array(
 			// 'ACTION' => array('PAGE', 'FUNC')
+			// 'ACTION' => array('PAGE', 'FUNC' [, 'Link Name'] [, Main Link Name for Navig] )
+			// Eg. 'ACTION Name' => array('PAGE Name', 'FUNC Name' [, 'Text of the Link'] [, Name of Main <ul> Link and name of its child <li> link, used for Navig] )
+			'addFriend' => array( 'friends', 'addOrDelFriend', 'Add or Delete Friends', 3 => array('Profile', 'Add Friend' ) ),
+			'addReply' => array('addReply', 'addReply', '', 3 => array('', '' ) ),
+			'admin' => array('admin', 'adminMain', '', 3 => array('Admin', 'Features and Options' )  ),
+			'ban' => array('bannedList', 'ban', '', 3 => array('Admin', 'Ban' ) ),
+			'bannedList' => array('bannedList', 'bannedList', '', 3 => array('Admin', 'Banned List' ) ),
+			'board' => array('board', 'topics', '', 3 => array('Board', 'Board' ) ),
+			'createTopic' => array('addReply', 'createTopic', '', 3 => array('Board', 'Create Topic' ) ),
+			'friendsList' => array('friends', 'friendsList', '', 3 => array('Profile', 'Friends List' ) ),
+			'listUsers' => array('list', 'listUsers', '', 3 => array('Profile', 'List Users' )  ),
+			'login' => array('login', 'login', '', 3 => array('Login', 'Login' ) ),
+			'logout' => array('logout', 'logout', '', 3 => array('Logout', 'Logout' ) ),
+			'mainBoard' => array('board', 'board', '', 3 => array('Board', 'Main Board' ) ),
+			'messages' => array('messages', 'sendMessage', '', 3 => array('Profile', 'Messages' )  ),
+			'modifyprofile' => array('modifyprofile', 'modifyprofile', '', 3 => array('Profile', 'Modify Profile' ) ),
+			//'permissions' => array('permissions', 'permissions', '', 3 => array('Admin', 'Permissions' )  ),
+			'permissions' => array('permissions', 'permissions_test', '', 3 => array('Admin', 'Permissions' )  ),
+			'register' => array('register', 'register', '', 3 => array('Register', 'Register' ) ),
+			'topic' => array('board', 'topicReplies', '', 3 => array('Board', 'Topic Replies' ) ),
+			'unban' => array('bannedList', 'ban', '', 3 => array('Admin', 'Un Ban' ) ),
+			'unFriend' => array( 'friends', 'addOrDelFriend', '', 3 => array('Profile', 'Un Friends' )  ),
+			'viewProfile' => array('viewProfile', 'viewProfile', '', 3 => array('Profile', 'View Profile' ) ),
+			'wall' => array( 'wall', 'wall', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),
+			
+			// /opt/lampp/htdocs/www/forums/myForum/3/sources/register.php
+			// /opt/lampp/htdocs/www/forums/myForum/3/sources/login.php
+			
+		);
+		
+		//printrr($actionarr);
+		
+		/*
+		// Link array, will give us all the links for the navigation menu
+		// have written it here, as it corresponds to the action array, 
+		// so it should be near action array, 
+		// if changes in action array happen, 
+		// so should happen in link array
+		$linkarr = array(
 			// 'ACTION' => array('PAGE', 'FUNC', 'Link Name')
 			'addFriend' => array( 'friends', 'addOrDelFriend', 'Add or Delete Friends'),
 			'addReply' => array('addReply', 'addReply' ),
@@ -259,11 +301,10 @@ function main()
 			'viewProfile' => array('viewProfile', 'viewProfile'),
 			'wall' => array( 'wall', 'wall' ),
 			
+			);
 			
-		// /opt/lampp/htdocs/www/forums/myForum/3/sources/register.php
-		// /opt/lampp/htdocs/www/forums/myForum/3/sources/login.php
-		);
-		
+			*/
+			
 	}
 	/*
 	else if(isset($_GET['board']))

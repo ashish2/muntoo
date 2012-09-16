@@ -38,7 +38,7 @@ function fheader($title='', $css='', $js='')
 function fnav()
 {
 	
-	global $user, $actionarr;
+	global $user;
 	
 	// if $user['uid'] not set
 	// $uid = ( isset($user['uid'] ) ? $user['uid'] :  '' );
@@ -75,25 +75,14 @@ function fnav()
 				</td>
 */	'			<td><a href="index.php?action=mainBoard">Forums</a></td> 
 				<td><a href="index.php?action=modifyprofile">Modify Profile</a></td>
-				<td><a href="index.php?action=wall">The Wall (stands Tall)</a></td>
 				<td><a href="index.php?action=listUsers">List Users</a></td>
 				<td><a href="index.php?action=viewProfile">View Profile</a></td> ' .
-				( ( isset( $_SESSION['user']['uid'] ) && $_SESSION['user']['uid'] == 1 ) ? '<td><a href="index.php?action=admin">Admin Board</a></td>' : '' ) .
+				( ( isset( $_SESSION["user"]["uid"] ) && $_SESSION["user"]["uid"] == 1 ) ? '<td><a href="index.php?action=admin">Admin Board</a></td>' : '' ) .
 	'			<td><a href="index.php?action=bannedList">Banned </a> </td> ' .
-				( ( !isset( $_SESSION['user']['uid'] )  ) ? '<td><a href="index.php?action=register">Register</a></td><td><a href="index.php?action=login">Login</a></td>' : '<td><a href="index.php?action=logout">Logout</a></td>' ) . 
+				( ( !isset( $_SESSION["user"]["uid"] )  ) ? '<td><a href="index.php?action=register">Register</a></td><td><a href="index.php?action=login">Login</a></td>' : '<td><a href="index.php?action=logout">Logout</a></td>' ) . 
 	'		</tr>
 		</table>
 	';
-	
-	// Keep the Permissions in Mind, 
-	// Permissions hasnt been taken care of here
-	// We can loop and print the whole actionarrr as links here
-	/*
-	foreach($actionarr as $k => $v )
-	{
-		printrr($v[3]);
-	}
-	*/
 	
 }
 
