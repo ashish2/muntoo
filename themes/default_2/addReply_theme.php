@@ -37,7 +37,7 @@ function createTopic_theme()
 					<td><textarea name="desc" rows="6" cols="35"></textarea></td>
 				</tr>
 			</table>
-			<center><input type="submit" name="reply_sub" value="Reply"></center>
+			<center><input class="mun-button-default" type="submit" name="reply_sub" value="Reply"></center>
 		</form>
 	';
 	
@@ -67,7 +67,6 @@ function addReply_theme()
 	error_handler($error);
 	notice_handler($notice);
 	
-	
 	$subject = '';
 	// if not isset $_GET[post], that means it is not a createTopic, it only an addReply
 	// if isset $_GET[post], that means it is a createTopic event
@@ -88,7 +87,7 @@ function addReply_theme()
 						<td><textarea name="reply" rows="6" cols="35"></textarea></td>
 					</tr>
 				</table>
-			<center><input type="submit" name="reply_sub" value="Reply"></center>
+			<center><input class="mun-button-default" type="submit" name="reply_sub" value="Reply"></center>
 		</form>
 	';
 	

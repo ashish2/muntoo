@@ -1,0 +1,537 @@
+
+
+/* Header */
+.Header
+{
+    font-size: 50;
+	padding: 1px;
+	border-radius: 9px;
+}
+
+/*
+
+.mainheader .span1
+{
+    color: blue;
+    text-shadow: 5px 5px 5px rgb(23, 23, 23);
+}
+
+.mainheader .span2
+{
+    color: yellow;
+    text-shadow: 5px 5px 5px rgb(23, 23, 23);
+}
+
+*/
+
+.mainheader
+{
+    /*
+    text-shadow: 5px 5px 5px rgb(23, 23, 23);
+    color: silver;
+    background-color: white;
+    */
+}
+
+/*
+For HTML5, not need in this default_2 folder, 
+default_2 folder based on table layout
+
+header
+{
+    background-color: blue;
+}
+
+*/
+
+.red
+{
+    color: red;
+}
+
+.green
+{
+    color: green;
+}
+.blue
+{
+    color: blue;
+}
+
+.yellow
+{
+    color: yellow;
+}
+
+.header
+{
+    padding: 3px;
+    width: 100%;
+    /*
+    background-color: lightgrey;
+    background-color: black;
+    */
+    background-color: #dde;
+}
+
+/* Body */
+
+Body
+{
+    /*
+    background-color: lightgrey;
+    */
+    background-color: white;
+}
+
+
+/* Form */
+
+.form_div
+{
+    padding: 1px;
+    width: 90%;
+    background-color: lightgreen;
+
+    border-radius: 12px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+}
+
+
+/* Navigation */
+
+.nav table
+{
+	padding: 1px;
+	border-radius: 12px;
+	-moz-border-radius: 12px;
+}
+
+.nav td
+{
+	/*
+	background-image: url("../images/th_middle.png");
+	background-color: skyblue;
+	*/
+
+    color: white;
+
+	font-size: 13;
+	background-color: rgb(45, 45, 45);
+    padding: 9px;
+    /*
+    padding-left: 7px;
+    padding-right: 7px;
+    border-spacing: 3px;
+    */
+    /*
+	border-radius: 12px;
+	-moz-border-radius: 12px;
+    */
+}
+
+.nav a:link, .nav a:visited
+{
+	/*
+	color: rgb(255, 255, 255) !important;
+	*/
+	color: rgb(187, 187, 187) !important;
+	text-decoration: none;
+}
+
+.nav td
+{
+    border-top: 3px solid red;
+}
+
+/*
+.nav td:hover
+{
+    border-top: 3px solid aqua;
+}
+*/
+
+.nav td a:hover
+{
+    color: rgb(255, 255, 255) !important;
+    /*
+    color: yellow !important;
+    -moz-transition: all 0.5s ease-in-out;
+    */
+}
+
+/* Tables */
+
+table 
+{
+}
+
+
+
+.disp_table table
+{
+	*border-collapse: collapse;
+	border-spacing: 0;
+	border-radius: 12px;
+	border: 3px;
+}
+
+.disp_table .dt-header
+{
+	/*
+	background-color: skyblue;
+	background-color: rgb(45, 45, 45);
+	background-image: url("../images/th_middle.png");
+	color: skyblue;
+
+	*/
+
+
+    font: sans-serif;
+	background-color: gray;
+	height: 25px;
+	border-radius: 12px;
+	padding: 3px;
+	border-spacing: 9px;
+}
+
+
+/* sample 1, starts */
+
+/* this 
+	border-radius: 12px;
+	getting overridde, by the code below
+*/
+
+.disp_table td
+{
+	padding: 7px;
+	/*
+	border-radius: 15px !important;
+	*/
+}
+
+.disp_table .dth-wp_post
+{
+	/*
+	background-color: #dde;
+	*/
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	border-radius: 12px;
+}
+
+.disp_table .dth-wp_post-tr
+{
+	border-radius: 12px;
+}
+
+/* Awesome achievement here 
+	agar, is class ke tr ko hover kiya, to td ko backgroud-color assign kar
+*/
+.disp_table .dth-wp_post-tr:hover td
+{
+    background-color: grey;
+    /*
+    background-color: cyan;
+    */
+}
+/* Awesome ends */
+
+
+/* y shud these 3 things override the above 
+.disp_table td , border-radius
+without these 2 functions, they rules were working otherwise
+*/
+/* Awesome achievement here 
+	agar, is class ke tr ko hover kiya, to td ko backgroud-color assign kar
+*/
+.disp_table tr:nth-child(odd) td
+{
+    /*
+    background-color: lightgrey;
+    */
+    background-color: #ddf;
+}
+
+.disp_table tr:nth-child(even) td
+{
+	background-color: #dde;
+}
+/* Awesome ends */
+
+
+/* sample 1, ends */
+/*
+.disp_table td:nth-child(even)
+{
+	border-radius: 12px;
+}
+
+
+.disp_table td:nth-child(even)
+{
+	border-radius: 12px;
+}
+*/
+
+/* y shud these 3 things override the above 
+end
+.disp_table td
+*/
+
+/*
+
+.disp_table tr td
+{
+	border-radius: 12px;	
+}
+*/
+
+
+
+
+
+
+/*
+
+
+.disp_table th:first-child
+{
+	-moz-border-radius: 6px 0 0 0;
+	
+	border-radius: 6px 0 0 0;
+
+	-webkit-border-radius: 6px 0 0 0;
+	border-radius: 6px 0 0 0;
+}
+
+
+.disp_table th:last-child 
+{
+	-moz-border-radius: 0 6px 0 0;
+	-webkit-border-radius: 0 6px 0 0;
+	border-radius: 0 6px 0 0;
+}
+
+.disp_table th:only-child{
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+
+*/
+
+/*
+*/
+
+
+
+
+#wp_post
+{
+	/*
+	background-color: rgb(45, 45, 45);
+	*/
+
+}
+
+
+/* Footer */
+
+.footer 
+{
+
+    padding: 1px;
+    border-radius: 10px;
+    /*
+    background-color:lightgrey;
+    */
+    background-color: gray;
+}
+
+
+
+
+/* Button */
+
+
+.mun-button-default {
+font-family: arial, helvetica, sans-serif;
+display: inline-block;
+min-width: 54px;
+text-align: center;
+color: #555  ;
+font-size: 11px;
+font-weight: bold;
+height: 27px;
+padding: 0 8px;
+line-height: 27px;
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+border-radius: 2px;
+-webkit-transition: all 0.218s;
+-moz-transition: all 0.218s;
+-ms-transition: all 0.218s;
+-o-transition: all 0.218s;
+transition: all 0.218s;
+border: 1px solid gainsboro  ;
+border: 1px solid rgba(0, 0, 0, 0.1)  ;
+background-color: whiteSmoke;
+background-image: -webkit-gradient(linear,left top,left bottom,from(#f5f5f5  ),to(#f1f1f1  ));
+background-image: -webkit-linear-gradient(top,#f5f5f5  ,#f1f1f1  );
+background-image: -moz-linear-gradient(top,#f5f5f5  ,#f1f1f1  );
+background-image: -ms-linear-gradient(top,#f5f5f5  ,#f1f1f1  );
+background-image: -o-linear-gradient(top,#f5f5f5  ,#f1f1f1  );
+background-image: linear-gradient(top,#f5f5f5  ,#f1f1f1  );
+-webkit-user-select: none;
+-moz-user-select: none;
+user-select: none;
+/*
+cursor: default;
+*/
+cursor: pointer;
+}
+
+
+/*
+
+.mun-button-default:hover {
+border: 1px solid #C6C6C6  ;
+color: #333  ;
+text-decoration: underline;
+-webkit-transition: all 0.0s;
+-moz-transition: all 0.0s;
+-ms-transition: all 0.0s;
+-o-transition: all 0.0s;
+transition: all 0.0s;
+background-color: #F8F8F8;
+background-image: -webkit-gradient(linear,left top,left bottom,from(#f8f8f8  ),to(#f1f1f1  ));
+background-image: -webkit-linear-gradient(top,#f8f8f8  ,#f1f1f1  );
+background-image: -moz-linear-gradient(top,#f8f8f8  ,#f1f1f1  );
+background-image: -ms-linear-gradient(top,#f8f8f8  ,#f1f1f1  );
+background-image: -o-linear-gradient(top,#f8f8f8  ,#f1f1f1  );
+background-image: linear-gradient(top,#f8f8f8  ,#f1f1f1  );
+-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.1)  ;
+-moz-box-shadow: 0 1px 1px rgba(0,0,0,0.1)  ;
+box-shadow: 0 1px 1px rgba(0,0,0,0.1)  ;
+}
+
+*/
+
+.mun-button-default:hover {
+border: 1px solid #C6C6C6;
+color: #333  ;
+text-decoration: underline;
+-webkit-transition: all 0.0s;
+-moz-transition: all 0.0s;
+-ms-transition: all 0.0s;
+-o-transition: all 0.0s;
+transition: all 0.0s;
+background-color: #F8F8F8;
+background-image: -webkit-gradient(linear,left top,left bottom,from(#f8f8f8  ),to(#f1f1f1  ));
+background-image: -webkit-linear-gradient(top,#f8f8f8  ,#f1f1f1  );
+background-image: -moz-linear-gradient(top,#f8f8f8  ,#f1f1f1  );
+background-image: -ms-linear-gradient(top,#f8f8f8  ,#f1f1f1  );
+background-image: -o-linear-gradient(top,#f8f8f8  ,#f1f1f1  );
+background-image: linear-gradient(top,#f8f8f8  ,#f1f1f1  );
+-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.1)  ;
+-moz-box-shadow: 0 1px 1px rgba(0,0,0,0.1)  ;
+box-shadow: 0 1px 1px rgba(0,0,0,0.1)  ;
+}
+
+
+.mun-button-default:active {
+background-color: #F6F6F6;
+background-image: -webkit-gradient(linear,left top,left bottom,from(#f6f6f6  ),to(#f1f1f1  ));
+background-image: -webkit-linear-gradient(top,#f6f6f6  ,#f1f1f1  );
+background-image: -moz-linear-gradient(top,#f6f6f6  ,#f1f1f1  );
+background-image: -ms-linear-gradient(top,#f6f6f6  ,#f1f1f1  );
+background-image: -o-linear-gradient(top,#f6f6f6  ,#f1f1f1  );
+background-image: linear-gradient(top,#f6f6f6  ,#f1f1f1  );
+-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1)  ;
+-moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1)  ;
+box-shadow: inset 0 1px 2px rgba(0,0,0,0.1)  ;
+} 
+
+
+    /* If you want a blue button use these styles */
+    .mun-button-blue {
+    border: 1px solid #3079ED  ;
+    color: white  ;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.1)  ;
+    text-transform: uppercase;
+    background-color: #4D90FE  ;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#4d90fe  ),to(#4787ed  ));
+    background-image: -webkit-linear-gradient(top,#4d90fe  ,#4787ed  );
+    background-image: -moz-linear-gradient(top,#4d90fe  ,#4787ed  );
+    background-image: -ms-linear-gradient(top,#4d90fe  ,#4787ed  );
+    background-image: -o-linear-gradient(top,#4d90fe  ,#4787ed  );
+    background-image: linear-gradient(top,#4d90fe  ,#4787ed  );
+    }
+
+    .mun-button-blue:hover {
+    border: 1px solid #2F5BB7  ;
+    color: white  ;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.3)  ;
+    background-color: #357AE8  ;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#4d90fe  ),to(#357ae8  ));
+    background-image: -webkit-linear-gradient(top,#4d90fe  ,#357ae8  );
+    background-image: -moz-linear-gradient(top,#4d90fe  ,#357ae8  );
+    background-image: -ms-linear-gradient(top,#4d90fe  ,#357ae8  );
+    background-image: -o-linear-gradient(top,#4d90fe  ,#357ae8  );
+    background-image: linear-gradient(top,#4d90fe  ,#357ae8  );
+    }
+
+    /* If you want a red button use these styles */
+    .mun-button-red {
+    border: 1px solid transparent;
+    color: #fff  ;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.1)  ;
+    text-transform: uppercase;
+    background-color: #D14836  ;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#dd4b39  ),to(#d14836  ));
+    background-image: -webkit-linear-gradient(top,#dd4b39  ,#d14836  );
+    background-image: -moz-linear-gradient(top,#dd4b39  ,#d14836  );
+    background-image: -ms-linear-gradient(top,#dd4b39  ,#d14836  );
+    background-image: -o-linear-gradient(top,#dd4b39  ,#d14836  );
+    background-image: linear-gradient(top,#dd4b39  ,#d14836  );
+    }
+
+    .mun-button-red:active {
+    border: 1px solid #992A1B  ;
+    background-color: #B0281A  ;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#dd4b39  ),to(#b0281a  ));
+    background-image: -webkit-linear-gradient(top,#dd4b39  ,#b0281a  );
+    background-image: -moz-linear-gradient(top,#dd4b39  ,#b0281a  );
+    background-image: -ms-linear-gradient(top,#dd4b39  ,#b0281a  );
+    background-image: -o-linear-gradient(top,#dd4b39  ,#b0281a  );
+    background-image: linear-gradient(top,#dd4b39  ,#b0281a  );
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.3)  ;
+    -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.3)  ;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.3)  ;
+    }
+
+    .mun-button-red:hover {
+    border: 1px solid #B0281A  ;
+    color: white  ;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.3)  ;
+    background-color: #C53727  ;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#dd4b39  ),to(#c53727  ));
+    background-image: -webkit-linear-gradient(top,#dd4b39  ,#c53727  );
+    background-image: -moz-linear-gradient(top,#dd4b39  ,#c53727  );
+    background-image: -ms-linear-gradient(top,#dd4b39  ,#c53727  );
+    background-image: -o-linear-gradient(top,#dd4b39  ,#c53727  );
+    background-image: linear-gradient(top,#dd4b39  ,#c53727  );
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.2)  ;
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.2)  ;
+    -ms-box-shadow: 0 1px 1px rgba(0,0,0,0.2)  ;
+    -o-box-shadow: 0 1px 1px rgba(0,0,0,0.2)  ;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2)  ;
+    text-decoration: none;
+    -webkit-transition: all 0.0s;
+    } 
+
+
+

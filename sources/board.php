@@ -112,7 +112,7 @@ function topicReplies()
 	
 	
 	
-	$q = "SELECT * FROM `replies` WHERE `topic_tid` = ".$_GET['topic'];
+	$q = "SELECT * FROM `replies` WHERE `topic_tid` = $_GET[topic]";
 	$qu[2] = db_query($q);
 	
 	//echo date("g:i a d-F-Y");

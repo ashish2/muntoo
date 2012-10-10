@@ -28,14 +28,23 @@ function fheader($title='', $css='', $js='')
 		</script>
 		</head>
 		<body>
-		<table width="100%" border="1">
-			<tr>
-				<td> 
+		<table class="header">
+			<tr class="header">
+				<td width="15%">
 					<img src="images/site/s8.jpeg" >
+				</td>
+				<td valign="center" align="right">
+					<header class="mainheader">
+						<small>
+						<i>
+							<span class="span1">Mun</span><span class="span2">too</span><span class="red">.</span><span class="green">.</span><span class="blue">.</span><span class="yellow">.</span>
+						</i>
+						</small>
+					</header>
 				</td>
 			</tr>
 		</table>
-		
+		<br />
 	';
 }
 
@@ -68,7 +77,8 @@ function fnav()
 	*/
 	
 	echo '
-		<table border="1" cellspacing="0" cellpadding="5" id="nav">
+	<center>
+		<table cellspacing="0" cellpadding="5" class="nav" id="nav">
 			<tr>
 				<td><a href="index.php?">Home</a></td> ' .
 /*				<td>
@@ -83,10 +93,14 @@ function fnav()
 				<td><a href="index.php?action=listUsers">List Users</a></td>
 				<td><a href="index.php?action=viewProfile">View Profile</a></td> ' .
 				( ( isset( $_SESSION['user']['uid'] ) && $_SESSION['user']['uid'] == 1 ) ? '<td><a href="index.php?action=admin">Admin Board</a></td>' : '' ) .
-	'			<td><a href="index.php?action=bannedList">Banned </a> </td> ' .
+	'			<td><a href="index.php?action=bannedList">Banned</a> </td> ' .
 				( ( !isset( $_SESSION['user']['uid'] )  ) ? '<td><a href="index.php?action=register">Register</a></td><td><a href="index.php?action=login">Login</a></td>' : '<td><a href="index.php?action=logout">Logout</a></td>' ) . 
 	'		</tr>
 		</table>
+		<br />
+		<br />
+	</center>
+	
 	';
 	
 	// Keep the Permissions in Mind, 
@@ -106,7 +120,7 @@ function ffooter($time_elapsed=0)
 {
 	// <i>Muntoo</i>! <small>!&copy;</small>&nbsp;
 	$foot = '
-		<table width="100%" style="background-color:lightgrey; border: 1px solid blue">
+		<table class="footer" width="100%">
 			<tr>
 			<td>
 			<i>Muntoo</i>&nbsp;
@@ -119,6 +133,7 @@ function ffooter($time_elapsed=0)
 			</td>
 			</tr>
 		</table>
+		<br />
 		</body>
 		</html>
 	';

@@ -108,7 +108,6 @@ if( !isset($user['uid'] ) )
 //	header("Location: $boardurl$globals[only_ind]action=login");
 }
 
-
 // printrr( $_SESSION );
 
 // cant be echoing errors here, put it in the default files' corresponding theme file
@@ -348,7 +347,7 @@ function main()
 
 // Calling the Navigation bar, just before the theme file is loaded, and theme func is called below
 fnav();
-echbr(3);
+//echbr(3);
 
 if(isset($theme['name']))
 {

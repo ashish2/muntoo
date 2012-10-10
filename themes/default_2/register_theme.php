@@ -24,22 +24,22 @@ function register_theme()
 				<table align="center">
 					<tr>
 						<td width="70%">'.$l['usrnm'].'</td>
-						<td><input type="text" name="username" required> </td>
+						<td><input type="text" name="username"> </td>
 					</tr>
 					<tr>
 						<td>'.$l['pass'].'</td>
-						<td><input type="text" name="password" required></td>
+						<td><input type="text" name="password"></td>
 					</tr>
 					<tr>
 						<td>'.$l['email'].'</td>
-						<td><input type="text" name="email" required> </td>
+						<td><input type="text" name="email"> </td>
 					</tr>
 					<tr>
 						<td>'.$l['web_url'].'</td>
 						<td><input type="text" name="url"> </td>
 					</tr>
 				</table>
-				<center><input type="submit" name="sub_register" value="Register"></center>
+				<center><input class="mun-button-default" type="submit" name="sub_register" value="Register"></center>
 			</form>
 		';
 	}

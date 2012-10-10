@@ -10,7 +10,7 @@ function createTopic()
 	global $user, $notice;
 	global $qu; 
 	global $board;
-	global $time;
+	global $time, $reqPrivs;
 	
 	$theme['name'] = 'addReply';
 	$theme['call_theme_func'] = 'createTopic';
@@ -20,6 +20,13 @@ function createTopic()
 	loadlang('allFuncLang', __FUNCTION__);
 	
 	fheader($title = 'Create Topic' );
+	
+	// if NOT logged in, then redirect to "index.php?action=login" , ONLY for the moment
+	// if from Admin Board Settings table, loginReq column is 1, then, login is required to view
+	// so redirect him to login page
+	if( $reqPrivs['board']['loginReq'] )
+		if( !userUidSet() )
+			redirect("$globals[boardurl]$globals[only_ind]action=login");
 	
 	// Will have to see 
 	// how reply table works in SMF
@@ -88,6 +95,7 @@ function addReply()
 	global $themedir, $l, $user;
 	global $qu, $board;
 	global $time, $reqPrivs;
+	global $row;
 	global $ai;
 	
 	$theme['name'] = 'addReply';
@@ -98,6 +106,13 @@ function addReply()
 	
 	fheader($title = 'Add Reply');
 	
+	// if NOT logged in, then redirect to "index.php?action=login" , ONLY for the moment
+	// if from Admin Board Settings table, loginReq column is 1, then, login is required to view
+	// so redirect him to login page
+	if( $reqPrivs['board']['loginReq'] )
+		if( !userUidSet() )
+			redirect("$globals[boardurl]$globals[only_ind]action=login");
+	
 	// Will have to see 
 	// how reply table works in SMF
 	// replies table takes
@@ -106,6 +121,17 @@ function addReply()
 	// log IP of user
 	// time/date (microtime() , less than 5(or other, variable factor) seconds, post cant be made by same IP) that post made
 	// 
+	
+	// if not isset $_GET[post], that means it is not a createTopic, it only an addReply
+	// if isset $_GET[post], that means it is a createTopic event
+	if( !isset($_GET['post'] ) )
+	{
+		// adding limit 1, as the topic will always be only 1
+		$q = "SELECT * FROM `topics` WHERE `tid` = $_GET[topic] LIMIT 1";
+		$qu[0] = db_query($q);
+		$row = mysql_fetch_assoc($qu[0]);
+		$q = null;
+	}
 	
 	if(isset($_POST['reply_sub']) && !empty($_POST['reply']) )
 	{

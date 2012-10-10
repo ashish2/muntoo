@@ -17,8 +17,10 @@ function wall_theme()
 	//error_handler($error);
 	error_handler($errors);
 	
+	
 	$str = '';
 	
+	/*
 	$str .= '
 		<center>
 			<form method="post" action="">
@@ -32,8 +34,34 @@ function wall_theme()
 						</td>
 					</tr>
 				</table>
-				<input type="submit" name="wall_sub" value="Post">
+				<br />
+				<input type="submit" name="wall_sub" class="mun-button-default" value="Post">
 			</form>
+			<br />
+		</center>
+			';
+	*/
+	
+	$str .= '
+		<center>
+			<!-- #form starts -->
+			<div id="form" class="form_div">
+				<form method="post" action="">
+					<p>
+						<span valign="top" align="top">
+							'.$l['thoughts'] .'
+						</span>
+						<span>
+							<textarea name="post" rows="3" cols="70" placeholder="I thought a thought..."></textarea>
+						</span>
+						<br />
+					<input type="submit" name="wall_sub" class="mun-button-default" value="Post">
+					</p>
+				</form>
+			</div>
+			<br />
+			<!-- #form ends -->
+			
 		</center>
 	';
 	
@@ -41,17 +69,21 @@ function wall_theme()
 	{
 		$str .= '
 		<center>
-			<table width="90%">
-				<tr id="disp_table">
-					<td>By </td>
-					<td width="60%" valign="middle" align="center">'.$l['post'].'</td>
-					<td width="20%">'.$l['date'].'</td>
-				</tr>
+			<table class="disp_table" id="disp_table" width="90%">
+				<thead>
+					<tr>
+						<th class="dt-header">By</td>
+						<th class="dt-header" width="60%" valign="middle" align="center">'.$l['post'].'</td>
+						<th class="dt-header" width="20%">'.$l['date'].'</td>
+					</tr>
+				</thead>
 				';
 		
 		// http://localhost/www/forums/myForum/3/index.php?action=addReply&topic=1
 		// echo date("g:i a d-F-Y", time() );
 		
+		// getting $uid
+		$uid = ( isset($_GET['uid'] ) ? (int) check_input( $_GET['uid'] ) : $user['uid'] );
 		
 		while( $i = mysql_fetch_assoc($qu) )
 		{
@@ -74,17 +106,17 @@ function wall_theme()
 				
 			}
 			
-			// getting $uid
-			$uid = ( isset($_GET['uid'] ) ? (int) check_input( $_GET['uid'] ) : $user['uid'] );
+			$cssTrClassNm = 'class="dth-wp_post-tr"';
+			$cssTdClassNm = 'class="dth-wp_post"';
 			
 			$str .= '
-				<tr>
-					<td valign="top"><a href='.$globals['ind'].'action=viewProfile&uid='.$i['uid'].'>'.$i['username'].'</a></td>
-					<td>'.$i['wp_post'].'
+				<tr '.$cssTrClassNm.'>
+					<td '.$cssTdClassNm.' valign="top"><a href='.$globals['ind'].'action=viewProfile&uid='.$i['uid'].'>'.$i['username'].'</a></td>
+					<td '.$cssTdClassNm.' id="wp_post">'.$i['wp_post'].'
 					<a href="'.$globals['ind'].'action=addReply&uid='.$uid.'&post='.$i['wp_id'].'">'.$l['add_rep'].'</a>
 					'.$st.'
 					</td>
-					<td>'.date("g:i a d-F-Y", $i['wp_date'] ).'
+					<td '.$cssTdClassNm.'>'.date("g:i a d-F-Y", $i['wp_date'] ).'
 					</td>
 				</tr>
 				';

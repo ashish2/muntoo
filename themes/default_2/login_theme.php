@@ -24,22 +24,20 @@ function login_theme()
 		echo '<center>';
 		echo $l['test_login_msg'];
 		
-		// for input fields, pattern attribute,
-		// pattern="^\(?\d{3}\)?[-\s]\d{3}[-\s]\d{4}.*?$"  , pattern to check, fone pattern format, such as, (555)-555-5555
 		echo '
 			<form action="" method="post">
 				<table align="center">
 					<tr>
 						<td width="70%">'.$l['user_email'].'</td>
-						<td><input type="text" name="email" placeholder="For eg. a@a.com" required> </td>
+						<td><input type="text" name="email"> </td>
 					</tr>
 					<tr>
 						<td>'.$l['pass'].'</td>
-						<td><input type="password" name="password" required></td>
+						<td><input type="password" name="password"></td>
 					</tr>
 				</table>
 				<br />
-				<center><input type="submit" name="sub_register" value="Login"></center>
+				<center><input class="mun-button-default" type="submit" name="sub_register" value="Login"></center>
 			</form>
 			</center>
 		';

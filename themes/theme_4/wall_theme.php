@@ -16,92 +16,140 @@ function wall_theme()
 	
 	//error_handler($error);
 	error_handler($errors);
-	
 	$str = '';
-	
-	$str .= '
-		<center>
-			<form method="post" action="">
-				<table>
-					<tr>
-						<td valign="center">
-							'.$l['thoughts'].'
-						</td>
-						<td>
-							<textarea name="post" rows="3" cols="70"></textarea>
-						</td>
-					</tr>
-				</table>
-				<input type="submit" name="wall_sub" value="Post">
-			</form>
-		</center>
+	$str .= '<!-- #content starts -->
+		<div id="content">
+			<!-- #form starts -->
+			<div id="form" class="form_div">
+				<form method="post" action="">
+					<p>
+						<span valign="center">
+							'.$l['thoughts'] .'
+						</span>
+						<span>
+							<textarea name="post" rows="3" cols="70" placeholder="I thought a thought..."></textarea>
+						</span>
+					<input type="submit" name="wall_sub" value="Post">
+					</p>
+				</form>
+			</div>
+			<!-- #form ends -->
 	';
+	
+	// getting $uid
+	$uid = ( isset($_GET['uid'] ) ? (int) check_input( $_GET['uid'] ) : $user['uid'] );
 	
 	if( mysql_num_rows($qu) > 0)
 	{
 		$str .= '
-		<center>
-			<table border=".5" width="90%">
-				<tr id="disp_table">
-					<td>By </td>
-					<td width="60%" valign="middle" align="center">'.$l['post'].'</td>
-					<td width="20%">'.$l['date'].'</td>
-				</tr>
-				';
-		
+		<!-- #post starts -->
+		<div id="post" border=".5" width="90%">
+			';
+			
+			/*
+			<span id="disp_table">By </span>
+			<span id="disp_table" width="60%" valign="middle" align="center">'.$l['post'].'</span>
+			<span id="disp_table" width="20%">'.$l['date'].'</span>
+			*/
+			
 		// http://localhost/www/forums/myForum/3/index.php?action=addReply&topic=1
 		// echo date("g:i a d-F-Y", time() );
-		
 		
 		while( $i = mysql_fetch_assoc($qu) )
 		{
 			$st = '';
 			
-			
 			if( !empty($i['wpr_id'] ) )
 			{
-//				$q11 = "SELECT * from `wall_post_reply` WHERE `wpr_id` IN ($i[wpr_id])";
+				//$q11 = "SELECT * from `wall_post_reply` WHERE `wpr_id` IN ($i[wpr_id])";
 				$q11 = "SELECT * from `wall_post_reply` `wpr` JOIN `users` `u` ON `wpr`.`wpr_by_uid`=`u`.`uid` WHERE `wpr_id` IN ($i[wpr_id])";
 				$res = db_query($q11);
 				
-				$st .= '<ul>';
+				/*
+				$st .= '<span id="replies"><ul>';
 				while( $row = mysql_fetch_assoc($res) )
 				{
 					$st .= "<li style='decoration: none;'>(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]</li>";
-//					$st .= "<br /><br />(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]";
+					//$st .= "<br /><br />(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]";
 				}
-				$st .= '</ul>';
+				$st .= '</ul></span>';
+				*/
+				
+				/*
+				// Working
+				$st .= '<span id="replies">';
+				while( $row = mysql_fetch_assoc($res) )
+				{
+					$st .= "<span id='wpr_reps' style='decoration: none;'>(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]</span><br />";
+					//$st .= "<br /><br />(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]";
+				}
+				$st .= '</span>';
+				
+				*/
+				
+				$st .= '<article id="replies">';
+				while( $row = mysql_fetch_assoc($res) )
+				{
+					$st .= "<span id='wpr_reps' style='decoration: none;'>(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]</span><br />";
+					//$st .= "<br /><br />(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]";
+				}
+				$st .= '</article>';
 				
 			}
 			
-			// getting $uid
-			$uid = ( isset($_GET['uid'] ) ? (int) check_input( $_GET['uid'] ) : $user['uid'] );
-			
+			/*
 			$str .= '
-				<tr>
-					<td valign="top"><a href='.$globals['ind'].'action=viewProfile&uid='.$i['uid'].'>'.$i['username'].'</a></td>
-					<td>'.$i['wp_post'].'
+				<span>
+					<span valign="top"><a href='.$globals['ind'].'action=viewProfile&uid='.$i['uid'].'>'.$i['username'].'</a></span>
+					<span>'.$i['wp_post'].'
 					<a href="'.$globals['ind'].'action=addReply&uid='.$uid.'&post='.$i['wp_id'].'">'.$l['add_rep'].'</a>
 					'.$st.'
-					</td>
-					<td>'.date("g:i a d-F-Y", $i['wp_date'] ).'
-					</td>
-				</tr>
+					</span>
+					
+					<span>'.date("g:i a d-F-Y", $i['wp_date'] ).'
+					</span>
+				</span>
+				';
+				*/
+				
+			$str .= '
+				<section>
+					<span  id="by" style="float: left" valign="top">
+					<a href='.$globals['ind'].'action=viewProfile&uid='.$i['uid'].'>'.$i['username'].'</a>
+					&nbsp;
+					</span>
+					<span id="post" style="float: left">'.$i['wp_post'].'
+					<a href="'.$globals['ind'].'action=addReply&uid='.$uid.'&post='.$i['wp_id'].'">'.$l['add_rep'].'</a>
+					<br />
+					'.$st.'
+					</span>
+					<span id="date" style="float: right">
+					&nbsp;
+						'.date("g:i a d-F-Y", $i['wp_date'] ).'
+					</span>
+				<br class="clear">
+				</section>
 				';
 		}
-		
 		$str .= '
-			</table>
-			</center>
+			</div>
+			<!-- #post ends -->
+			
+		</div>
+		<!-- #content ends -->
 			';
 			
 	}
 	else
 	{
 		$str .= '
+		<div id="content">
 			<center><b>'.
 				$l['wall_emp_msg']
-			.'</b></center>';
+				.'</b>
+		</div>
+		<!-- #content ends -->
+		';
 	}
 	
 	echo $str;

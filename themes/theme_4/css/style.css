@@ -1,13 +1,106 @@
 
 #disp_table
 {
-background-color: skyblue;
+	background-color: skyblue;
 }
 
 #nav
 {
 	font-size: 12;
 }
+
+
+/* Header */
+#header, #body, #footer
+{
+	width: 600px;
+	margin-right: auto;
+	margin-left: auto;
+	border: 2px solid transparent;
+}
+
+#header h2
+{
+	margin: .5em;
+}
+
+header
+{
+	border: 1px solid transparent;
+}
+
+/* Navigation */
+#navigation
+{
+	width: 250px;
+	float: left;
+	margin: 0;	
+	border: 1px solid pink;
+}
+
+
+/* Body */
+#container
+{
+	border: 1px solid transparent;
+}
+
+#innerContainer
+{
+	border: 1px solid red;
+}
+
+#content
+{
+	margin-left: 260px;
+	border: 1px solid green;
+}
+
+
+/* Footer */
+#footer
+{
+	font-size: 90%;
+	text-align: center;
+}
+
+#replies
+{
+	border: 1px solid cyan;
+}
+
+/* Clears */
+.clear
+{
+	clear: left;
+}
+
+
+/* Other */
+
+[required] 
+{
+/*
+	border-color: #88aaef;
+*/
+	border-color: lightgreen;
+	-webkit-box-shadow: 0 0 3px rgba(0, 0, 255, .5);
+}
+
+:invalid 
+{
+/*
+	border-color: #e88;
+*/
+	border-color: red;
+	-webkit-box-shadow: 0 0 5px rgba(255, 0, 0, .8);
+}
+
+div
+{
+	text-overflow: ellipsis;
+}
+
 
 
 
