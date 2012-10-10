@@ -356,7 +356,7 @@ end
 
 /* Button */
 
-
+/*
 .mun-button-default {
 font-family: arial, helvetica, sans-serif;
 display: inline-block;
@@ -388,12 +388,34 @@ background-image: linear-gradient(top,#f5f5f5  ,#f1f1f1  );
 -webkit-user-select: none;
 -moz-user-select: none;
 user-select: none;
-/*
-cursor: default;
-*/
-cursor: pointer;
-}
 
+cursor: default;
+
+}
+*/
+
+.mun-button-default {
+
+height: 30px;
+font-weight: bold;
+font-size: 11px;
+min-width: 58px;
+display: inline-block;
+font-family: arial, helvetica, sans-serif;
+text-align: center;
+
+border: 1px solid rgba(0, 0, 0, 0.1);
+
+background-image: -webkit-gradient(linear,left top,left bottom,from(#f5f5f5  ),to(#f1f1f1  ));
+background-image: -webkit-linear-gradient(top,#f5f5f5  ,#f1f1f1  );
+background-image: -moz-linear-gradient(top,#f5f5f5  ,#f1f1f1  );
+background-image: -ms-linear-gradient(top,#f5f5f5  ,#f1f1f1  );
+background-image: -o-linear-gradient(top,#f5f5f5  ,#f1f1f1  );
+background-image: linear-gradient(top,#f5f5f5  ,#f1f1f1  );
+
+cursor: pointer;
+
+}
 
 /*
 
@@ -421,27 +443,11 @@ box-shadow: 0 1px 1px rgba(0,0,0,0.1)  ;
 */
 
 .mun-button-default:hover {
-border: 1px solid #C6C6C6;
-color: #333  ;
 text-decoration: underline;
--webkit-transition: all 0.0s;
--moz-transition: all 0.0s;
--ms-transition: all 0.0s;
--o-transition: all 0.0s;
-transition: all 0.0s;
-background-color: #F8F8F8;
-background-image: -webkit-gradient(linear,left top,left bottom,from(#f8f8f8  ),to(#f1f1f1  ));
-background-image: -webkit-linear-gradient(top,#f8f8f8  ,#f1f1f1  );
-background-image: -moz-linear-gradient(top,#f8f8f8  ,#f1f1f1  );
-background-image: -ms-linear-gradient(top,#f8f8f8  ,#f1f1f1  );
-background-image: -o-linear-gradient(top,#f8f8f8  ,#f1f1f1  );
-background-image: linear-gradient(top,#f8f8f8  ,#f1f1f1  );
--webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.1)  ;
--moz-box-shadow: 0 1px 1px rgba(0,0,0,0.1)  ;
-box-shadow: 0 1px 1px rgba(0,0,0,0.1)  ;
+box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.1);
 }
 
-
+/*
 .mun-button-default:active {
 background-color: #F6F6F6;
 background-image: -webkit-gradient(linear,left top,left bottom,from(#f6f6f6  ),to(#f1f1f1  ));
@@ -455,8 +461,11 @@ background-image: linear-gradient(top,#f6f6f6  ,#f1f1f1  );
 box-shadow: inset 0 1px 2px rgba(0,0,0,0.1)  ;
 } 
 
+*/
+
 
     /* If you want a blue button use these styles */
+/*
     .mun-button-blue {
     border: 1px solid #3079ED  ;
     color: white  ;
@@ -483,8 +492,11 @@ box-shadow: inset 0 1px 2px rgba(0,0,0,0.1)  ;
     background-image: -o-linear-gradient(top,#4d90fe  ,#357ae8  );
     background-image: linear-gradient(top,#4d90fe  ,#357ae8  );
     }
+*/
+
 
     /* If you want a red button use these styles */
+/*
     .mun-button-red {
     border: 1px solid transparent;
     color: #fff  ;
@@ -498,6 +510,8 @@ box-shadow: inset 0 1px 2px rgba(0,0,0,0.1)  ;
     background-image: -o-linear-gradient(top,#dd4b39  ,#d14836  );
     background-image: linear-gradient(top,#dd4b39  ,#d14836  );
     }
+
+
 
     .mun-button-red:active {
     border: 1px solid #992A1B  ;
