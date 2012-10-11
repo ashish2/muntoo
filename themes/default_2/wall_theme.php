@@ -52,7 +52,7 @@ function wall_theme()
 							'.$l['thoughts'] .'
 						</span>
 						<span>
-							<textarea name="post" rows="3" cols="70" dir="ltr" placeholder="I thought a thought..."></textarea>
+							<textarea id="post1" name="post" rows="3" cols="70" dir="ltr" placeholder="I thought a thought..."></textarea>
 						</span>
 						<br />
 						<br />
