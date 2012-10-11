@@ -91,7 +91,11 @@ Body
 {
     padding: 1px;
     width: 90%;
+    
+    /*
     background-color: lightgreen;
+    background-color: lightgrey;
+    */
 
     border-radius: 12px;
     -moz-border-radius: 12px;
@@ -148,18 +152,89 @@ Body
 /*
 .nav td:hover
 {
-    border-top: 3px solid aqua;
+    border-top: 3px solid yellow;
 }
 */
 
 .nav td a:hover
 {
-    color: rgb(255, 255, 255) !important;
+    color: yellow !important;
     /*
     color: yellow !important;
-    -moz-transition: all 0.5s ease-in-out;
+    color: rgb(255, 255, 255) !important;
+    -moz-transition: all 0.15s ease-in-out;
     */
 }
+
+/* Input */
+/*
+input:active
+{    
+    border-color: blue;
+}
+*/
+
+/*
+textarea:focus
+{
+    border: 2px solid blue;
+}
+*/
+
+input[type="text"], textarea
+{
+    outline: none;
+    
+    transition: all 0.01s ease-in-out;
+    -webkit-transition: all 0.01s ease-in-out;
+    -moz-transition: all 0.01s ease-in-out;
+    
+    /* border-radius to give curve shape to input elems */
+    border-radius: 4px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+
+    /*
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    */
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+input[type="text"]:focus, textarea:focus
+{
+    outline: none;
+    border: 1px solid rgba(0, 0, 255, 0.8);
+
+    /* Google 
+    box-shadow: 0 0 4px rgba(0, 0, 255, 1);
+    box-shadow: 0 0 1px blue, 0 0 0 1px lightgrey inset;
+    */
+    box-shadow: 0 0 1px rgba(0, 0, 255, 1) inset;
+    -webkit-box-shadow: 0 0 1px rgba(0, 0, 255, 1);
+    -moz-box-shadow: 0 0 1px rgba(0, 0, 255, 1);
+
+    /* Twitter */
+    /* box shadow 0 0 4px , to give shadow in the z axis */
+    /*
+    box-shadow: 0 0 4px #4099FF;
+
+    box-shadow: 0 0 4px #40ccff;
+`    -webkit-box-shadow: 0 0 4px #40ccff;
+    -moz-box-shadow: 0 0 4px #40ccff;
+    */
+    
+}
+
+/*
+textarea:active
+{
+    outline: none;
+}
+*/
+
+
+
+
 
 /* Tables */
 
@@ -443,7 +518,11 @@ box-shadow: 0 1px 1px rgba(0,0,0,0.1)  ;
 */
 
 .mun-button-default:hover {
+/*
 text-decoration: underline;
+*/
+border-color: green;
+color: green;
 box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.1);
 }
 
