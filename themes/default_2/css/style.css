@@ -210,8 +210,8 @@ input[type="text"]:focus, textarea:focus
     box-shadow: 0 0 1px blue, 0 0 0 1px lightgrey inset;
     */
     box-shadow: 0 0 1px rgba(0, 0, 255, 1) inset;
-    -webkit-box-shadow: 0 0 1px rgba(0, 0, 255, 1);
-    -moz-box-shadow: 0 0 1px rgba(0, 0, 255, 1);
+    -webkit-box-shadow: 0 0 1px rgba(0, 0, 255, 1) inset;
+    -moz-box-shadow: 0 0 1px rgba(0, 0, 255, 1) inset;
 
     /* Twitter */
     /* box shadow 0 0 4px , to give shadow in the z axis */
@@ -219,7 +219,8 @@ input[type="text"]:focus, textarea:focus
     box-shadow: 0 0 4px #4099FF;
 
     box-shadow: 0 0 4px #40ccff;
-`    -webkit-box-shadow: 0 0 4px #40ccff;
+    box-shadow: 0 0 4px #56a0d3;
+`   -webkit-box-shadow: 0 0 4px #40ccff;
     -moz-box-shadow: 0 0 4px #40ccff;
     */
     
