@@ -118,8 +118,10 @@ Body
 	background-image: url("../images/th_middle.png");
 	background-color: skyblue;
 	*/
-
+    /*
     color: white;
+    */
+
 
 	font-size: 13;
 	background-color: rgb(45, 45, 45);
@@ -134,6 +136,12 @@ Body
 	-moz-border-radius: 12px;
     */
 }
+
+.nav td .funny
+{
+    color: rgb(45, 45, 45);
+}
+
 
 .nav a:link, .nav a:visited
 {
@@ -158,13 +166,23 @@ Body
 
 .nav td a:hover
 {
-    color: rgb(255, 255, 255) !important;
+    color: rgb(255, 255, 255) !important;    
     /*
     color: yellow !important;
     color: rgb(255, 255, 255) !important;
     -moz-transition: all 0.15s ease-in-out;
     */
 }
+
+.nav td a:hover .funny
+{
+    color: yellow !important;
+    /*
+    color: rgb(255, 255, 255) !important;
+    -moz-transition: all 0.15s ease-in-out;
+    */
+}
+
 
 /* Input */
 /*
