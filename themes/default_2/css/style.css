@@ -158,7 +158,7 @@ Body
 
 .nav td a:hover
 {
-    color: yellow !important;
+    color: rgb(255, 255, 255) !important;
     /*
     color: yellow !important;
     color: rgb(255, 255, 255) !important;
