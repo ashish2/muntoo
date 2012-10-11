@@ -80,7 +80,7 @@ function fnav()
 	<center>
 		<table cellspacing="0" cellpadding="5" class="nav" id="nav">
 			<tr>
-				<td><a href="index.php?"><span class="funny">!</span>Home</a></td> ' .
+				<td><a href="index.php?"><span class="funny">/</span>Home</a></td> ' .
 /*				<td>
 				<ul>
 				<a href="index.php?action=usercp">User Panel</a>
@@ -94,7 +94,7 @@ function fnav()
 				<td><a href="index.php?action=viewProfile"><span class="funny">^</span>View Profile</a></td> ' .
 				( ( isset( $_SESSION['user']['uid'] ) && $_SESSION['user']['uid'] == 1 ) ? 
 				'<td><a href="index.php?action=admin"><span class="funny">&</span>Admin Board</a></td>' : '' ) .
-	'			<td><a href="index.php?action=bannedList"><span class="funny">*</span>Banned</a></td> ' .
+	'			<td><a href="index.php?action=bannedList"><span class="funny">!</span>Banned</a></td> ' .
 				( ( !isset( $_SESSION['user']['uid'] )  ) ? 
 				'<td><a href="index.php?action=register"><span class="funny">(</span>Register</a></td>
 				<td><a href="index.php?action=login"><span class="funny">)</span>Login</a></td>'  : 
