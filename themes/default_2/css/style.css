@@ -219,6 +219,32 @@ input[type="text"], textarea
 }
 
 /* using attribute selector, [type="text"]*/
+input[type="text"]:hover, textarea:hover
+{
+    outline: none;
+    border: 0.5px solid lightgrey;
+
+    /* Google 
+    box-shadow: 0 0 4px rgba(0, 0, 255, 1);
+    box-shadow: 0 0 1px blue, 0 0 0 1px lightgrey inset;
+    */
+    box-shadow: 0 0 0.5px rgba(0, 0, 255, 1) inset;
+    -webkit-box-shadow: 0 0 0.5px rgba(0, 0, 255, 1) inset;
+    -moz-box-shadow: 0 0 0.5px rgba(0, 0, 255, 1) inset;
+
+    /* Twitter */
+    /* box shadow 0 0 4px , to give shadow in the z axis */
+    /*
+    box-shadow: 0 0 4px #4099FF;
+
+    box-shadow: 0 0 4px #40ccff;
+    box-shadow: 0 0 4px #56a0d3;
+`   -webkit-box-shadow: 0 0 4px #40ccff;
+    -moz-box-shadow: 0 0 4px #40ccff;
+    */    
+}
+
+/* using attribute selector, [type="text"]*/
 input[type="text"]:focus, textarea:focus
 {
     outline: none;
@@ -242,7 +268,6 @@ input[type="text"]:focus, textarea:focus
 `   -webkit-box-shadow: 0 0 4px #40ccff;
     -moz-box-shadow: 0 0 4px #40ccff;
     */
-    
 }
 
 /*
