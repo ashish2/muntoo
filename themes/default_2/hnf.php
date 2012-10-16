@@ -37,7 +37,7 @@ function fheader($title='', $css='', $js='')
 					<header class="mainheader">
 						<small>
 						<i>
-							<span class="span1">Mun</span><span class="span2">too</span><span class="red">.</span><span class="green">.</span><span class="blue">.</span><span class="yellow">.</span>
+							<span class="header_text"><span class="span1">Mun</span><span class="span2">too</span></span><span class="red">.</span><span class="green">.</span><span class="blue">.</span><span class="yellow">.</span>
 						</i>
 						</small>
 					</header>
@@ -80,25 +80,25 @@ function fnav()
 	<center>
 		<table cellspacing="0" cellpadding="5" class="nav" id="nav">
 			<tr>
-				<td><a href="index.php?"><span class="funny">/</span>Home</a></td> ' .
+				<td><a href="index.php?"><span class="funny">@</span>Home</a></td> ' .
 /*				<td>
 				<ul>
 				<a href="index.php?action=usercp">User Panel</a>
 				<li><a href="index.php?action=modifyprofile"></a></li>
 				</ul>
 				</td>
-*/	'			<td><a href="index.php?action=mainBoard"><span class="funny">@</span>Forums</a></td> 
+*/	'			<td><a href="index.php?action=mainBoard"><span class="funny">/</span>Forums</a></td> 
 				<td><a href="index.php?action=modifyprofile"><span class="funny">#</span>Modify Profile</a></td>
 				<td><a href="index.php?action=wall"><span class="funny">$</span>The Wall (stands Tall)</a></td>
-				<td><a href="index.php?action=listUsers"><span class="funny">%</span>List Users</a></td>
-				<td><a href="index.php?action=viewProfile"><span class="funny">^</span>View Profile</a></td> ' .
+				<td><a href="index.php?action=listUsers"><span class="funny">^</span>List Users</a></td>
+				<td><a href="index.php?action=viewProfile"><span class="funny">%</span>View Profile</a></td> ' .
 				( ( isset( $_SESSION['user']['uid'] ) && $_SESSION['user']['uid'] == 1 ) ? 
 				'<td><a href="index.php?action=admin"><span class="funny">&</span>Admin Board</a></td>' : '' ) .
 	'			<td><a href="index.php?action=bannedList"><span class="funny">!</span>Banned</a></td> ' .
 				( ( !isset( $_SESSION['user']['uid'] )  ) ? 
-				'<td><a href="index.php?action=register"><span class="funny">(</span>Register</a></td>
-				<td><a href="index.php?action=login"><span class="funny">)</span>Login</a></td>'  : 
-				'<td><a href="index.php?action=logout"><span class="funny">-</span>Logout</a></td>' 
+				'<td><a href="index.php?action=register"><span class="funny">+</span>Register</a></td>
+				<td><a href="index.php?action=login"><span class="funny">-></span>Login</a></td>'  : 
+				'<td><a href="index.php?action=logout"><span class="funny"><-</span>Logout</a></td>' 
 				) . 
 	'		</tr>
 		</table>

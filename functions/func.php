@@ -261,12 +261,14 @@ function update_arr( $params = array() )
 //************************************************************//
 //   Error Handling Functions //
 //************************************************************//
-
+//Ori
+//function error_handler($error)
+//Add
 function error_handler($error)
 {
 	
 	//global $globals, $error;
-	global $globals;
+	global $globals, $user, $theme;
 	
 	if(!empty($error))
 	{
@@ -276,22 +278,38 @@ function error_handler($error)
 			$error = array($error);
 		}
 		
-		echo '<div style="background-color: lightgrey; padding: 2px 2px; border: 1px solid gray">
-				<center>
-				The following Errors occurred:
-				<ul>';
+		$str = '';
+		
+		$str .= 
+		// Just CANNOT put any HTML here no matter what, this is a FUNCTIONS file, not a template showing HTML file
+		//'<div style="background-color: lightgrey; padding: 2px 2px; border: 1px solid gray">
+		// snow color #EEE9E9
+		'<div style="background-color: #EEE9E9; padding: 3px 1px; border: 1px solid red">'.
+		// lightred #ffe4e9
+		//'<div style="background-color: #ffe4e9; padding: 3px 1px; border: 1px solid #cc3344">
+				'<center>';
+				//$img = ( ($imgName) ? '<img src="themes/'.$user['theme_type'].'/images/'.$imgName.'">&nbsp' : '');
+			//$err_img = '<span class="error_span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+			
+			//$str .= "The following Errors occurred:";
+			$str .= "Hey Budd!, There were a few errors, let's check 'em out:";
+			$str .= "<ul>";
 		
 		foreach($error as $err)
 		{
-			echo '<li style="color: purple"><small>'.$err.'</small></li>';
+			$str .= '<li style="color: purple"><small>'.$err.'</small></li>';
 		}
-		echo '</ul>
+		$str .= '</ul>
 				</center>
 				</div>
 				<br />
 				<br />
 				';
+				
+		echo $str;
+		$str = '';
 	}
+	
 	
 }
 

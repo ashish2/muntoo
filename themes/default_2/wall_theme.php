@@ -14,8 +14,16 @@ function wall_theme()
 	global $board, $replies;
 	global $qu;
 	
-	//error_handler($error);
-	error_handler($errors);
+	
+	if($error)
+	{
+		//$err_img = '<span class="error_span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+		//echo $err_img;
+		error_handler($error);
+	}
+	// you dont have to pass an imgname everytime this way,
+	// just have an error_span class, and in css u have the error_span class background-image
+	//error_handler($error, 'error-icon.png');
 	
 	
 	$str = '';

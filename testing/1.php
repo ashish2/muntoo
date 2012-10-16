@@ -30,3 +30,9 @@ else
 
 
 ?>
+
+<br />
+<br />
+
+<textarea placeholder="hi">
+</textarea>

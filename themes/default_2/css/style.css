@@ -74,6 +74,12 @@ header
     background-color: #dde;
 }
 
+.header_text
+{
+    color: #00CCFF;
+    font-color: #00CCFF;
+}
+
 /* Body */
 
 Body
@@ -222,15 +228,15 @@ input[type="text"], textarea
 input[type="text"]:hover, textarea:hover
 {
     outline: none;
-    border: 0.5px solid lightgrey;
+    border: 1px solid lightgrey;
 
     /* Google 
     box-shadow: 0 0 4px rgba(0, 0, 255, 1);
     box-shadow: 0 0 1px blue, 0 0 0 1px lightgrey inset;
     */
-    box-shadow: 0 0 0.5px rgba(0, 0, 255, 1) inset;
-    -webkit-box-shadow: 0 0 0.5px rgba(0, 0, 255, 1) inset;
-    -moz-box-shadow: 0 0 0.5px rgba(0, 0, 255, 1) inset;
+    box-shadow: 0 0 1px rgba(0, 0, 255, 1) inset;
+    -webkit-box-shadow: 0 0 1px rgba(0, 0, 255, 1) inset;
+    -moz-box-shadow: 0 0 1px rgba(0, 0, 255, 1) inset;
 
     /* Twitter */
     /* box shadow 0 0 4px , to give shadow in the z axis */
@@ -278,6 +284,18 @@ textarea:active
 */
 
 
+/* Error */
+
+.error_span
+{
+    background-image: url(../images/error-icon.png);
+    /*
+    background-image: url(../images/glyphicons_196_circle_exclamation_mark.png);
+    */
+    background-repeat: no-repeat;
+    width: 26px;
+    height: 26px;
+}
 
 
 

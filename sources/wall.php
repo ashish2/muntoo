@@ -60,19 +60,24 @@ function wall()
 				redirect("$globals[boardurl]$globals[only_ind]action=login");
 	}
 	
-	if( isset($_POST['wall_sub']) && !empty($_POST['post'] ) )
+	//if( isset($_POST['wall_sub']) && !empty($_POST['post'] ) )
+	if( isset($_POST['wall_sub']) )
 	{
 		
-		$reply = check_input( $_POST['post'] );
-		$now = round( $time->scriptTime() ) ;
+		$reply = mandff(check_input( $_POST['post'] ), 'Wall Post Empty' );
 		
-		/*
-		$qI = "INSERT INTO wall_post(`wp_on_uid`, `wp_by_uid`, `wp_post`, `wp_date`) 
-		VALUES ( $_GET[uid], $user[uid], '$reply', $now )";
-		*/
-		$qI = "INSERT INTO wall_post(`wp_on_uid`, `wp_by_uid`, `wp_post`, `wp_date`) 
-		VALUES ( $uid, $user[uid], '$reply', $now )";
-		$qI_e = db_query($qI);
+		if(empty($error) && empty($errors))
+		{
+			$now = round( $time->scriptTime() ) ;
+			
+			/*
+			$qI = "INSERT INTO wall_post(`wp_on_uid`, `wp_by_uid`, `wp_post`, `wp_date`) 
+			VALUES ( $_GET[uid], $user[uid], '$reply', $now )";
+			*/
+			$qI = "INSERT INTO wall_post(`wp_on_uid`, `wp_by_uid`, `wp_post`, `wp_date`) 
+			VALUES ( $uid, $user[uid], '$reply', $now )";
+			$qI_e = db_query($qI);
+		}
 		
 	}
 	
