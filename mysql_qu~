@@ -49,7 +49,34 @@ create table `wall_post_reply`
 `wall_post_id` int(10) unsigned
 )
 
+create table `forgot_password`
+(
+`id` int(5) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`uid` int(5) unsigned NOT NULL COMMENT "#Users id uid, this will come from the url that has been sent in the mail#",
+`password` varchar(100) NOT NULL COMMENT "#This password will be confirmed and inserted into the users password after confirmation#",
+`code` varchar(64) NOT NULL COMMENT "#The code that will be checked against the password, this code will be coming from the url along with the user email id(email), and users id(uid)#", 
+`datetime` int(5) unsigned DEFAULT '0' COMMENT "#The time this entry got inserted, a limit of 6hrs etc can be set for the users to check thier mail and confirm the password with the help of this field#"
+#CONSTRAINT fk_fp_uid FOREIGN KEY (`uid`) REFERENCES `users`(`uid`) ON DELETE CASCADE
+)
+
+
+// alter table <tablename> change `olColumnName` `newColumnName` columnDefinition
 alter table `wall_post_reply` change `wall_post_id` `wp_id` int(10) unsigned
+
+
+// alter table After
+alter table `forgot_password` 
+add column `email` varchar(64) NOT NULL 
+after `uid`
+
+/*
+
+for the moment, will delete this in 5 mins
+user a8u ka md5 with salt=abc
+2f82ddd8a34b632f53e2bc266eded98e
+
+*/
+
 
 Change Column Name:::
 alter table `wall_post` change `date` `wp_date` int(10) unsigned not null 

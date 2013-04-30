@@ -6,7 +6,7 @@
 function fheader($title='', $css='', $js='')
 {
 	
-	global $globals, $user;
+	global $globals, $user, $theme;
 	
 	$themedir = 'themes';
 	
@@ -14,7 +14,12 @@ function fheader($title='', $css='', $js='')
 	$user['theme_type'] = ( isset($user['theme_type'] ) ) ? $user['theme_type'] : ( ( isset($_SESSION['user']) && isset($_SESSION['user']['theme_type']) ) ? $_SESSION['user']['theme_type'] : 'default' ) ;
 	
 	$css = (!$css) ? $globals['boardurl']."/$themedir/".$user['theme_type'] . '/css/style.css' : $css;
-	$js = (!$js) ? $globals['boardurl']."/$themedir/". $user['theme_type'] . '/js/javascript.js' : $js;
+	// This will now not be required as well as the $js variable getting passed into this function,
+	// because we have included js files in a $theme[js_files] array, which will be included 
+	// after include_js_files() function runs below
+	//$js = (!$js) ? $globals['boardurl']."/$themedir/". $user['theme_type'] . '/js/javascript.js' : $js;
+	
+	include_js_files();
 	
 	echo '
 		<html>
@@ -24,8 +29,17 @@ function fheader($title='', $css='', $js='')
 		'
 		</title>
 		<link rel="stylesheet" type="text/css" href="'.$css.'">
-		<script language="javascript" type="text/javascript" src="'.$js.'">
-		</script>
+		';
+		//<script language="javascript" type="text/javascript" src="'.$js.'"></script>';
+		$jses = '';
+		foreach($theme['js_files'] as $k => $v)
+		{
+			$js_file = $globals['boardurl']."/$themedir/". $user['theme_type'] . '/js/'.$v;
+			$jses .= '<script language="javascript" type="text/javascript" src="'.$js_file.'"></script>';
+		}
+		
+		echo "$jses";
+		echo '
 		</head>
 		<body>
 		<table class="header">
@@ -75,30 +89,31 @@ function fnav()
 		</table>
 	';
 	*/
-	
+	/*
+	// URLs with Shebangs yo#!
 	echo '
 	<center>
 		<table cellspacing="0" cellpadding="5" class="nav" id="nav">
 			<tr>
-				<td><a href="index.php?"><span class="funny">@</span>Home</a></td> ' .
-/*				<td>
-				<ul>
-				<a href="index.php?action=usercp">User Panel</a>
-				<li><a href="index.php?action=modifyprofile"></a></li>
-				</ul>
-				</td>
-*/	'			<td><a href="index.php?action=mainBoard"><span class="funny">/</span>Forums</a></td> 
-				<td><a href="index.php?action=modifyprofile"><span class="funny">#</span>Modify Profile</a></td>
-				<td><a href="index.php?action=wall"><span class="funny">$</span>The Wall (stands Tall)</a></td>
-				<td><a href="index.php?action=listUsers"><span class="funny">^</span>List Users</a></td>
-				<td><a href="index.php?action=viewProfile"><span class="funny">%</span>View Profile</a></td> ' .
+				<td><a href="index.php?/#!/" onclick="alert(this.hash);"><span class="funny">@</span>Home</a></td> ' .
+				//<td>
+				//<ul>
+				//<a href="index.php?action/usercp">User Panel</a>
+				//<li><a href="index.php?action/modifyprofile"></a></li>
+				//</ul>
+				//</td>
+	'			<td><a href="index.php?/#!/action/mainBoard" onclick="alert(this.hash);"><span class="funny">/</span>Forums</a></td> 
+				<td><a href="index.php?/#!/action/modifyprofile" onclick="alert(this.hash);"><span class="funny">#</span>Modify Profile</a></td>
+				<td><a href="index.php?/#!/action/wall" onclick="alert(this.hash);"><span class="funny">$</span>The Wall (stands Tall)</a></td>
+				<td><a href="index.php?/#!/action/listUsers" onclick="alert(this.hash);"><span class="funny">^</span>List Users</a></td>
+				<td><a href="index.php?/#!/action/viewProfile" onclick="alert(this.hash);"><span class="funny">%</span>View Profile</a></td> ' .
 				( ( isset( $_SESSION['user']['uid'] ) && $_SESSION['user']['uid'] == 1 ) ? 
-				'<td><a href="index.php?action=admin"><span class="funny">&</span>Admin Board</a></td>' : '' ) .
-	'			<td><a href="index.php?action=bannedList"><span class="funny">!</span>Banned</a></td> ' .
+				'<td><a href="index.php?/#!/action/admin" onclick="alert(this.hash);"><span class="funny">&</span>Admin Board</a></td>' : '' ) .
+	'			<td><a href="index.php?/#!/action/bannedList" onclick="alert(this.hash);"><span class="funny">!</span>Banned</a></td> ' .
 				( ( !isset( $_SESSION['user']['uid'] )  ) ? 
-				'<td><a href="index.php?action=register"><span class="funny">+</span>Register</a></td>
-				<td><a href="index.php?action=login"><span class="funny">-></span>Login</a></td>'  : 
-				'<td><a href="index.php?action=logout"><span class="funny"><-</span>Logout</a></td>' 
+				'<td><a href="index.php?/#!/action/register" onclick="alert(this.hash);"><span class="funny">+</span>Register</a></td>
+				<td><a href="index.php?/#!/action/login" onclick="alert(this.hash);""><span class="funny">-></span>Login</a></td>'  : 
+				'<td><a href="index.php?/#!/action/logout" onclick="alert(this.hash);"><span class="funny"><-</span>Logout</a></td>' 
 				) . 
 	'		</tr>
 		</table>
@@ -106,6 +121,40 @@ function fnav()
 		<br />
 	</center>
 	
+	';
+	*/
+	
+	echo '
+	<center>
+		<table cellspacing="0" cellpadding="5" class="nav" id="nav">
+			<tr>
+				<td id="1"><a class="nav_links" href="index.php?"><span class="funny">@</span>Home</a></td> ' .
+/*				<td>
+				<ul>
+				<a href="index.php?action=usercp">User Panel</a>
+				<li><a href="index.php?action=modifyprofile"></a></li>
+				</ul>
+				</td>
+				<td id="6"><a class="nav_links" href="index.php/viewProfile"><span class="funny">%</span>View Profile</a></td> ' .
+				
+*/	'			<td id="2" ><a class="nav_links" href="index.php?action=mainBoard"><span class="funny">/</span>Forums</a></td> 
+				<td id="3"><a class="nav_links" href="index.php?action=modifyprofile"><span class="funny">#</span>Modify Profile</a></td>
+				<td id="4"><a class="nav_links" href="index.php?action=wall"><span class="funny">$</span>The Wall (stands Tall)</a></td>
+				<td id="5"><a class="nav_links" href="index.php?action=listUsers"><span class="funny">^</span>List Users</a></td>
+				<td id="6"><a class="nav_links" href="index.php?action=viewProfile"><span class="funny">%</span>View Profile</a></td> ' .
+				( ( isset( $_SESSION['user']['uid'] ) && $_SESSION['user']['uid'] == 1 ) ? 
+				'<td id="7"><a class="nav_links" href="index.php?action=admin"><span class="funny">&</span>Admin Board</a></td>' : '' ) .
+	'			<td id="8"><a class="nav_links" href="index.php?action=bannedList"><span class="funny">!</span>Banned</a></td> ' .
+				( ( !isset( $_SESSION['user']['uid'] )  ) ? 
+				'<td id="9"><a class="nav_links" href="index.php?action=register"><span class="funny">+</span>Register</a></td>
+				<td id="10"><a class="nav_links" href="index.php?action=login"><span class="funny">-></span>Login</a></td>'  : 
+				'<td id="11"><a class="nav_links" href="index.php?action=logout"><span class="funny"><-</span>Logout</a></td>' 
+				) . 
+	'		</tr>
+		</table>
+		<br />
+		<br />
+	</center>
 	';
 	
 	// Keep the Permissions in Mind, 

@@ -13,5 +13,10 @@
 }
 
 
-
+.errors
+{
+	background-color: #EEE9E9; 
+	padding: 3px 1px; 
+	border: 1px solid none;
+}
 

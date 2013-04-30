@@ -6,16 +6,25 @@ function printrr($arr)
 	echo '<pre>';
 	print_r($arr);
 	echo '</pre>';
+	
 }
 
-
-// func printrr() as a Closure, (not used yet)
+// func printrr() as Anonymous(Lambda) function
 $prr = function ($arr)
 {
 	echo '<pre>';
 	print_r($arr);
 	echo '</pre>';
 };
+
+// func adder() as a Closure, (not used yet)
+function adder($x)
+{
+	return function($y)
+	{
+		return $x+$y;
+	};
+}
 
 function ech($str, $file=null)
 {
@@ -64,6 +73,24 @@ function randLetter($maxlen, $str='')
 //************************************************************//
 
 
+//************************************************************//
+// String Functions starts //
+//************************************************************//
+
+// No real usage of this, as there are already a str_replace() & preg_replace() funcs in PHP
+/*
+function findRepInStr($findStr, $repStr, $inpStr)
+{
+	
+}
+*/
+
+
+//************************************************************//
+// String Functions end //
+//************************************************************//
+
+
 
 //************************************************************//
 //  Form Functions starts //
@@ -84,6 +111,8 @@ function un_sql_inj($string)
 // Checking input for sql attacks etc, to put into the DB or show on page etc
 function check_input($data)
 {
+	
+	//echo !get_magic_quotes_gpc();
 	
 	$data = trim($data);
 	//$data = stripslashes($data);
@@ -282,9 +311,11 @@ function error_handler($error)
 		
 		$str .= 
 		// Just CANNOT put any HTML here no matter what, this is a FUNCTIONS file, not a template showing HTML file
+		// U need to just check for errors and return(return/pass back) an array, and then 
+		// write all this below html in the respective HTML file of that particular page
 		//'<div style="background-color: lightgrey; padding: 2px 2px; border: 1px solid gray">
 		// snow color #EEE9E9
-		'<div style="background-color: #EEE9E9; padding: 3px 1px; border: 1px solid red">'.
+		'<div class="errors">'.
 		// lightred #ffe4e9
 		//'<div style="background-color: #ffe4e9; padding: 3px 1px; border: 1px solid #cc3344">
 				'<center>';
@@ -292,8 +323,14 @@ function error_handler($error)
 			//$err_img = '<span class="error_span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
 			
 			//$str .= "The following Errors occurred:";
-			$str .= "Hey Budd!, There were a few errors, let's check 'em out:";
-			$str .= "<ul>";
+			//$str .= 'Hey Budd!';
+			$str .= 'Eh! O! James Bond!';
+			
+			$str .= '<br />';
+			
+			$str .= 'There were a few errors, let\'s check \'em out:';
+			
+			$str .= '<ul>';
 		
 		foreach($error as $err)
 		{
@@ -309,7 +346,6 @@ function error_handler($error)
 		echo $str;
 		$str = '';
 	}
-	
 	
 }
 
@@ -435,6 +471,7 @@ function setSomeDefaults_User()
 	// Temporary setting theme as 'smashing_magazine', will be removed later
 	//$user['theme_type'] = 'default';
 	$user['theme_type'] = 'default_2';
+	
 	//$user['theme_type'] = 'smashing_magazine';
 	//$user['theme_type'] = 'theme_4';
 	
@@ -525,7 +562,7 @@ function assignANumber( $num )
 //   HTML Formatting functions //
 //************************************************************//
 
-function echbr( $number )
+function echbr( $number=1)
 {
 	//$number = ( ifLessThanEq($number, 10 ) ? $number : 10 ) ;
 	$number = ( $number <= 10 ) ? $number : 10;
@@ -572,20 +609,20 @@ function loadlang_new($langfile = '', $langfunc='')
 }
 
 // Original loadlang() func
-function loadlang_ori($langfile = '')
+function loadlang_ori($langdir = "", $langfile = '')
 {
 	global $globals, $theme;
 	global $user;
 	global $l;
 	
+	$langdir = (!empty($langdir) ? $langdir : "");
 	$lang = (!empty($langfile) ? $langfile : $theme['name']);
 	
 //	include_once($globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $theme['name'] .'_lang.php');
 	$globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $lang .'_lang.php';
 	
-	
-	include_once($globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $lang .'_lang.php');
-	
+	// include_once($globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $lang .'_lang.php');
+	include_once($globals['rootdir'] . '/languages/' . $user['lang'] .'/'. "$langdir" . $lang .'_lang.php');
 	
 }
 
@@ -599,6 +636,8 @@ function loadlang($langfile = '', $langfunc='')
 	global $l;
 	global $admin;
 	
+	// sing and mult can be compared as 0 or 1, instead of doing string comparison
+	// 'sing' =1, 'mult' =2, OR 'sing'=0, 'mult'=1
 	if($admin['settings']['lang']['func_run'] == 'sing' )
 		loadlang_new($langfile, $langfunc);
 	else if( $admin['settings']['lang']['func_run'] == 'mult')
@@ -1281,6 +1320,79 @@ function redirect( $redirectUrl )
 //************************************************************//
 //   Redirection Functions ends //
 //************************************************************//
+
+
+
+//************************************************************//
+//   Regex Matching Functions starts //
+//************************************************************//
+
+function alphaCapNumericUnd($strToEval)
+{
+	// if the $strToEval contains anything other than the small Alphabets, Capital Alpha, Numeric or Underscores
+	// then return false, it fails the alphaCapNumericUnd() test
+	// else it passes alphaCapNumericUnd() test
+	// U dont need to do preg_match_all(), preg_match() will be enuf 
+	// bcoz even if there is just 1 occurence of illegal character, it will jump out and return false
+	// so u dont have to match the whole string with preg_match_all()
+	//if(preg_match_all('/[^a-zA-Z0-9_]/i', $strToEval) )
+	if(preg_match('/[^a-zA-Z0-9_]/i', $strToEval) )
+	{
+		return false;
+	}
+	return true;
+	
+}
+
+
+//************************************************************//
+//   Regex Matching Functions ends //
+//************************************************************//
+
+
+
+//************************************************************//
+//   String Functions  //
+//************************************************************//
+
+// Trim all unwanted data from a string
+// at key 0 , will be taking birth
+function trimmer($str, $arrOfUnwantedStuff = null)
+{
+	// At the moment just trimming slashes
+	$str = trim($str);
+	
+	//echo $str[strlen($str)-1];
+	
+	// At the moment just replacing slashes, obviously, this will be $arrOfUnwantedStuff later
+	$arr = explode(" ", trim(str_replace( '/', " ", $str)));
+	
+	return $arr;
+}
+
+
+// Gets everything from the url, after, the $everythingAfterMe part in the URL
+function get_str_after($everythingAfterMe)
+{
+	
+	global $globals;
+	
+	$url = $globals['host'] . $_SERVER['PHP_SELF'];
+	
+	//echo $str = substr($url, strpos( $url, $everythingAfterMe, 1), strlen($everythingAfterMe));
+	///echo strpos( $url, $everythingAfterMe, 1 );
+	//echo strstr( strstr($url, $everythingAfterMe), $everythingAfterMe, 0);
+	$url = substr($url, strpos($url, $everythingAfterMe) + strlen($everythingAfterMe) );
+	
+	return $url;
+}
+
+
+//************************************************************//
+//   String Functions ends //
+//************************************************************//
+
+
 
 
 ?>

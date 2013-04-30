@@ -7,13 +7,17 @@ if(!defined('F'))
 
 function wall()
 {
+	
 	global $themedir, $theme, $l;
 	global $globals, $mysql, $theme, $done, $error, $errors;
 	global $user, $time;
 	global $qu, $reqPrivs;
 	
+	//printrr($user);
+	
 	$theme['name'] = 'wall';
 	$theme['call_theme_func'] = 'wall';
+	
 	
 	// 	echo ( $qu == 0 ) ? "yes" : "no" ? "under" : "not";
 	loadlang(); 

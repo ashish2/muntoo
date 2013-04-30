@@ -67,6 +67,8 @@ if(!file_exists('config.php') )
 include_once('config.php'); 
 include_once($rootdir . '/functions/func.php');
 
+include_once($rootdir . '/functions/morefunc.php');
+
 // Setting default timezone
 date_default_timezone_set('Europe/London');
 
@@ -177,6 +179,28 @@ if($admin['settings']['ai'])
 	$ai = new AI_Execute;
 }
 
+
+// TESTING
+
+
+//printrr($db);
+//printrr($_COOKIE);
+
+/*
+$fh = fopen("../../../langs/python/tuts/1/1.txt", "r");
+echo $fh;
+echo '<br />';
+echo 'isre: ' . is_resource($fh);
+//fclose($fh);
+echo '<br />';
+echo 'isre: ' . is_resource($fh);
+*/
+
+//include($globals['rootdir'] . "/classes/User.php");
+
+// TESTING-
+
+
 call_user_func( main() );
 
 function main()
@@ -192,18 +216,24 @@ function main()
 	// $user = loadUser();
 	
 	global $endpage_msg;
-	
 	global $linkarr, $actionarr;
-	
 	
 	$php = '.php';
 	//echbr(1);
 	
+	// getting to load the name of the page, with its other parameters
+	// Only when all the links are fixed by removing 'action='
+	// and '/'(slashes) added 
+	// $get HERE
+	//$pgNameArr = get_str_after('index.php');
+	//$get = trimmer($pgNameArr);
 	
 	// Logout should be happening before this, infact check for logout should be happening before anything, 
 	// logout can not be in the massive action array
 	// $_GET['action'] is giving error , for undefined index, in cases when the $_GET is not set
 	if( isset( $user['is_banned']) && $user['is_banned'] && $_GET['action'] != 'logout')
+	// $get HERE
+	//if( isset( $user['is_banned']) && $user['is_banned'] && $get[0] != 'logout')
 	{
 		// get this reason from database, the endpage table reasons
 		// for the moment hard coding it.
@@ -229,6 +259,10 @@ function main()
 	*/
 	
 	if(isset($_GET['action']))
+	// $get HERE
+	// the below, line, only if from all the links 
+	// action= has been removed and '/'(slashes) have been added
+	//if(isset($get[0]))
 	{
 		// ?action=actionname is array of page.php to be included 
 		// and func to be run
@@ -261,6 +295,10 @@ function main()
 			'unFriend' => array( 'friends', 'addOrDelFriend', '', 3 => array('Profile', 'Un Friends' )  ),
 			'viewProfile' => array('viewProfile', 'viewProfile', '', 3 => array('Profile', 'View Profile' ) ),
 			'wall' => array( 'wall', 'wall', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),
+			
+			'forgot_password' => array( 'forgot_password', 'forgot_password', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),
+			'nntp' => array( 'nntp/nntp', 'nntp', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),
+			
 			
 			// /opt/lampp/htdocs/www/forums/myForum/3/sources/register.php
 			// /opt/lampp/htdocs/www/forums/myForum/3/sources/login.php
@@ -331,6 +369,8 @@ function main()
 	}
 	
 	if( isset($_GET['action']) && !@$actionarr[$_REQUEST['action']] )
+	// $get HERE
+	//if( isset($get[0]) && !@$actionarr[$get[0]] )
 	{
 		// We can also goto the "What" page, What? Which page is this, huh??? Which page did u want, hunh?!!!
 		// Redirecting u to the index page. Smarty! :)
@@ -338,9 +378,13 @@ function main()
 		return "the_whatpage";
 	}
 	
-	
-	include_once($sourcedir . '/' . $actionarr[$_REQUEST['action']][0] . $php);
+	$inc = "$sourcedir/{$actionarr[$_REQUEST['action']][0]}$php";
+	// $get HERE
+	//$inc = "$sourcedir/{$actionarr[$get[0]][0]}$php";
+	include_once($inc);
 	return $actionarr[$_REQUEST['action']][1];
+	// $get HERE
+	//return $actionarr[$get[0]][1];
 	
 }
 // func main ends
@@ -351,7 +395,9 @@ fnav();
 
 if(isset($theme['name']))
 {
-	include_once($globals['themedir'].'/'.$user['theme_type'].'/'.$theme['name'].'_theme.php');
+	$theme_name = $globals['themedir'].'/'.$user['theme_type'].'/'.$theme['name'].'_theme.php';
+	include_once($theme_name);
+	$theme_name = null;
 }
 else
 {
@@ -378,6 +424,12 @@ echbr(3);
 $time->timer_stop();
 
 ffooter($time->time_elapsed(6));
+
+// TESTING
+
+
+// TESTING-
+
 
 // Put session_destroy later
 // session_destroy();

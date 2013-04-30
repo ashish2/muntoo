@@ -3,7 +3,8 @@
 class User
 {
 	
-	private array $att;
+	//private array $att;
+	private $att = array();
 	
 	private $_priv;
 	private $_group;

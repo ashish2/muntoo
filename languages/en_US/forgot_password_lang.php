@@ -8,6 +8,7 @@ $l['email_exists'] = 'Email Exists';
 
 
 $l['thanks'] = 'Thanks for registering, you can now ';
+$l['pass_set'] = 'Your new password has been set, you can now ';
 
 $l['usrnm'] = 'Username';
 
@@ -20,7 +21,12 @@ $l['web_url'] = 'Website Url';
 $l['login'] = 'Login';
 
 $l['alphaNumChars'] = 'Only Small Letters, Capital letters, Numbers and Underscores allowed in &munt1;.';
-$l['alphaNumCharsEmail'] = 'Only Small Letters(a-z), Capital letters(A-Z), Numbers(0-9) and Underscores(_), Dots(.), atTheRate(@) and Dash(-) allowed in &munt1;.';
+
+$l['email_not_exists'] = 'Email does not exists, you can register <a href="?action=register">here</a>';
+
+$l['email_conf'] = 'You have been sent a mail, please visit the link in the mail to set new password for your account.';
+
+$l['invalid_req'] = 'Invalid request';
 
 
 

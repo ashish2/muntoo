@@ -70,7 +70,6 @@ function wall_theme()
 			</div>
 			<br />
 			<!-- #form ends -->
-			
 		</center>
 	';
 	
@@ -81,9 +80,13 @@ function wall_theme()
 			<table class="disp_table" id="disp_table" width="90%">
 				<thead>
 					<tr>
-						<th class="dt-header">By</td>
-						<th class="dt-header" width="60%" valign="middle" align="center">'.$l['post'].'</td>
-						<th class="dt-header" width="20%">'.$l['date'].'</td>
+						<th class="dt-header">By</th>
+						<th class="dt-header" width="60%" valign="middle" align="center">'.$l['post'].'</th>
+						<th class="dt-header" width="20%">'.$l['date'].'</th>
+						<th class="dt-header" width="5%">
+						<input type="checkbox" id="select_all" onclick="sel_all_chk_box(\'#select_all\', \'wp_posts[]\')">
+							Select All
+						</th>
 					</tr>
 				</thead>
 				';
@@ -105,7 +108,7 @@ function wall_theme()
 				$q11 = "SELECT * from `wall_post_reply` `wpr` JOIN `users` `u` ON `wpr`.`wpr_by_uid`=`u`.`uid` WHERE `wpr_id` IN ($i[wpr_id])";
 				$res = db_query($q11);
 				
-				$st .= '<ul>';
+				$st .= '<ul class="reps">';
 				while( $row = mysql_fetch_assoc($res) )
 				{
 					$st .= "<li style='decoration: none;'>(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]</li>";
@@ -115,9 +118,11 @@ function wall_theme()
 				
 			}
 			
+			// $cssTrClassNm & $cssTdClassNm defined here
 			$cssTrClassNm = 'class="dth-wp_post-tr"';
 			$cssTdClassNm = 'class="dth-wp_post"';
 			
+			// $cssTrClassNm & $cssTdClassNm defined just above
 			$str .= '
 				<tr '.$cssTrClassNm.'>
 					<td '.$cssTdClassNm.' valign="top"><a href='.$globals['ind'].'action=viewProfile&uid='.$i['uid'].'>'.$i['username'].'</a></td>
@@ -127,11 +132,33 @@ function wall_theme()
 					</td>
 					<td '.$cssTdClassNm.'>'.date("g:i a d-F-Y", $i['wp_date'] ).'
 					</td>
+					<td '.$cssTdClassNm.'>
+						<input type="checkbox" id="wp_posts['.$i['wp_id'].']" name="wp_posts[]" onclick="sel_all_chk_box(\'#select_all\', this.name, this)">
+					</td>
 				</tr>
 				';
+				
 		}
 		
 		$str .= '
+				<tr '.$cssTrClassNm.'>
+					<td '.$cssTdClassNm.' valign="top">
+					</td>
+					<td '.$cssTdClassNm.' id="wp_post">
+					</td>
+					<td '.$cssTdClassNm.'>
+					</td>
+					<td '.$cssTdClassNm.'>
+						<select>
+							<option>
+								With Selected:
+							</option>
+							<option>
+								Delete
+							</option>
+						</select>
+					</td>
+				</tr>
 			</table>
 			</center>
 			';
@@ -145,6 +172,19 @@ function wall_theme()
 			.'</b></center>';
 	}
 	
+	/*
+	//Nice css
+	$sss = '
+	<div id="divTestArea2" style="height: 100px; width: 300px; padding: 20px; border: 1px solid silver; background-color: #eee;">
+	<b>Bold text</b><br />
+	<b class="more">More bold text</b><br />
+	<b class="more">Even more bold text</b><br />
+	</div>
+	<div class="test">This is a box</div>
+	';
+	*/
+	
+	//echo $str . $sss;
 	echo $str;
 	$str = null;
 	

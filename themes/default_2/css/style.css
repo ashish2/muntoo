@@ -109,6 +109,21 @@ Body
 }
 
 
+/* TimePass */
+.bolder
+{
+    font-weight: bold;
+    color: blue;
+}
+
+.bluer
+{
+    color: blue;
+}
+
+
+/* TimePass- */
+
 /* Navigation */
 
 .nav table
