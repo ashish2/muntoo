@@ -19,7 +19,7 @@ $l['web_url'] = 'Website Url';
 
 $l['login'] = 'Login';
 
-$l['alphaNumChars'] = 'Only Small Letters, Capital letters, Numbers and Underscores allowed in &munt1;.';
+$l['alphaNumChars'] = 'Only Small Letters, Capital letters, Numbers, Dash(-), Dots(.) and Underscores allowed in &munt1;.';
 $l['alphaNumCharsEmail'] = 'Only Small Letters(a-z), Capital letters(A-Z), Numbers(0-9) and Underscores(_), Dots(.), atTheRate(@) and Dash(-) allowed in &munt1;.';
 
 

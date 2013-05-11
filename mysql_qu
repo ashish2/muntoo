@@ -205,7 +205,19 @@ create table ai_actions
 `unit_of_time` varchar(255) COMMENT '#Unit of time to keep the action alive#'
 )
 
+#added date 11-may
+alter table `users` add column `displayPicId` INT COMMENT '#Display Pic id of the user thats present in the pics folder#';
 
+#added date 11-may
+alter table  `users` add column `regTime` int(10) unsigned COMMENT '#The time at which user registered#'
 
+#added date 11-5
+create table `mysql_error_logs` 
+(
+`id` int(4) unsigned auto_increment primary key,
+`mysql_errno` varchar(255),
+`mysql_error` text,
+`query` text
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='#Logging Mysql errors#' ;
 
 

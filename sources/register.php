@@ -6,7 +6,7 @@
 function register()
 {
 	global $globals, $mysql, $theme, $done, $error, $errors;
-	global $user;
+	global $user, $time;
 	global $l;
 	
 	$theme['name'] = 'register';
@@ -27,6 +27,7 @@ function register()
 		
 		$subButton = 'sub_register';
 		
+		
 		//echo preg_match('s!a!A!g', $username);
 		//echo preg_match('s#a#A#g', $username);
 		//echo preg_match_all('s!a\!A!g', $username, $sub);
@@ -42,9 +43,11 @@ function register()
 		
 		foreach( $_POST as $k => &$v )
 		{
-			// if difference between $k and 'sub_register' is zero, means they are equal, then dont go inside the condition
+			// if difference between $k and 'sub_register' is zero, means they are equal, then dont go inside the condition, as we dont want to purify sub_register value
+			// the other keys we want to purify
 			if( strcmp($k, $subButton) )
 			{
+				// purify email
 				if($k == 'email')
 				{
 					if(preg_match('/[^a-zA-Z0-9_\.\@-]/i', $v))
@@ -53,14 +56,21 @@ function register()
 						$errors[] = $l['alphaNumCharsNew'];
 						continue;
 					}
+				}
+				
+				// if it contains illegal characters then go in and fill up errors
+				// purify url
+				if( $k == 'url')
+				{
+					if(preg_match('/[^a-zA-Z0-9_\.-]/i', $v))
+					//if(preg_match('/[^a-zA-Z0-9_\.\@-]/i', $v))
+					{
+						$l['alphaNumCharsNew'] = str_replace('&munt1;', ucwords($k), $l['alphaNumChars']);
+						$errors[] = $l['alphaNumCharsNew'];
+					}
 					
 				}
-				// if it contains illegal characters then go in and fill up errors
-				if(preg_match('/[^a-zA-Z0-9_]/i', $v))
-				{
-					$l['alphaNumCharsNew'] = str_replace('&munt1;', ucwords($k), $l['alphaNumChars']);
-					$errors[] = $l['alphaNumCharsNew'];
-				}
+				
 			}
 		}
 		
@@ -113,9 +123,29 @@ function register()
 			}
 		}
 		
+		
+		$now = round( $time->scriptTime() ) ;
+		
 		// $q = "INSERT INTO `users`(`username`, `password`, `email`, `url`, `salt`) VALUES('$username', '$password', '$email', '$url', '$salt') ";
-		$q[1] = "INSERT INTO `users`(`username`, `password`, `email`, `url`, `salt`, `group`) VALUES('$username', '$password', '$email', '$url', '$salt', '$group')";
+		$q[1] = "INSERT INTO `users`(`username`, `password`, `email`, `url`, `salt`, `group`, `regTime`) VALUES('$username', '$password', '$email', '$url', '$salt', '$group', $now)";
 		$qu[1] = mysql_query($q[1]);
+		// Logging mysql errors after first insert
+		if(!$qu[1])
+		{
+			
+			$id = log_mysql_error($q[1]);
+			$errors[] = "Some errors encountered, check table for errors. Error id #$id (Please save this Error id)";
+			
+			//echo mysql_error();
+			
+			// for the mement(ftm) returning false as errors encountered, though this is not the ideal thing to do, 
+			// as we want to complete the script and log other errors as well
+			return false;
+		}
+		else
+		{
+			$done = true;
+		}
 		
 		//$ins_id = mysql_insert_id($qu[1]);
 		$ins_id = mysql_insert_id();
@@ -124,21 +154,32 @@ function register()
 		// an insert id goes in here, which becomes the user[uid]
 		$q[2] = "INSERT INTO `profile` (`users_uid`) VALUES('$ins_id')";
 		$qu[2] = mysql_query($q[2]);
+		// Log mysql error for query 2
+		if(!$qu[2])
+		{
+			$id = log_mysql_error($q[2]);
+			$errors[] = "Some errors encountered, check table for errors. Error id #$id (Please save this Error id)";
+		}
+		else
+		{
+			$done = true;
+		}
 		
 		// By default a user with same id getting created in ai_actions_taken table but i(AV) 
 		// dont think this is necessary, as no actions have been taken against the user yet, just check this
 		$q[3] = "INSERT INTO `ai_actions_taken` (`users_uid`) VALUES('$ins_id')";
 		$qu[3] = mysql_query($q[3]);
-		
-		
-		if($qu[1])
+		// Log mysql error for query 3
+		if(!$qu[3])
 		{
-			$done = true;
+			$id = log_mysql_error($q[3]);
+			$errors[] = "Some errors encountered, check table for errors. Error id #$id (Please save this Error id)";
 		}
 		else
 		{
-			$errors[] = 'faltugiri';
+			$done = true;
 		}
+		
 		
 	}
 	

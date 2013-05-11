@@ -68,6 +68,7 @@ include_once('config.php');
 include_once($rootdir . '/functions/func.php');
 
 include_once($rootdir . '/functions/morefunc.php');
+include_once($rootdir . '/functions/func_rel_to_db.php');
 
 // Setting default timezone
 date_default_timezone_set('Europe/London');
@@ -262,6 +263,8 @@ function main()
 	// $get HERE
 	// the below, line, only if from all the links 
 	// action= has been removed and '/'(slashes) have been added
+	// and then we will have to start dealing with, the word after the first slash is the controller name, 
+	// after second slash, maybe function name, then etc, a router file.
 	//if(isset($get[0]))
 	{
 		// ?action=actionname is array of page.php to be included 

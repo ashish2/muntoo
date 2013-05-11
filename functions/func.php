@@ -17,14 +17,32 @@ $prr = function ($arr)
 	echo '</pre>';
 };
 
-// func adder() as a Closure, (not used yet)
+// Closure Eg.1, func adder() as a Closure, (not used yet)
 function adder($x)
 {
-	return function($y)
+	//echo 'in: ' . $x;
+	return function($y) use ($x)
 	{
 		return $x+$y;
 	};
-}
+};
+//$a = adder(2, 3);
+//printrr($a);
+//echo ($a(3));
+
+// Closure Eg.2, func adder() as a Closure, (not used yet)
+function adder2($x, $z)
+{
+	//echo 'in: ' . $x;
+	return function($y) use ($x, $z)
+	{
+		return $x+$y+$z;
+	};
+};
+//$a = adder2(2, 5);
+//printrr($a);
+//echo ($a(4));
+
 
 function ech($str, $file=null)
 {

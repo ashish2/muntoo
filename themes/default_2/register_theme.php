@@ -6,10 +6,11 @@
 
 function register_theme()
 {
-	global $globals, $mysql, $done, $error;
+	global $globals, $mysql, $done, $error, $errors;
 	global $l;
 	
 	error_handler($error);
+	error_handler($errors);
 	
 	// if exists, then 'email exists' error, etc. (still to put)
 	if( $done )
