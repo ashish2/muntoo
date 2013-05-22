@@ -487,8 +487,11 @@ function setSomeDefaults_User()
 	$user['ip'] = $_SERVER['REMOTE_ADDR'];
 	
 	// Temporary setting theme as 'smashing_magazine', will be removed later
-	//$user['theme_type'] = 'default';
+	$user['theme_type'] = 'default';
+	// Ori
 	$user['theme_type'] = 'default_2';
+	// FTM
+	$user['theme_type'] = 'default_3';
 	
 	//$user['theme_type'] = 'smashing_magazine';
 	//$user['theme_type'] = 'theme_4';

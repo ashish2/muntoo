@@ -221,3 +221,37 @@ create table `mysql_error_logs`
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='#Logging Mysql errors#' ;
 
 
+:::GROUPS Tables:::
+
+groups table:
+
+id (gid),
+group_name,
+grp_info,
+grp_url,
+is_active,
+is_deleted
+grp_create_date
+
+
+group_members table:
+
+id
+gid, (Foreign key of groups table id )
+g_members,
+
+group_media (fotos, videos) table:
+
+id,
+gid (Foreign key of groups table id )
+foto_url,
+video_url
+
+
+group_wall_post table:
+
+
+group_wall_post_rep table:
+
+
+

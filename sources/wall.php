@@ -12,6 +12,7 @@ function wall()
 	global $globals, $mysql, $theme, $done, $error, $errors;
 	global $user, $time;
 	global $qu, $reqPrivs;
+	global $imgFolder;
 	
 	//printrr($user);
 	

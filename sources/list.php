@@ -18,6 +18,7 @@ function listUsers()
 	global $time;
 	global $user, $reqPrivs;
 	global $q;
+	global $imgFolder;
 	
 	$theme['name'] = 'list';
 	$theme['call_theme_func'] = 'listUsers';

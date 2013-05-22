@@ -84,14 +84,8 @@ function fnav()
 	echo '
 		<table border="1" cellspacing="0" cellpadding="5" id="nav">
 			<tr>
-				<td><a href="index.php?">Home</a></td> ' .
-/*				<td>
-				<ul>
-				<a href="index.php?action=usercp">User Panel</a>
-				<li><a href="index.php?action=modifyprofile"></a></li>
-				</ul>
-				</td>
-*/	'			<td><a href="index.php?action=mainBoard">Forums</a></td> 
+				<td><a href="index.php?">Home</a></td> 
+				<td><a href="index.php?action=mainBoard">Forums</a></td> 
 				<td><a href="index.php?action=modifyprofile">Modify Profile</a></td>
 				<td><a href="index.php?action=wall">The Wall (stands Tall)</a></td>
 				<td><a href="index.php?action=listUsers">List Users</a></td>

@@ -138,7 +138,7 @@ function register()
 			
 			//echo mysql_error();
 			
-			// for the mement(ftm) returning false as errors encountered, though this is not the ideal thing to do, 
+			// for the moment(ftm) returning false as errors encountered, though this is not the ideal thing to do, 
 			// as we want to complete the script and log other errors as well
 			return false;
 		}
