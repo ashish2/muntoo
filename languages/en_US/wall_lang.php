@@ -11,6 +11,9 @@ $l['post'] = 'Post';
 
 $l['date'] = 'Date';
 
+$l['like'] = 'Like';
+
+$l['unlike'] = 'Unlike';
 
 
 

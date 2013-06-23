@@ -66,6 +66,8 @@ if(!file_exists('config.php') )
 // Including the major required files
 include_once('config.php'); 
 include_once($rootdir . '/functions/func.php');
+include_once($rootdir . '/functions/wam.php');
+
 
 include_once($rootdir . '/functions/morefunc.php');
 include_once($rootdir . '/functions/func_rel_to_db.php');
@@ -284,6 +286,9 @@ function main()
 			'board' => array('board', 'topics', '', 3 => array('Board', 'Board' ) ),
 			'createTopic' => array('addReply', 'createTopic', '', 3 => array('Board', 'Create Topic' ) ),
 			'friendsList' => array('friends', 'friendsList', '', 3 => array('Profile', 'Friends List' ) ),
+			
+			'like' => array( 'like', 'like', 'Like', 3 => array('', '' ) ),
+			
 			'listUsers' => array('list', 'listUsers', '', 3 => array('Profile', 'List Users' )  ),
 			'login' => array('login', 'login', '', 3 => array('Login', 'Login' ) ),
 			'logout' => array('logout', 'logout', '', 3 => array('Logout', 'Logout' ) ),

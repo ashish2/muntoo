@@ -205,6 +205,7 @@ create table ai_actions
 `unit_of_time` varchar(255) COMMENT '#Unit of time to keep the action alive#'
 )
 
+
 #added date 11-may
 alter table `users` add column `displayPicId` INT COMMENT '#Display Pic id of the user thats present in the pics folder#';
 
@@ -220,6 +221,8 @@ create table `mysql_error_logs`
 `query` text
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='#Logging Mysql errors#' ;
 
+
+===
 
 :::GROUPS Tables:::
 
@@ -252,6 +255,94 @@ group_wall_post table:
 
 
 group_wall_post_rep table:
+
+
+
+::: WEIGHTED Average Table :::
+id	mutual_friend		profile_visits			wall_posts		like			share			album_visits			weight_amount
+1				1									5									5					10				20					40									1
+
+(For, 1 unit of weight_amount, u need, 1 mutual friend, or 
+5 wall_post made on his/her wall/profile(or album, with nice words for eg. ur hot, nice, good looking etc, *later with sentiment analysis) etc
+you have to Like atleast 10 post of that friend, or Share 20 posts/stories of that friend 
+or 30 album visits )
+
+then,
+u can take multiple parameters as well,
+
+if 5 profile_visits made, and also has 1 mutual_friend then even higher rank.
+
+===
+
+#added date 12-june-2013
+ALTER table `wall_post` add column `deleted` tinyint default 0;
+
+
+
+========================
+
+:::test2:::
+
+CREATE TABLE `test2` (
+`id` int(8) auto_increment,
+ `about` longtext,
+ `dob` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ `sex` char(1) DEFAULT NULL,
+ `displaypic_url` varchar(255) DEFAULT NULL,
+ `website_url` varchar(255) DEFAULT NULL,
+ `perfume` varchar(200) DEFAULT NULL,
+primary Key (`id`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+
+:::LIKE:::
+
+
+#added date 16-june-2013
+create table `like` 
+(
+`id` int(4) auto_increment ,
+`uid` int(10) default null COMMENT '#user id who likes the other objects like, wall_post(wp_id), wall_post_reply(wpr_id), photos(photos_id) etc#',
+`wp_id` int(8) default null,
+`wpr_id` int(8) default null COMMENT '#wall_post_reply id that has been liked by user#',
+`photos_id` int(8) default null,
+primary key(`id`)
+);
+
+^ the above table was dropped on 23-june-2013,
+and below one was created
+
+#added date 23-june-2013
+create table `like` 
+(
+`id` int(4) auto_increment ,
+`users_id` int(10) default null COMMENT '#user id who likes the other objects like, wall_post(wp_id), wall_post_reply(wpr_id), photos(photos_id) etc#',
+`wp_id` int(8) default null COMMENT '#wall_post id that has been liked by user#',
+`wpr_id` int(8) default null COMMENT '#wall_post_reply id that has been liked by user#',
+`photos_id` int(8) default null COMMENT '#the id of the photos that have been liked by user#',
+PRIMARY KEY (`id`),
+INDEX (`users_id` , `wp_id`, `wpr_id`, `photos_id` )
+);
+
+/*
+Could not create Important FOREIGN KEY constraints on the `like` table 
+for the below columns, as The parent table for users, wall_post etc 
+are all MyISAM & it does not allow Foeign keys right now,
+as we can not create foreign keys on InnoDB tables REFRENCING MyISAM,
+The REFERENCING Parent Table should also be InnoDB
+So right now, just making do, with INDEX, 
+the INDEX() command in the above query of `like` table
+
+CONSTRAINT fk_users_id FOREIGN KEY(`users_id`) references `users`(`uid`) ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT fk_wp_id FOREIGN KEY(`wp_id`) references `wall_post`(`wp_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT fk_wpr_id FOREIGN KEY(`wpr_id`) references `wall_post_reply`(`wpr_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT fk_photos_id FOREIGN KEY(`photos_id`) references `photos`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+
+*/
+
+
+
 
 
 

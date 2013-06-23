@@ -88,7 +88,8 @@ function wall()
 	
 	// $_GET[uid] below signifies, that on whose wall all the post are getting made
 	//$q = "SELECT * FROM `wall_post` `wp` JOIN `users` `u` ON `wp`.`wp_by_uid` = `u`.`uid` WHERE `wp`.`wp_on_uid`='$_GET[uid]' ORDER BY `wp`.`wp_date` DESC";
-	$q = "SELECT * FROM `wall_post` `wp` JOIN `users` `u` ON `wp`.`wp_by_uid` = `u`.`uid` WHERE `wp`.`wp_on_uid`='$uid' ORDER BY `wp`.`wp_date` DESC";
+	//$q = "SELECT * FROM `wall_post` `wp` JOIN `users` `u` ON `wp`.`wp_by_uid` = `u`.`uid` WHERE `wp`.`wp_on_uid`='$uid' ORDER BY `wp`.`wp_date` DESC";
+	$q = "SELECT * FROM `wall_post` `wp` JOIN `users` `u` ON `wp`.`wp_by_uid` = `u`.`uid` WHERE `wp`.`wp_on_uid`='$uid' AND `wp`.`deleted` != 1  ORDER BY `wp`.`wp_date` DESC";
 	$qu = db_query($q);
 	
 	//mail("vickyojha2@yahoo.com", "Hi Ashish", "Message for u buddy");

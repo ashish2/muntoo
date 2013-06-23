@@ -14,7 +14,7 @@ function wall_theme()
 	global $board, $replies;
 	global $qu;
 	global $imgFolder;
-	
+	global $friend_reco;
 	
 	$imgType = '.jpg';
 	
@@ -53,8 +53,9 @@ function wall_theme()
 			';
 	*/
 	
+	$str .= '<center>';
+	
 	$str .= '
-		<center>
 			<!-- #form starts -->
 			<div id="form" class="form_div">
 				<form method="post" action="">
@@ -73,8 +74,21 @@ function wall_theme()
 			</div>
 			<br />
 			<!-- #form ends -->
-		</center>
 	';
+	
+	// Friends Recommendation
+	$str .= '<div><b>Friend Recommendation</b>:<br />';
+	foreach( $friend_reco as $k => $v)
+	{
+		$reasons = $friend_reco[$k]['reasons'];
+		$str .= "<a href=$globals[ind]action=viewProfile&uid=$k><img title=\"$reasons\" src={$imgFolder['uploaded']['vsmall']}/$k$imgType></a> &nbsp;";
+	}
+	$str .= '</div>
+		<br />
+		';
+	
+	$str .= '</center>';
+	
 	
 	if( mysql_num_rows($qu) > 0)
 	{
@@ -100,6 +114,23 @@ function wall_theme()
 		// getting $uid
 		$uid = ( isset($_GET['uid'] ) ? (int) check_input( $_GET['uid'] ) : $user['uid'] );
 		
+		// For Likes
+		// There will be $user['likes']['wp'] array, $user['likes']['wpr'] array,
+		// $user['likes']['photo'] array
+		// assign those arrays temporarily to other arrays for the purpose of
+		// in_array() checking & then unsetting the themporary array,
+		// in order to loop the next in_arry() faster
+		$u_wp = $user['likes']['wp'];
+		$u_wpr = $user['likes']['wpr'];
+		// Not needed as there no photos here
+		//$u_photos = $user['likes']['photos'];
+		
+		$like_unlike = '';
+				// FTM, Remove this as soon as the Like feature is made
+				$like_unlike = 'like';
+				
+		$key = null;
+		// The loop for Wall_Posts
 		while( $i = mysql_fetch_assoc($qu) )
 		{
 			$st = '';
@@ -107,16 +138,39 @@ function wall_theme()
 			
 			if( !empty($i['wpr_id'] ) )
 			{
-//				$q11 = "SELECT * from `wall_post_reply` WHERE `wpr_id` IN ($i[wpr_id])";
+				
+				// The Query for Wall_Posts_Reply
+				//$q11 = "SELECT * from `wall_post_reply` WHERE `wpr_id` IN ($i[wpr_id])";
 				$q11 = "SELECT * from `wall_post_reply` `wpr` JOIN `users` `u` ON `wpr`.`wpr_by_uid`=`u`.`uid` WHERE `wpr_id` IN ($i[wpr_id])";
 				$res = db_query($q11);
 				
-				
 				$st .= '<ul class="reps">';
+				// The Loop for Wall_Posts_Reply
 				while( $row = mysql_fetch_assoc($res) )
 				{
+					
+					/* Commenting out FTM(for the moment) 
+					 * 
+					// For getting whether this wpr_id is liked by the user,
+					// and then unsetting it from the temporary array
+					// If key exists, then show unlike & unset key
+					if( $key = array_search($i['wp_id'], $u_wpr ) )
+					{
+						$like_unlike = $l['unlike'];
+						unset($u_wpr[$key]);
+					}
+					else
+						// Else if key does not exists, show like, 
+						// which means this hasn't been liked by the user yet, so show like.
+						$like_unlike = $l['like'];
+					
+					*/
+					
+					
 					//$st .= "<li style='decoration: none;'>(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]</li>";
-					$st .= "<li style='decoration: none;'><a href=$globals[ind]action=viewProfile&uid=$row[uid]><img title=$row[username] src={$imgFolder['uploaded']['vsmall']}/$row[uid]$imgType></a>$row[wpr_content]</li>";
+					$st .= "<li style='decoration: none;'><a href=$globals[ind]action=viewProfile&uid=$row[uid]><img title=$row[username] src={$imgFolder['uploaded']['vsmall']}/$row[uid]$imgType></a> $row[wpr_content]
+					<a href=$globals[ind]action=$like_unlike&uid=$uid&post=$i[wpr_id]&type=wpr>$like_unlike </a>
+					</li>";
 //					$st .= "<br /><br />(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]";
 				}
 				$st .= '</ul>';
@@ -127,12 +181,17 @@ function wall_theme()
 			$cssTrClassNm = 'class="dth-wp_post-tr"';
 			$cssTdClassNm = 'class="dth-wp_post"';
 			
+			// Like - Unlike
+			// If this post id in present in the $user['likes'] array, then show unlike, else show like 
+			////$like_unlike = ( !in_array($i['wp_id'], $user['likes'] ) $l['like'] :  $l['unlike'] );
+			
 			// $cssTrClassNm & $cssTdClassNm defined just above
 			$str .= '
 				<tr '.$cssTrClassNm.'>
 					<td '.$cssTdClassNm.' valign="top"><a href='.$globals['ind'].'action=viewProfile&uid='.$i['uid'].'>'.$i['username'].'</a></td>
 					<td '.$cssTdClassNm.' id="wp_post">'.$i['wp_post'].'
-					<a href="'.$globals['ind'].'action=addReply&uid='.$uid.'&post='.$i['wp_id'].'">'.$l['add_rep'].'</a>
+					<a href="'.$globals['ind'].'action=addReply&uid='.$uid.'&post='.$i['wp_id'].'">'.$l['add_rep'].'</a> 
+					<a href="'.$globals['ind'].'action='.$like_unlike.'&uid='.$uid.'&post='.$i['wp_id'].'&type=wp">'. $like_unlike .'</a>
 					'.$st.'
 					</td>
 					<td '.$cssTdClassNm.'>'.date("g:i a d-F-Y", $i['wp_date'] ).'

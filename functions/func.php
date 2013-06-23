@@ -1378,7 +1378,7 @@ function alphaCapNumericUnd($strToEval)
 
 // Trim all unwanted data from a string
 // at key 0 , will be taking birth
-function trimmer($str, $arrOfUnwantedStuff = null)
+function trimmer($str, $arrOfUnwantedStuff = array())
 {
 	// At the moment just trimming slashes
 	$str = trim($str);
