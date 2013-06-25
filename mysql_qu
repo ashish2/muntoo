@@ -342,6 +342,95 @@ CONSTRAINT fk_photos_id FOREIGN KEY(`photos_id`) references `photos`(`id`) ON DE
 */
 
 
+create table `like` 
+(
+`id` int(4) auto_increment ,
+`post_id` int(8) default null COMMENT '#post id that has been liked by the user#',
+`like_status` COMMENT '#0-NotLiked(like bit is off :P), 1-Like(like is on)#'
+`users_id` int(10) default null COMMENT '#user id who likes the other objects like, wall_post(wp_id), wall_post_reply(wpr_id), photos(photos_id) etc#',
+PRIMARY KEY (`id`),
+INDEX (`post_id`, `users_id`, `photos_id` )
+);
+
+
+#added date 23-june-2013
+create table `wp_wpr`
+(
+`id` int(8) auto_increment,
+`wp_id` int(8) COMMENT '#This wp_id has which wpr_id associated#',
+`wpr_id` int(8) COMMENT '#This wpr_id has which wp_id associated with it#',
+`log_entry` int(10) COMMENT '#Entry number in the log_entry table, usually the timestamp at which this entry happened#',
+INDEX(`wp_id`, `wpr_id`),
+PRIMARY KEY(`id`)
+) ENGINE=InnoDB COMMENT '#Table stores wall_post id and wall_post_reply id relation#'
+
+
+
+#added date 23-june-2013
+// Alter TABLE Tablename AFTER Column
+Alter table `wp_wpr` add column 
+`status` int(4) COMMENT '#says the status of the comment, whether, 0-Unmoderated, 1-Approved, 2-Activated, 3-Deleted#' 
+AFTER `wpr_id`
+
+^ Above column was then Dropped
+
+
+
+#added date 23-june-2013
+Alter table `wall_post_reply` add column 
+`status` int(4) COMMENT '#says the status of the comment, whether, 
+0-Deleted, 1-Activated, 2-Approved, 3-Unmoderated#' ;
+
+
+
+:::TEST table:::
+
+#added date 24-june-2013
+# This table can become the actual wall_post and wall_post_reply table
+CREATE TABLE `TEST_WALL_POST` (
+`id` int(10) NOT NULL AUTO_INCREMENT,
+`on_uid` int(10) unsigned DEFAULT NULL,
+`by_uid` int(10) unsigned DEFAULT NULL,
+`post` text,
+`date` int(10) unsigned NOT NULL DEFAULT '0',
+`post_id` text COMMENT '#Post  associated with this Replies id, (wall_post_reply table ids associated with this wall_post table id)#',
+`type` tinyint(2) DEFAULT NULL COMMENT '#Either a wall_post (1-post) or a wall_post_reply(2-reply), Denoted as, 1-post, 2-reply#',
+`status` tinyint(2) DEFAULT NULL COMMENT '#Says the status of the comment, whether, 0-Deleted, 1-Activated, 2-Approved, 3-Unmoderated#',
+PRIMARY KEY (`id`),
+KEY `idx_on_uid` (`on_uid`),
+KEY `idx_by_uid` (`by_uid`),
+KEY `idx_type` (`type`),
+KEY `idx_status` (`status`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=latin1
+
+
+#added date 25-june-2013
+# Inserting all wall_post entries into Test_Wall_Post
+INSERT INTO `TEST_WALL_POST`
+( `on_uid`, `by_uid`, `post`, `date`, `type`, `status` )
+SELECT `wp_on_uid`, `wp_by_uid`,
+`wp_post` , `wp_date`, 1, `deleted`
+FROM `wall_post` ;
+
+# Inserting all wall_post_replies entries into Test_Wall_Post
+INSERT INTO `TEST_WALL_POST`
+( `on_uid`, `by_uid`, `post`, `date`, `post_id`, `type`, `status` )
+SELECT null, `wpr_by_uid`,
+`wpr_content`, `wpr_date`, `wp_id`, 2, 1
+FROM `wall_post_reply` ;
+
+# renaming 
+rename table `TEST_WALL_POST` to `wall_posts_wall_post_replies`
+
+# adding column and index
+alter table `like` add column `wpwpr_id` int(8) after `wpr_id` ,
+add INDEX (`wpwpr_id`);
+
+# modifying the column that was just made above
+alter table  `like` modify column `wpwpr_id` int(8) COMMENT '#wall_posts_wall_post_replies id liked by the user#'
+
+
+
 
 
 

@@ -5,7 +5,7 @@ if(!defined('F'))
 
 // the link of this friends.php will go in the viewProfile() page, or other pages, 
 // and users can add other users as friends
-function addOrDelFriend()
+function like()
 {
 	global $themedir;
 	global $globals, $mysql, $theme, $done, $error, $errors, $notice;
@@ -15,8 +15,8 @@ function addOrDelFriend()
 	global $par;
 	global $db;
 	
-	$theme["name"] = "friends";
-	$theme["call_theme_func"] = "addOrDelFriend";
+	$theme["name"] = "like";
+	$theme["call_theme_func"] = "like";
 	
 	loadlang();
 	
@@ -32,15 +32,14 @@ function addOrDelFriend()
 //	if( isset($_REQUEST["uid"]) && empty( $_REQUEST["uid"] ) )
 	if( !isset($_REQUEST["uid"]) || empty( $_REQUEST["uid"] ) )
 	{
-		$error[] = "No Friend specified to add";
+		$error[] = "No Post specified to be liked";
 		return false;
 	}
-	$_REQUEST["uid"] = (int) $_REQUEST["uid"];
-	
-	$user["$fl"] = explode(",", $user["$fl"] );
+	// Only the logged in user will like it.
+	$uid = $user['uid'];
 	
 	// Remove user if he is present in the friends_list
-	if( $_GET['action'] == 'unFriend' )
+	if( $_GET['action'] == 'like' )
 	{
 		if( in_array($_REQUEST["uid"], $user["$fl"] ) )
 		{
@@ -50,7 +49,7 @@ function addOrDelFriend()
 	}
 	
 	// or add if user not present in ur friends_list, and if its not u!
-	if( $_GET['action'] == 'addFriend' )
+	if( $_GET['action'] == 'unlike' )
 	{
 		if( $user["uid"] != $_REQUEST["uid"] && !(in_array($_REQUEST["uid"], $user["$fl"] ) ) )
 		{
@@ -69,10 +68,6 @@ function addOrDelFriend()
 			exit();
 		}
 	}
-	
-	$user["$fl"] = implode( ",", $user["$fl"] );
-	$user["$fl"] = trim($user["$fl"], ',');
-	
 	
 	$q1 = "UPDATE `users` SET 
 			`$fl`='$user[$fl]' 
@@ -99,6 +94,8 @@ function addOrDelFriend()
 	
 }
 
+
+/* All Likes, List, still to do */
 function friendsList()
 {
 	global $themedir;

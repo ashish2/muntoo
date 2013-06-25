@@ -12,9 +12,12 @@ function wall_theme()
 	// user level, user permissions
 	global $user;
 	global $board, $replies;
-	global $qu;
 	global $imgFolder;
 	global $friend_reco;
+	
+	// The array carrying the data of posts, likes
+	global $posts, $post_reps, $likes;
+	
 	
 	$imgType = '.jpg';
 	
@@ -87,11 +90,13 @@ function wall_theme()
 		<br />
 		';
 	
+		
 	$str .= '</center>';
 	
-	
-	if( mysql_num_rows($qu) > 0)
+	if( !empty($posts) && is_array($posts) )
 	{
+		
+		
 		$str .= '
 		<center>
 			<table class="disp_table" id="disp_table" width="90%">
@@ -111,6 +116,7 @@ function wall_theme()
 		// http://localhost/www/forums/myForum/3/index.php?action=addReply&topic=1
 		// echo date("g:i a d-F-Y", time() );
 		
+		
 		// getting $uid
 		$uid = ( isset($_GET['uid'] ) ? (int) check_input( $_GET['uid'] ) : $user['uid'] );
 		
@@ -120,61 +126,100 @@ function wall_theme()
 		// assign those arrays temporarily to other arrays for the purpose of
 		// in_array() checking & then unsetting the themporary array,
 		// in order to loop the next in_arry() faster
-		$u_wp = $user['likes']['wp'];
-		$u_wpr = $user['likes']['wpr'];
+		#$u_wp = $user['likes']['wp'];
+		#$u_wpr = $user['likes']['wpr'];
+		
 		// Not needed as there no photos here
 		//$u_photos = $user['likes']['photos'];
 		
 		$like_unlike = '';
-				// FTM, Remove this as soon as the Like feature is made
-				$like_unlike = 'like';
-				
+		$like_unlike = $l['like'];
+		
 		$key = null;
+		
+		
 		// The loop for Wall_Posts
-		while( $i = mysql_fetch_assoc($qu) )
+		foreach( $posts as $k => $v )
 		{
+			
 			$st = '';
+			$st .= '<ul class="reps">';
 			
-			
-			if( !empty($i['wpr_id'] ) )
+			// $v[0]['post2'] != null , then this post has replies in it
+			if($v[0]['post2'] != null )
 			{
-				
-				// The Query for Wall_Posts_Reply
-				//$q11 = "SELECT * from `wall_post_reply` WHERE `wpr_id` IN ($i[wpr_id])";
-				$q11 = "SELECT * from `wall_post_reply` `wpr` JOIN `users` `u` ON `wpr`.`wpr_by_uid`=`u`.`uid` WHERE `wpr_id` IN ($i[wpr_id])";
-				$res = db_query($q11);
-				
-				$st .= '<ul class="reps">';
 				// The Loop for Wall_Posts_Reply
-				while( $row = mysql_fetch_assoc($res) )
+				foreach($v as $kk => $vv)
 				{
 					
-					/* Commenting out FTM(for the moment) 
-					 * 
 					// For getting whether this wpr_id is liked by the user,
 					// and then unsetting it from the temporary array
 					// If key exists, then show unlike & unset key
-					if( $key = array_search($i['wp_id'], $u_wpr ) )
+					if( isset($likes[$vv['id2']]) )
 					{
-						$like_unlike = $l['unlike'];
-						unset($u_wpr[$key]);
+						
+						$count = count($likes[$k]);
+						
+						//if( $key = array_search($i['wp_id'], $u_wpr ) )
+						if( in_array( $user['uid'], $likes[$vv['id2']] ) )
+						{
+							$like_unlike = $l['unlike'];
+							unset($likes[$k]);
+						}
+						else
+						{
+							// Else if key does not exists, show like, 
+							// which means this hasn't been liked by the user yet, so show like.
+							$like_unlike = $l['like'];
+						}
 					}
 					else
+					{
 						// Else if key does not exists, show like, 
 						// which means this hasn't been liked by the user yet, so show like.
 						$like_unlike = $l['like'];
+					}
 					
-					*/
-					
+					$date = date("g:i a d-F-Y", $vv['date2'] );
 					
 					//$st .= "<li style='decoration: none;'>(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]</li>";
-					$st .= "<li style='decoration: none;'><a href=$globals[ind]action=viewProfile&uid=$row[uid]><img title=$row[username] src={$imgFolder['uploaded']['vsmall']}/$row[uid]$imgType></a> $row[wpr_content]
-					<a href=$globals[ind]action=$like_unlike&uid=$uid&post=$i[wpr_id]&type=wpr>$like_unlike </a>
+					$st .= "<li style='decoration: none;'><a href=$globals[ind]action=viewProfile&uid=$vv[by_uid2]><img title=$vv[username] src={$imgFolder['uploaded']['vsmall']}/$vv[by_uid2]$imgType></a> $vv[post2]
+					<span><small><a href=$globals[ind]action=$like_unlike&uid=$user[uid]&post=$vv[id2]&type=wpr>$like_unlike</a> $date</small></span>
 					</li>";
-//					$st .= "<br /><br />(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]";
+	//					$st .= "<br /><br />(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]";
 				}
 				$st .= '</ul>';
+			}
+			
+			// Doing this here, bcos if we do it up,
+			// this gets overridden by another such $like_unlike block.
+			/* Commenting out FTM(for the moment)  */
+			// For getting whether this wpr_id is liked by the user,
+			// and then unsetting it from the temporary array
+			// If key exists, then show unlike & unset key
+			if( isset($likes[$k]) )
+			{
 				
+				$count = count($likes[$k]);
+				
+				//if( $key = array_search($i['wp_id'], $u_wpr ) )
+				if( in_array( $user['uid'], $likes[$k] ) )
+				{
+					$like_unlike = $l['unlike'];
+					unset($likes[$k]);
+				}
+				else
+				{
+					// Else if key does not exists, show like, 
+					// which means this hasn't been liked by the user yet, so show like.
+					$like_unlike = $l['like'];
+				}
+			}
+			else
+			{
+				// Else if key does not exists, show like, 
+				// which means this hasn't been liked by the user yet, so show like.
+				$like_unlike = $l['like'];
 			}
 			
 			// $cssTrClassNm & $cssTdClassNm defined here
@@ -185,20 +230,45 @@ function wall_theme()
 			// If this post id in present in the $user['likes'] array, then show unlike, else show like 
 			////$like_unlike = ( !in_array($i['wp_id'], $user['likes'] ) $l['like'] :  $l['unlike'] );
 			
+			// The kind of $posts array() thats coming with the query,
+			// We know that, Wall Post & First Wall_Post_Reply both shud be taken from Index 0
+			// So, We'll take the Wall Post from the First Index, Index 0 of $posts array(),
+			// & the Replies (Wall Post Replies) the first one also, from Index 0
+			// & then the Rest of the Replies from the consecutive Indexes of $posts array()
 			// $cssTrClassNm & $cssTdClassNm defined just above
 			$str .= '
 				<tr '.$cssTrClassNm.'>
-					<td '.$cssTdClassNm.' valign="top"><a href='.$globals['ind'].'action=viewProfile&uid='.$i['uid'].'>'.$i['username'].'</a></td>
-					<td '.$cssTdClassNm.' id="wp_post">'.$i['wp_post'].'
-					<a href="'.$globals['ind'].'action=addReply&uid='.$uid.'&post='.$i['wp_id'].'">'.$l['add_rep'].'</a> 
-					<a href="'.$globals['ind'].'action='.$like_unlike.'&uid='.$uid.'&post='.$i['wp_id'].'&type=wp">'. $like_unlike .'</a>
-					'.$st.'
+				
+					<td '.$cssTdClassNm.' valign="top">
+						<a href='.$globals['ind'].'action=viewProfile&uid='.$v[0]['by_uid1'].'>'.$v[0]['username'].'</a>
 					</td>
-					<td '.$cssTdClassNm.'>'.date("g:i a d-F-Y", $i['wp_date'] ).'
+					
+					<td '.$cssTdClassNm.' id="wp_post">' .
+						$v[0]['post1'] .
+						'<span>
+							<small>
+								<a href="'.$globals['ind'].'action=addReply&uid='.$user['uid'].'&post='.$v[0]['id1'].'">' .
+									$l['add_rep'] .
+								'</a>
+								<a href="'.$globals['ind'].'action='.$like_unlike.'&uid='.$user['uid'].'&post='.$v[0]['id1'].'&type=wp">' .
+									$like_unlike .
+								'</a>
+							</small>
+						</span>
+						' .
+						// The replies get added here
+						$st .
+						'
 					</td>
+					
+					<td '.$cssTdClassNm.'>'.
+						date("g:i a d-F-Y", $v[0]['date1'] ).'
+					</td>
+					
 					<td '.$cssTdClassNm.'>
-						<input type="checkbox" id="wp_posts['.$i['wp_id'].']" name="wp_posts[]" onclick="sel_all_chk_box(\'#select_all\', this.name, this)">
+						<input type="checkbox" id="wp_posts['.$v[0]['id1'].']" name="wp_posts[]" onclick="sel_all_chk_box(\'#select_all\', this.name, this)">
 					</td>
+					
 				</tr>
 				';
 				
@@ -255,115 +325,5 @@ function wall_theme()
 	
 }
 
-
-
-function topics_theme()
-{
-	global $globals, $mysql, $theme, $done, $errors, $l;
-	
-	// Get all data of the user, whether to allow 
-	// him to view or enter the board.
-	// user level, user permissions
-	global $user;
-	global $board, $replies;
-	global $qu;
-	global $board;
-	
-	echo '
-		<a href="'.$globals['ind'].'action=createTopic&board='.$_GET['board'].'">Create Topic</a>
-		
-		';
-	
-	echbr(2);
-	
-	echo '
-		<table border="1" width="90%">
-			<tr>
-				<td>Topic id</td>
-				<td>Topic Name </td>
-				<td>Started By </td>
-				<td>Created On </td>
-				<td>Last Post </td>
-			</tr>
-			';
-			
-	for( ; $i = mysql_fetch_assoc($qu); )
-	{
-		//printrr($i);
-		
-		echo '
-			<tr>
-				<td>
-					'.$i['tid'].'
-				</td>
-				<td> 
-					<a href="'.$globals['ind'].'action=topic&topic='.$i['tid'].'">'.$i['tname'].'</a><br /> <small>'.$i['tdesc']. '</small>
-				</td>
-				<td>
-					<a href="'.$globals['ind'].'action=viewProfile&id='.$i['tcreatedbyuid'].'">'.$i['tcreatedby'].'</a>
-				</td>
-				<td>
-					'.$i['tdate'].'
-				</td>
-			</tr>
-			';
-			
-	}
-			
-			
-			
-	echo '
-		</table>
-	';
-	
-	
-}
-
-function topicReplies_theme()
-{
-	
-	global $user;
-	global $board, $replies;
-	global $qu;
-	global $board;
-	
-	
-	echo '<a href="index.php?action=addReply&topic='.$_GET['topic'].'">add reply</a>';
-	
-	echbr(2);
-	
-	echo '
-		<table border="1" width="90%">
-			<tr>
-				<td>Reply No.</td>
-				<td>Subject </td>
-				<td> Body </td>
-				<td>Date </td>
-				<td>User Ip </td>
-			</tr>
-			';
-	
-	// echo date("g:i a d-F-Y", time() );
-	
-	while( $i = mysql_fetch_assoc($qu) )
-	{
-		echo '
-			<tr>
-				<td>'.$i['rid'].'</td>
-				<td>'.$i['rsubject'].'</td>
-				<td>(if we hav permision only then show, no-eidting button)<p align="right">edit</p>' . $i['rbody'].'</td>
-				<td>'.date("g:i a d-F-Y", $i['date'] ).'</td>
-				<td>'.$i['user_ip'].'</td>
-			</tr>
-			';
-	}
-	
-	
-	echo '
-		</table>
-		';
-	
-	
-}
 
 ?>

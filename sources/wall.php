@@ -11,16 +11,15 @@ function wall()
 	global $themedir, $theme, $l;
 	global $globals, $mysql, $theme, $done, $error, $errors;
 	global $user, $time;
-	global $qu, $reqPrivs;
+	global $reqPrivs;
 	global $imgFolder;
-	
-	//printrr($user);
+	// The array carrying the data
+	global $posts, $post_reps, $likes;
 	
 	$theme['name'] = 'wall';
 	$theme['call_theme_func'] = 'wall';
 	
 	
-	// 	echo ( $qu == 0 ) ? "yes" : "no" ? "under" : "not";
 	loadlang(); 
 	fheader('Wall');
 	
@@ -75,10 +74,6 @@ function wall()
 		{
 			$now = round( $time->scriptTime() ) ;
 			
-			/*
-			$qI = "INSERT INTO wall_post(`wp_on_uid`, `wp_by_uid`, `wp_post`, `wp_date`) 
-			VALUES ( $_GET[uid], $user[uid], '$reply', $now )";
-			*/
 			$qI = "INSERT INTO wall_post(`wp_on_uid`, `wp_by_uid`, `wp_post`, `wp_date`) 
 			VALUES ( $uid, $user[uid], '$reply', $now )";
 			$qI_e = db_query($qI);
@@ -86,109 +81,100 @@ function wall()
 		
 	}
 	
-	// $_GET[uid] below signifies, that on whose wall all the post are getting made
-	//$q = "SELECT * FROM `wall_post` `wp` JOIN `users` `u` ON `wp`.`wp_by_uid` = `u`.`uid` WHERE `wp`.`wp_on_uid`='$_GET[uid]' ORDER BY `wp`.`wp_date` DESC";
-	//$q = "SELECT * FROM `wall_post` `wp` JOIN `users` `u` ON `wp`.`wp_by_uid` = `u`.`uid` WHERE `wp`.`wp_on_uid`='$uid' ORDER BY `wp`.`wp_date` DESC";
-	$q = "SELECT * FROM `wall_post` `wp` JOIN `users` `u` ON `wp`.`wp_by_uid` = `u`.`uid` WHERE `wp`.`wp_on_uid`='$uid' AND `wp`.`deleted` != 1  ORDER BY `wp`.`wp_date` DESC";
+	// Ori
+	//$q = "SELECT * FROM `wall_post` `wp` JOIN `users` `u` ON `wp`.`wp_by_uid` = `u`.`uid` WHERE `wp`.`wp_on_uid`='$uid' AND `wp`.`deleted` != 1  ORDER BY `wp`.`wp_date` DESC";
+	
+	//$q = "SELECT `wp`.`wp_id`,  `wp`.`wp_on_uid`, `wp`.`wp_by_uid`, `wp`.`wp_post`, `wp`.`wp_date` , `u`.`uid`, `u`.`username` FROM `wall_post` `wp` JOIN `users` `u` ON `wp`.`wp_by_uid` = `u`.`uid` WHERE `wp`.`wp_on_uid`='$uid' AND `wp`.`deleted` != 1  ORDER BY `wp`.`wp_date` DESC";
+	
+	/* This Wrong 
+	$q = "
+	SELECT  `wpwpr1`.`id` ,  `wpwpr1`.`on_uid` ,  `wpwpr1`.`by_uid` ,  `wpwpr1`.`post` ,  `wpwpr1`.`date` ,  `u`.`uid` ,  `u`.`username` 
+	FROM  `wall_posts_wall_post_replies`  `wpwpr1` 
+	INNER JOIN  `wall_posts_wall_post_replies`  `wpwpr2` ON  `wpwpr1`.`id` =  `wpwpr2`.`post_id` 
+	LEFT JOIN  `users`  `u` ON  `wpwpr1`.`by_uid` =  `u`.`uid` 
+	WHERE  `wpwpr1`.`on_uid` = $uid
+	AND  `wpwpr1`.`status` = 1
+	ORDER BY  `wpwpr1`.`date` DESC";
+	*/
+	
+	// status = active. FTM
+	$status = 1;
+	
+	/* Slight change, This Right */
+	$q = "
+	SELECT  `wpwpr1`.`id` `id1` ,  `wpwpr1`.`on_uid` ,  `wpwpr1`.`by_uid` `by_uid1` , IFNULL(  `wpwpr1`.`post` , null ) `post1` ,  `wpwpr1`.`type` ,  `wpwpr2`.`id` `id2` , `wpwpr1`.`by_uid` `by_uid2`, IFNULL(  `wpwpr2`.`post` , null ) `post2` ,  `wpwpr2`.`type` ,  `wpwpr1`.`date` `date1` ,  `wpwpr2`.`date` `date2`,  `u`.`uid` , `u`.`username` 
+	FROM  `wall_posts_wall_post_replies`  `wpwpr1` 
+	LEFT JOIN  `wall_posts_wall_post_replies`  `wpwpr2` ON  `wpwpr2`.`post_id` =  `wpwpr1`.`id` 
+	LEFT JOIN  `users`  `u` ON  `u`.`uid` =  `wpwpr1`.`by_uid` 
+	WHERE  `wpwpr1`.`on_uid` = $uid
+	AND  `wpwpr1`.`status` = $status
+	ORDER BY  `wpwpr1`.`date` DESC 
+	";
 	$qu = db_query($q);
 	
-	//mail("vickyojha2@yahoo.com", "Hi Ashish", "Message for u buddy");
-	// printrr( $GLOBALS );
-	// printrr( $_SESSION );
+	$posts = array();
+	while($row = mysql_fetch_assoc($qu))
+	{
+		$posts[$row['id1']][] = $row;
+	}
 	
-}
-
-/*
-function topics()
-{
-	global $themedir, $l;
-	global $globals, $mysql, $theme, $done, $errors;
-	global $user;
-	global $qu; 
-	global $board;
+	//~echo 'posts:';
+	//~printrr($posts);
 	
-	$theme['name'] = 'board';
-	$theme['call_theme_func'] = 'topics';
+	// To get Likes, May have to add Status field, where status = 1 (active)
+	$q = "SELECT  `wpwpr`.`id` ,  `l`.`users_id` 
+	FROM  `wall_posts_wall_post_replies`  `wpwpr` 
+	JOIN  `like`  `l`  
+	WHERE  `l`.`wpwpr_id` =  `wpwpr`.`id` 
+	AND  `wpwpr`.`on_uid` = $uid";
+	$qu = db_query($q);
 	
-	loadlang($l = 'board');
-	
-	//$q1 = "SELECT `bname` FROM `board` WHERE `bid` = $_GET[board]";
-	$q1 = "SELECT * FROM `board` WHERE `bid` = $_GET[board] LIMIT 1";
-	$qu1 = mysql_query($q1);
-	$board = mysql_fetch_assoc($qu1);
-	
-	//printrr($board);
-	
-	// want to display the title as, General Discussion, 
-	// so fetching it from the DB, so made the previous query 
-	fheader($board['bname'] );
-	
-	// actual query to get users
-	$q = "SELECT * FROM `topics` WHERE `board_bid` = '$_GET[board]' ";
-	// $q = "SELECT * FROM `topics` WHERE `board_bid` = '$_GET[board]'";
-	// echo $q;
-	// firing another mysql_query, bcoz, 
-	// otherwise, mysql_fetch_array takes up 1st row of the query.
-	// firing query to be used in theme page
-	$qu = mysql_query($q);
-	
-	// Add new thing $board, 
-	// which will have the details of Board
+	$likes = array();
+	while ($lik = mysql_fetch_assoc($qu) )
+		$likes[$lik['id']][] = $lik['users_id'];
 	
 	
-	// Make query for all the threads in the Board
-	// with pagination,
-	// and all these details will go in $board
-	
-	
-	
-}
-
-function topicReplies()
-{
-	global $themedir, $l;
-	global $globals, $mysql, $theme, $done, $errors;
-	global $user;
-	global $qu; 
-	global $board;
-	
-	$theme['name'] = 'board';
-	$theme['call_theme_func'] = 'topicReplies';
-	
-	loadlang($l = 'board');
-	
-	fheader("Topic Replies to $_GET[topic]");
-	
-	//printrr( $user );
-	//printrr( debug_backtrace() );
-	
-	//
-	//$q2 = "select * from `topics` where `board_bid` = 2";
-	//$q2_2 = db_query($q2);
-		
-	// to show ip addresses in human readable format
-	///while($my = mysql_fetch_assoc($q2_2 ) )
-		///printrr( inet_ntop ($my['tcreatedbyuid_IPv4'] ) );
-	//
-	
-	$q = "SELECT * FROM `replies` WHERE `topic_tid` = ".$_GET["topic"];
-	$qu = mysql_query($q);
-	
-	
-	//echo date("g:i a d-F-Y");
-	
-	
-	// input time as (int) in DB, 
-	// and when pulling, read it & convert it into date string
-	//echo time();
-	
-	//printrr($_SERVER);
-	
-	
+	// This Query, To get wall_post_replies
+	// After the first above query, to get wall_post
+	// Just fire this one query to get all related wall post replies, 
+	// then take it in array,
+	// then try to match arrays
+	/*
+	SELECT * FROM `wall_post` `wp` , `wp_wpr` `ww` , `wall_post_reply` `wpr`
+	WHERE
+	`ww`.`wp_id` = `wp`.`wp_id` 
+	AND
+	`ww`.`wpr_id` = `wpr`.`wpr_id`
+	AND 
+	 `wp`.`wp_on_uid` = 3;
+	* 
+	* 
+	* This with INNER JOINS can also be used
+	* select s.name as Student, c.name as Course 
+		from student s
+		inner join bridge b on s.id = b.sid
+		inner join course c on b.cid  = c.id 
+		order by s.name 
+		* 
+	* */
+	// `users`.`uid`,
+	// AND `users`.`uid` = `wpr`.`wpr_by_uid`
+	//~$q = "
+	//~SELECT  `wp`.`wp_id` ,  `wpr`.`wpr_id` ,  `wpr`.`wpr_content` ,  `wpr`.`wpr_by_uid` ,  `wpr`.`wpr_date` ,`u`.`username`
+	//~FROM  `wall_post`  `wp` ,  `wp_wpr`  `ww` ,  `wall_post_reply`  `wpr` ,  `users`  `u` 
+	//~WHERE  `ww`.`wp_id` =  `wp`.`wp_id` 
+	//~AND  `ww`.`wpr_id` =  `wpr`.`wpr_id` 
+	//~AND  `u`.`uid` =  `wpr`.`wpr_by_uid` 
+	//~AND  `wp`.`wp_on_uid` = $uid
+	//~";
+	//~$qu = db_query($q);
+	//~$post_reps = array();
+	//~while($row = mysql_fetch_assoc($qu))
+	//~{
+		//~$post_reps[$row['wp_id']][] = $row;
+	//~}
 	
 	
 }
-
-*/
 
 ?>
