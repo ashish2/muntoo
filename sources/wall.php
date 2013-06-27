@@ -9,7 +9,7 @@ function wall()
 {
 	
 	global $themedir, $theme, $l;
-	global $globals, $mysql, $theme, $done, $error, $errors;
+	global $globals, $mysql, $theme, $done, $error, $errors, $notice;
 	global $user, $time;
 	global $reqPrivs;
 	global $imgFolder;
@@ -18,7 +18,6 @@ function wall()
 	
 	$theme['name'] = 'wall';
 	$theme['call_theme_func'] = 'wall';
-	
 	
 	loadlang(); 
 	fheader('Wall');
@@ -88,13 +87,13 @@ function wall()
 	
 	/* This Wrong 
 	$q = "
-	SELECT  `wpwpr1`.`id` ,  `wpwpr1`.`on_uid` ,  `wpwpr1`.`by_uid` ,  `wpwpr1`.`post` ,  `wpwpr1`.`date` ,  `u`.`uid` ,  `u`.`username` 
-	FROM  `wall_posts_wall_post_replies`  `wpwpr1` 
-	INNER JOIN  `wall_posts_wall_post_replies`  `wpwpr2` ON  `wpwpr1`.`id` =  `wpwpr2`.`post_id` 
-	LEFT JOIN  `users`  `u` ON  `wpwpr1`.`by_uid` =  `u`.`uid` 
-	WHERE  `wpwpr1`.`on_uid` = $uid
-	AND  `wpwpr1`.`status` = 1
-	ORDER BY  `wpwpr1`.`date` DESC";
+		SELECT  `wpwpr1`.`id` ,  `wpwpr1`.`on_uid` ,  `wpwpr1`.`by_uid` ,  `wpwpr1`.`post` ,  `wpwpr1`.`date` ,  `u`.`uid` ,  `u`.`username` 
+		FROM  `wall_posts_wall_post_replies`  `wpwpr1` 
+		INNER JOIN  `wall_posts_wall_post_replies`  `wpwpr2` ON  `wpwpr1`.`id` =  `wpwpr2`.`post_id` 
+		LEFT JOIN  `users`  `u` ON  `wpwpr1`.`by_uid` =  `u`.`uid` 
+		WHERE  `wpwpr1`.`on_uid` = $uid
+		AND  `wpwpr1`.`status` = 1
+		ORDER BY  `wpwpr1`.`date` DESC";
 	*/
 	
 	// status = active. FTM

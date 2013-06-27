@@ -430,6 +430,15 @@ add INDEX (`wpwpr_id`);
 alter table  `like` modify column `wpwpr_id` int(8) COMMENT '#wall_posts_wall_post_replies id liked by the user#'
 
 
+#added date 28-june-2013
+# added status column to like table, whether status is active or not active
+alter table `like` add column 
+(
+`status` INT(2) COMMENT '#Whether the like is Active or Not Active, 0-UnActive or 1-Active#'
+)
+
+# ^ Removed the above column
+ALTER TABLE  `like` DROP  `status` ;
 
 
 

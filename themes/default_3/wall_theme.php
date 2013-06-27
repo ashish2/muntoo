@@ -5,7 +5,7 @@
 
 function wall_theme()
 {
-	global $globals, $mysql, $theme, $done, $error, $errors, $l;
+	global $globals, $mysql, $theme, $done, $error, $errors, $notice, $l;
 	
 	// Get all data of the user, whether to allow 
 	// him to view or enter the board.
@@ -27,6 +27,10 @@ function wall_theme()
 		//echo $err_img;
 		error_handler($error);
 	}
+	
+	notice_handler($notice);
+	
+	
 	// you dont have to pass an imgname everytime this way,
 	// just have an error_span class, and in css u have the error_span class background-image
 	//error_handler($error, 'error-icon.png');
@@ -184,7 +188,12 @@ function wall_theme()
 					
 					//$st .= "<li style='decoration: none;'>(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]</li>";
 					$st .= "<li style='decoration: none;'><a href=$globals[ind]action=viewProfile&uid=$vv[by_uid2]><img title=$vv[username] src={$imgFolder['uploaded']['vsmall']}/$vv[by_uid2]$imgType></a> $vv[post2]
-					<span><small><a href=$globals[ind]action=$like_unlike&uid=$user[uid]&post=$vv[id2]&type=wpr>$like_unlike</a> $date</small></span>
+					<span>
+						<small>
+							$date
+							<a href=$globals[ind]action=emotion&e=like&uid=$user[uid]&post=$vv[id2]>".ucfirst($like_unlike)."</a>
+						</small>
+						</span>
 					</li>";
 	//					$st .= "<br /><br />(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]";
 				}
@@ -226,6 +235,7 @@ function wall_theme()
 			$cssTrClassNm = 'class="dth-wp_post-tr"';
 			$cssTdClassNm = 'class="dth-wp_post"';
 			
+			$postId = $v[0]['id1'];
 			// Like - Unlike
 			// If this post id in present in the $user['likes'] array, then show unlike, else show like 
 			////$like_unlike = ( !in_array($i['wp_id'], $user['likes'] ) $l['like'] :  $l['unlike'] );
@@ -247,15 +257,21 @@ function wall_theme()
 						$v[0]['post1'] .
 						'<span>
 							<small>
-								<a href="'.$globals['ind'].'action=addReply&uid='.$user['uid'].'&post='.$v[0]['id1'].'">' .
+								<a href="'.$globals['ind'].'action=addReply&post='.$v[0]['id1'].'">' .
 									$l['add_rep'] .
 								'</a>
-								<a href="'.$globals['ind'].'action='.$like_unlike.'&uid='.$user['uid'].'&post='.$v[0]['id1'].'&type=wp">' .
-									$like_unlike .
-								'</a>
+								<a href="'.$globals['ind'].'action=emotion&e='.$like_unlike.'&post='.$v[0]['id1'].'">' .
+									ucfirst($like_unlike) .
+								'</a>'.
+								"
+								<a href=$globals[ind]action=emotion&e=love&post=$postId>(Love)</a>
+								<a href=$globals[ind]action=emotion&e=fuck&post=$postId>(Fuck)</a>
+								<a href=$globals[ind]action=emotion&e=no_emo&post=$postId>(No emotion)</a>
+								<a href=$globals[ind]action=emotion&e=some_rand_emo&post=$postId>(Some Random Emotion)</a>
+								<a href=$globals[ind]action=emotion&e=huh&post=$postId>(Huh!?)</a> 
 							</small>
 						</span>
-						' .
+						" .
 						// The replies get added here
 						$st .
 						'

@@ -287,7 +287,7 @@ function main()
 			'createTopic' => array('addReply', 'createTopic', '', 3 => array('Board', 'Create Topic' ) ),
 			'friendsList' => array('friends', 'friendsList', '', 3 => array('Profile', 'Friends List' ) ),
 			
-			'like' => array( 'like', 'like', 'Like', 3 => array('', '' ) ),
+			'emotion' => array( 'emotion', 'emotion', 'Emotion', 3 => array('', '' ) ),
 			
 			'listUsers' => array('list', 'listUsers', '', 3 => array('Profile', 'List Users' )  ),
 			'login' => array('login', 'login', '', 3 => array('Login', 'Login' ) ),

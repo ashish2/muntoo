@@ -38,12 +38,7 @@ function createTopic()
 	// post cant be made by same IP) that made the post 
 	// 
 	
-		/*
-		echo 111;
-		printrr( $user);
-		exit();
-		*/
-		
+	
 	if(isset($_POST["reply_sub"]) )
 	{
 		
