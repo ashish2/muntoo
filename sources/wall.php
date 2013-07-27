@@ -109,13 +109,28 @@ function wall()
 	AND  `wpwpr1`.`status` = $status
 	ORDER BY  `wpwpr1`.`date` DESC 
 	";
-	$qu = db_query($q);
+	
+	$c1m = md5($q);
+	// Initiating cache
+	$c1 = new Cache($c1m);
 	
 	$posts = array();
-	while($row = mysql_fetch_assoc($qu))
+	if ( $c1->exProcGet() )
 	{
-		$posts[$row['id1']][] = $row;
+		echo 111;
+		$posts = (array) $c1->contents;
 	}
+	else
+	{
+		echo 222;
+		$qu = db_query($q);
+		while($row = mysql_fetch_assoc($qu))
+		{
+			$posts[$row['id1']][] = $row;
+		}
+	}
+	// Write the results as json string in cache file
+	$c1->exProcWrite($posts);
 	
 	//~echo 'posts:';
 	//~printrr($posts);
@@ -126,12 +141,26 @@ function wall()
 	JOIN  `like`  `l`  
 	WHERE  `l`.`wpwpr_id` =  `wpwpr`.`id` 
 	AND  `wpwpr`.`on_uid` = $uid";
-	$qu = db_query($q);
+	
 	
 	$likes = array();
-	while ($lik = mysql_fetch_assoc($qu) )
-		$likes[$lik['id']][] = $lik['users_id'];
 	
+	$c2m = md5($q);
+	$c2 = new Cache( $c2m);
+	if ( $c2->exProcGet() )
+	{
+		echo 333;
+		$likes = (array) $c2->contents;
+	}
+	else
+	{
+		echo 444;
+		$qu = db_query($q);
+		while ($lik = mysql_fetch_assoc($qu) )
+			$likes[$lik['id']][] = $lik['users_id'];
+	}
+	// Write the results as json string in cache file
+	$c2->exProcWrite($likes);
 	
 	// This Query, To get wall_post_replies
 	// After the first above query, to get wall_post

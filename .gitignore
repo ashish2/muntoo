@@ -4,6 +4,8 @@ themes/smashing_magazine
 
 # Ignoring images folder
 images/
+dumps/
+logs/
 
 ## Ignoring New modules for the moment(ftm)
 # Essestially wanting to ignore nntp module here

@@ -72,6 +72,8 @@ include_once($rootdir . '/functions/wam.php');
 include_once($rootdir . '/functions/morefunc.php');
 include_once($rootdir . '/functions/func_rel_to_db.php');
 
+include_once( $rootdir.'/classes/Cache.php');
+
 // Setting default timezone
 date_default_timezone_set('Europe/London');
 
@@ -305,8 +307,8 @@ function main()
 			'wall' => array( 'wall', 'wall', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),
 			
 			'forgot_password' => array( 'forgot_password', 'forgot_password', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),
-			'nntp' => array( 'nntp/nntp', 'nntp', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),
-			
+			'nntp' => array( 'nntp/nntp', 'nntp', '', 3 => array('Profile', 'The Wall (stands Tall)' )
+			  ),
 			
 			// /opt/lampp/htdocs/www/forums/myForum/3/sources/register.php
 			// /opt/lampp/htdocs/www/forums/myForum/3/sources/login.php

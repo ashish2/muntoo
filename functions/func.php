@@ -510,6 +510,7 @@ function setSomeDefaults_User()
 
 //************************************************************//
 //   Everything to do with Files //
+//   File Functions //
 //************************************************************//
 
 function openAndWriteInFile( $filename, $string, $mode )
@@ -541,6 +542,7 @@ function changeFNWtTdysTs( $filename )
 
 //************************************************************//
 //   Everything to do with Files ends //
+//   File Functions ends //
 //************************************************************//
 
 //************************************************************//
