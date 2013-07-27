@@ -68,13 +68,19 @@ function wall()
 	{
 		
 		$reply = mandff(check_input( $_POST['post'] ), 'Wall Post Empty' );
+		// type =1 as it is a Wall Post so, type=1
+		$type = 1;
+		// FTM, status = Active.
+		$status = 1;
 		
 		if(empty($error) && empty($errors))
 		{
 			$now = round( $time->scriptTime() ) ;
 			
-			$qI = "INSERT INTO wall_post(`wp_on_uid`, `wp_by_uid`, `wp_post`, `wp_date`) 
-			VALUES ( $uid, $user[uid], '$reply', $now )";
+			// Ori
+			// $qI = "INSERT INTO wall_post(`wp_on_uid`, `wp_by_uid`, `wp_post`, `wp_date`) VALUES ( $uid, $user[uid], '$reply', $now )";
+			// New Table wpwpr
+			$qI = "INSERT INTO wall_posts_wall_post_replies(`on_uid`, `by_uid`, `post`, `date`, `type`, `status`) VALUES ( $uid, $user[uid], '$reply', $now, $type, $status )";
 			$qI_e = db_query($qI);
 		}
 		
@@ -96,7 +102,7 @@ function wall()
 		ORDER BY  `wpwpr1`.`date` DESC";
 	*/
 	
-	// status = active. FTM
+	// FTM, status = active. Posts & Replies which are Active.
 	$status = 1;
 	
 	/* Slight change, This Right */
@@ -104,7 +110,7 @@ function wall()
 	SELECT  `wpwpr1`.`id` `id1` ,  `wpwpr1`.`on_uid` ,  `wpwpr1`.`by_uid` `by_uid1` , IFNULL(  `wpwpr1`.`post` , null ) `post1` ,  `wpwpr1`.`type` ,  `wpwpr2`.`id` `id2` , `wpwpr1`.`by_uid` `by_uid2`, IFNULL(  `wpwpr2`.`post` , null ) `post2` ,  `wpwpr2`.`type` ,  `wpwpr1`.`date` `date1` ,  `wpwpr2`.`date` `date2`,  `u`.`uid` , `u`.`username` 
 	FROM  `wall_posts_wall_post_replies`  `wpwpr1` 
 	LEFT JOIN  `wall_posts_wall_post_replies`  `wpwpr2` ON  `wpwpr2`.`post_id` =  `wpwpr1`.`id` 
-	LEFT JOIN  `users`  `u` ON  `u`.`uid` =  `wpwpr1`.`by_uid` 
+	LEFT JOIN  `users` `u` ON  `u`.`uid` =  `wpwpr1`.`by_uid` 
 	WHERE  `wpwpr1`.`on_uid` = $uid
 	AND  `wpwpr1`.`status` = $status
 	ORDER BY  `wpwpr1`.`date` DESC 
@@ -117,12 +123,10 @@ function wall()
 	$posts = array();
 	if ( $c1->exProcGet() )
 	{
-		echo 111;
 		$posts = (array) $c1->contents;
 	}
 	else
 	{
-		echo 222;
 		$qu = db_query($q);
 		while($row = mysql_fetch_assoc($qu))
 		{
@@ -149,12 +153,10 @@ function wall()
 	$c2 = new Cache( $c2m);
 	if ( $c2->exProcGet() )
 	{
-		echo 333;
 		$likes = (array) $c2->contents;
 	}
 	else
 	{
-		echo 444;
 		$qu = db_query($q);
 		while ($lik = mysql_fetch_assoc($qu) )
 			$likes[$lik['id']][] = $lik['users_id'];

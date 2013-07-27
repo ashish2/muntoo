@@ -220,11 +220,34 @@ function addReply()
 			// $user['uid'] = 1;
 			
 			// 
+			// Ori
+			/*
 			$q1I = "INSERT INTO `wall_post_reply`(
 			`wpr_content`, `wpr_by_uid`, `wpr_date`, `wp_id`
 			) 
 			VALUES(
 			'$reply', $user[uid], $t, $_GET[post]
+			)";
+			*/
+			
+			// SELECTING the uid on whom this post was first posted
+			$q = "SELECT `on_uid` FROM `wall_posts_wall_post_replies` WHERE `id`=$_GET[post] LIMIT 1";
+			$qe = db_query($q);
+			$row = mysql_fetch_assoc($qe);
+			$on_uid = $row['on_uid'];
+			
+			// FTM, type=2 as it is a Reply (Wall_Post_Reply )
+			$type =2;
+			// FTM, Status=1(active)
+			$status =1;
+			// Now
+			// As new table wpwpr is used now.
+			// on_uid column not getting used for the moment.
+			$q1I = "INSERT INTO `wall_posts_wall_post_replies`(
+			`by_uid`, `post`, `date`, `post_id`, `type`, `status`
+			) 
+			VALUES(
+			$user[uid], '$reply', $t, $_GET[post], $type, $status
 			)";
 			
 			// These 2 lines  of code is also written above in the 
@@ -243,6 +266,8 @@ function addReply()
 			$q1E = db_query($q1I);
 			$id = mysql_insert_id();
 			
+			// This whole thing not need now, as wall_post is not used
+			/*
 			// First select all ids from wall_post table
 			// then execute this select query, then 
 			// Run Update query on the the wall post id, with 
@@ -259,6 +284,8 @@ function addReply()
 			
 			$qU1 = "UPDATE `wall_post` set `wpr_id`='$string' WHERE `wp_id`=$_GET[post]";
 			$res2 = db_query($qU1);
+			*/
+			
 			
 		}
 		
@@ -267,13 +294,18 @@ function addReply()
 //		header("Location:{$globals['boardurl']}{$globals['ind']}action=topic&topic={$_GET['topic']}");
 //		header("Location: index.php?action=topic&topic={$_GET['topic']}");
 		
+		if( isset( $_GET['uid'] ) )
+			$id = $GET['uid'];
+		else if ( isset( $user['uid'] ) )
+			$id = $user['uid'];
+		
 		if( is_bool( $q1E) )
 		{
 			if( isset($_GET['topic']) )
 				$notice['success'] = "Muaah :x, Reply posted successfully. You can go <a href='$globals[ind]action=topic&topic=$_GET[topic]'>HERE</a> to check your reply.";
 				//$notice['success'] = $l['success_topic'];
 			else // $_GET['post'] is set
-				$notice['success'] = "Muaah :x, Reply posted successfully. You can go <a href='$globals[ind]action=wall&uid=$_GET[uid]&post=$_GET[post]'>HERE</a> to check your post.";
+				$notice['success'] = "Muaah :x, Reply posted successfully. You can go <a href='$globals[ind]action=wall&uid=$id&post=$_GET[post]'>HERE</a> to check your post.";
 				//$notice['success'] = $l['success_wall'];
 		}
 		else
