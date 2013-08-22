@@ -2,10 +2,11 @@
 ignore
 themes/smashing_magazine
 
-# Ignoring images folder
+# Ignoring some folder
 images/
 dumps/
 logs/
+testing/
 
 ## Ignoring New modules for the moment(ftm)
 # Essestially wanting to ignore nntp module here
@@ -13,6 +14,7 @@ sources/modules
 themes/default/modules
 languages/en_US/modules
 classes/modules
+
 
 # Files
 config.php

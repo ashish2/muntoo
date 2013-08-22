@@ -141,16 +141,6 @@ function wall_theme()
 		
 		$key = null;
 		
-		// Page for emotion,
-		// action=emotion&e=love&post=$postId
-		// <a href=$globals[ind]action=emotion&e=love&post=$postId>(Love)</a>
-		$emotion_arr = array(
-			'love'=>'Love',
-			'f*ck'=>'F*ck',
-			'no_emo'=>'No Emotion',
-			'some_rand_emo'=>'Some Random Emotion',
-			'huh'=>'Huh!?',
-		);
 		
 		// The loop for Wall_Posts
 		foreach( $posts as $k => $v )
@@ -267,41 +257,23 @@ function wall_theme()
 						$v[0]['post1'] .
 						'<span>
 							<small>
-								<a href="'.$globals['ind'].'action=addReply&post='.$postId.'">' .
+								<a href="'.$globals['ind'].'action=addReply&post='.$v[0]['id1'].'">' .
 									$l['add_rep'] .
-								'</a> ';
-								
-								$sss = '';
-								$sss .= "<select>
-								<option value='0'>Select Emotion</option>
-								<option value='$postId-$like_unlike'>".ucfirst($like_unlike) ."</option>
-								";
-								
-								foreach($emotion_arr as $kkk => $vvv)
-									$sss .= "<option value='$postId-$kkk'>$vvv</option>";
-								
-								$sss .= '</select>';
-							
-						/*
-							$sss = '
-							<a href="'.$globals['ind'].'action=emotion&e='.$like_unlike.'&post='.$postId.'">' .
-								ucfirst($like_unlike) .
-							'</a>' . 
-							"
-							<a href=$globals[ind]action=emotion&e=love&post=$postId>(Love)</a>
-							<a href=$globals[ind]action=emotion&e=fuck&post=$postId>(Fuck)</a>
-							<a href=$globals[ind]action=emotion&e=no_emo&post=$postId>(No emotion)</a>
-							<a href=$globals[ind]action=emotion&e=some_rand_emo&post=$postId>(Some Random Emotion)</a>
-							<a href=$globals[ind]action=emotion&e=huh&post=$postId>(Huh!?)</a>
-							";
-						*/
-						
-						$sss .= "</small>
-						</span>";
-						
-						$str .= $sss .
+								'</a>
+								<a href="'.$globals['ind'].'action=emotion&e='.$like_unlike.'&post='.$v[0]['id1'].'">' .
+									ucfirst($like_unlike) .
+								'</a>'.
+								"
+								<a href=$globals[ind]action=emotion&e=love&post=$postId>(Love)</a>
+								<a href=$globals[ind]action=emotion&e=fuck&post=$postId>(Fuck)</a>
+								<a href=$globals[ind]action=emotion&e=no_emo&post=$postId>(No emotion)</a>
+								<a href=$globals[ind]action=emotion&e=some_rand_emo&post=$postId>(Some Random Emotion)</a>
+								<a href=$globals[ind]action=emotion&e=huh&post=$postId>(Huh!?)</a> 
+							</small>
+						</span>
+						" .
 						// The replies get added here
-						$st . 
+						$st .
 						'
 					</td>
 					

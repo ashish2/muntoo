@@ -469,7 +469,7 @@ function errorLogging($array = array(), $format="s_s")
 
 function setSomeDefaults_User()
 {
-	global $user;
+	global $user, $globals;
 	
 	// This line will overwrite any $user assignement before this function, 
 	$user = ( isset($_SESSION['user'] ) ? $_SESSION['user'] : array() );
@@ -481,17 +481,14 @@ function setSomeDefaults_User()
 			$user[$k] = $_SESSION['user'][$k];
 	*/
 	
+	// FTM 
+	$user['theme_type'] = $globals['user']['theme_type'];
+	
 	// a few things that can be used in the setSomeDefaults function, or else,
 	// supposed to be used from the select query for user from DB
 	// REMOVE IT LATER, bcoz u have to take this values from DB
 	$user['ip'] = $_SERVER['REMOTE_ADDR'];
 	
-	// Temporary setting theme as 'smashing_magazine', will be removed later
-	$user['theme_type'] = 'default';
-	// Ori
-	$user['theme_type'] = 'default_2';
-	// FTM
-	$user['theme_type'] = 'default_3';
 	
 	//$user['theme_type'] = 'smashing_magazine';
 	//$user['theme_type'] = 'theme_4';

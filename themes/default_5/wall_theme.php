@@ -37,6 +37,9 @@ function wall_theme()
 	
 	
 	$str = '';
+	$str = '
+		<div class="main">
+	';
 	
 	/*
 	$str .= '
@@ -99,27 +102,26 @@ function wall_theme()
 	
 	if( !empty($posts) && is_array($posts) )
 	{
+		//~$str .= '
+		//~<center>
+			//~<table class="disp_table" id="disp_table" width="90%">
+				//~<thead>
+					//~<tr>
+						//~<th class="dt-header">By</th>
+						//~<th class="dt-header" width="60%" valign="middle" align="center">'.$l['post'].'</th>
+						//~<th class="dt-header" width="20%">'.$l['date'].'</th>
+						//~<th class="dt-header" width="5%">
+						//~<input type="checkbox" id="select_all" onclick="sel_all_chk_box(\'#select_all\', \'wp_posts[]\')">
+							//~Select All
+						//~</th>
+					//~</tr>
+				//~</thead>
+				//~';
 		
-		
-		$str .= '
-		<center>
-			<table class="disp_table" id="disp_table" width="90%">
-				<thead>
-					<tr>
-						<th class="dt-header">By</th>
-						<th class="dt-header" width="60%" valign="middle" align="center">'.$l['post'].'</th>
-						<th class="dt-header" width="20%">'.$l['date'].'</th>
-						<th class="dt-header" width="5%">
-						<input type="checkbox" id="select_all" onclick="sel_all_chk_box(\'#select_all\', \'wp_posts[]\')">
-							Select All
-						</th>
-					</tr>
-				</thead>
-				';
-		
-		// http://localhost/www/forums/myForum/3/index.php?action=addReply&topic=1
-		// echo date("g:i a d-F-Y", time() );
-		
+		$str .= "
+			<div class='comments'>
+				<ol class='commentlist'>
+			";
 		
 		// getting $uid
 		$uid = ( isset($_GET['uid'] ) ? (int) check_input( $_GET['uid'] ) : $user['uid'] );
@@ -242,7 +244,7 @@ function wall_theme()
 			}
 			
 			// $cssTrClassNm & $cssTdClassNm defined here
-			$cssTrClassNm = 'class="dth-wp_post-tr"';
+			$cssTrClassNm = 'class="dth-wp_post-comment"';
 			$cssTdClassNm = 'class="dth-wp_post"';
 			
 			$postId = $v[0]['id1'];
@@ -257,19 +259,36 @@ function wall_theme()
 			// & then the Rest of the Replies from the consecutive Indexes of $posts array()
 			// $cssTrClassNm & $cssTdClassNm defined just above
 			$str .= '
-				<tr '.$cssTrClassNm.'>
-				
-					<td '.$cssTdClassNm.' valign="top">
-						<a href='.$globals['ind'].'action=viewProfile&uid='.$v[0]['by_uid1'].'>'.$v[0]['username'].'</a>
-					</td>
+				<li '.$cssTrClassNm.'>
+					<article>
+						<footer class="comment-meta">
+							<div class="comment-atuhor vcard">
+								<span class="fn">
+									<a href='.$globals['ind'].'action=viewProfile&uid='.$v[0]['by_uid1'].'>'.$v[0]['username'].'</a>
+								</span>
+								
+								<a class="date" href="#">'.
+									date("g:i a d-F-Y", $v[0]['date1'] ).'
+								</a>
+								
+							</div>
+						</footer>
 					
-					<td '.$cssTdClassNm.' id="wp_post">' .
-						$v[0]['post1'] .
-						'<span>
+					<div class ="comment-content">
+						<p '.$cssTdClassNm.' id="wp_post">
+							' . $v[0]['post1'] . '
+						</p>
+					</div>
+					
+					<div class="reply">
 							<small>
 								<a href="'.$globals['ind'].'action=addReply&post='.$postId.'">' .
 									$l['add_rep'] .
-								'</a> ';
+								'</a> 
+								
+								
+					
+					';
 								
 								$sss = '';
 								$sss .= "<select>
@@ -281,43 +300,29 @@ function wall_theme()
 									$sss .= "<option value='$postId-$kkk'>$vvv</option>";
 								
 								$sss .= '</select>';
-							
-						/*
-							$sss = '
-							<a href="'.$globals['ind'].'action=emotion&e='.$like_unlike.'&post='.$postId.'">' .
-								ucfirst($like_unlike) .
-							'</a>' . 
-							"
-							<a href=$globals[ind]action=emotion&e=love&post=$postId>(Love)</a>
-							<a href=$globals[ind]action=emotion&e=fuck&post=$postId>(Fuck)</a>
-							<a href=$globals[ind]action=emotion&e=no_emo&post=$postId>(No emotion)</a>
-							<a href=$globals[ind]action=emotion&e=some_rand_emo&post=$postId>(Some Random Emotion)</a>
-							<a href=$globals[ind]action=emotion&e=huh&post=$postId>(Huh!?)</a>
-							";
-						*/
 						
 						$sss .= "</small>
-						</span>";
+								</span>
+								
+					<span '.$cssTdClassNm.'>
+						<input type='checkbox' id='wp_posts[$v[0][id1]]' name='wp_posts[]' onclick='sel_all_chk_box(\'#select_all\', this.name, this)'>
+						</span>
+						
+							</div>
+						";
 						
 						$str .= $sss .
 						// The replies get added here
 						$st . 
 						'
-					</td>
 					
-					<td '.$cssTdClassNm.'>'.
-						date("g:i a d-F-Y", $v[0]['date1'] ).'
-					</td>
-					
-					<td '.$cssTdClassNm.'>
-						<input type="checkbox" id="wp_posts['.$v[0]['id1'].']" name="wp_posts[]" onclick="sel_all_chk_box(\'#select_all\', this.name, this)">
-					</td>
-					
-				</tr>
+					</article>
+				</li>
 				';
 				
 		}
 		
+		/*
 		$str .= '
 				<tr '.$cssTrClassNm.'>
 					<td '.$cssTdClassNm.' valign="top">
@@ -335,10 +340,14 @@ function wall_theme()
 								Delete
 							</option>
 						</select>
-					</td>
-				</tr>
-			</table>
-			</center>
+					</td>';
+					
+			*/
+			
+					
+			
+				$str .= '</ol>
+			</div>
 			';
 			
 	}
@@ -361,6 +370,9 @@ function wall_theme()
 	<div class="test">This is a box</div>
 	';
 	*/
+	
+	$str .= '</div>';
+	// div "main" ends
 	
 	//echo $str . $sss;
 	echo $str;

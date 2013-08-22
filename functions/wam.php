@@ -17,12 +17,19 @@ merging the array
 //  id	mutual_friend		profile_visits			wall_posts		like			share			album_visits			weight_amount
 //  1				1									5									5					10				20					40									1
 
-// so how does weight does 1 quantity of each have,
+// so how much weight does a quantity(1 unit) of each have,
 // for .eg. 1 mutual_friend has weight 1, 1 profile_visits has weight 0.2, and so on
 // so, over here in the below array, 
 // quantity is constant, 1 for each, mutual_friend, profile_visits, but weight differs.
 // So, quantity => weight table, 1 unit of each quantity has how much weight
 /*
+ * // Calculating Weights, Importance of an Action:
+ * Try Calculate the actualy weight by an algorithm, 
+ * which takes in the frequency of the actions (for eg. like, share)
+ * so, how frequent is the action, 
+ * and therefore assigning Importance to an action.
+ * Mostly, the more frequent the action is, 
+ * the Lesser the importance it might hold.
 */
 $weights = array( 
 	
