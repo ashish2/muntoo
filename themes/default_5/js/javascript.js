@@ -1,3 +1,6 @@
+// jQuery Needed
+// Works on top of jQuery
+
 // Algos
 
 // Select all checkbox Algo

@@ -1,4 +1,78 @@
 <?php
+
+// =======TF-IDF=======
+
+// tf-idf , The Formula
+function tf_idf($tf_arr, $idf_arr){
+	return  ( $tf_arr[0] / $tf_arr[1] ) * log10( $idf_arr[0] / $idf_arr[1] );
+}
+	
+// TF-IDF
+// Weights actually should be assigned dynamically, 
+// Like
+// The more the Frequency of an action occuring, the lesser the weight(comparative weight) it has
+// For eg. If, action like 'profile_visits' are happening too often, across the site, 
+// then, the weight of 'profile_visits' , may go even further down & fall below 0.2 , as 0.1, 0.05 whatever and so on...
+// depending upon the calculation
+/*
+ * Consider a document containing 100 words wherein the word cat appears 3 times. The term frequency (i.e., tf) for cat is then (3 / 100) = 0.03. Now, assume we have 10 million documents and the word cat appears in one thousand of these. Then, the inverse document frequency (i.e., idf) is calculated as log(10,000,000 / 1,000) = 4. Thus, the Tf-idf weight is the product of these quantities: 0.03 * 4 = 0.12.
+ * */
+// tf = nmber_times_word_appears_(1_document) / number_of_words_in_the_doc
+// idf = log( nmbr_of_documents_in_the_corpus / numbr_of_docs_in_which_word_appears)
+// tf-idf = tf*idf
+
+$tf_idf_arr = array (
+
+	'mutual_friend' => array (
+		// tf - Number of times action happens, and is present in the database
+		'tf' => array( 10, 100 ) , 
+		// idf - Number of documents in total, and numbr of docs where this action appeared
+		'idf' => array( 1000, 100 ) 
+	),
+	
+	'profile_visits' => array (
+		'tf' => array( 10, 100 ) , 
+		'idf' => array( 1000, 500 ) 
+	),
+	
+	'wall_posts' => array (
+		'tf' => array( 10, 100 ) , 
+		'idf' => array( 1000, 500 ) 
+	),
+	
+	'like' => array (
+		'tf' => array( 10, 100 ) , 
+		'idf' => array( 1000, 700 ) 
+	),
+	
+	'share' => array (
+		'tf' => array( 10, 100 ) , 
+		'idf' => array( 1000, 800 ) 
+	),
+	
+	'album_visits' => array (
+		'tf' => array( 10, 100 ) , 
+		'idf' => array( 1000, 900 ) 
+	),
+	
+);
+
+$tf_idf_weights = array();
+foreach( $tf_idf_arr as $k => $v) {
+	// The Formula
+	$tf_idf = tf_idf( $v['tf'], $v['idf'] ) ;
+	
+	$tf_idf = round( $tf_idf, 10);
+	
+	$tf_idf_weights[$k] = $tf_idf;
+}
+
+// print_r( $tf_idf_weights );
+
+
+
+// =======WAM=======
+
 // WAM: Weighted Average Mean Method
 
 // The tables/arrays are with reference to, user id 1, and the 2 users are not each other's friends yet, so that we can make friend suggestion starts
@@ -31,7 +105,7 @@ merging the array
  * Mostly, the more frequent the action is, 
  * the Lesser the importance it might hold.
 */
-$weights = array( 
+$weights = array(
 	
 	'weights' => array(
 		'mutual_friend' => 1,
