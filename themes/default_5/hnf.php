@@ -145,7 +145,7 @@ function fnav()
 				
 */	'			<td id="2" ><a class="nav_links" href="index.php?action=mainBoard"><span class="funny">/</span>Forums</a></td> 
 				<td id="3"><a class="nav_links" href="index.php?action=modifyprofile"><span class="funny">#</span>Modify Profile</a></td>
-				<td id="4"><a id="wall" class="nav_links" href="index.php?action=wall"><span class="funny">$</span>The Wall (stands Tall)</a></td>
+				<td id="4"><a id="wall" class="nav_links ajaxGetCall" href="index.php?action=wall"><span class="funny">$</span>The Wall (stands Tall)</a></td>
 				<td id="5"><a class="nav_links" href="index.php?action=listUsers"><span class="funny">^</span>List Users</a></td>
 				<td id="6"><a class="nav_links" href="index.php?action=viewProfile"><span class="funny">%</span>View Profile</a></td> ' .
 				( ( isset( $_SESSION['user']['uid'] ) && $_SESSION['user']['uid'] == 1 ) ? 
