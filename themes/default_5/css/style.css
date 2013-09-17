@@ -3,7 +3,6 @@
 /* Header */
 .Header
 {
-	font-size: 50;
 	padding: 1px;
 	/*
 	border-radius: 9px;
@@ -11,8 +10,13 @@
 	
 }
 
+.header_text
+{
+}
+
 .mainheader
 {
+	font-size: 50px;
     /*
     text-shadow: 5px 5px 5px rgb(23, 23, 23);
     color: silver;
@@ -108,7 +112,7 @@ table.nav
 
 .nav td
 {
-	font-size: 13;
+	font-size: 13px;
 	background-color: rgb(45, 45, 45);
 	padding: 9px;
 }
@@ -504,12 +508,14 @@ text-align: center;
 
 border: 1px solid rgba(0, 0, 0, 0.1);
 
-background-image: -webkit-gradient(linear,left top,left bottom,from(#f5f5f5  ),to(#f1f1f1  ));
-background-image: -webkit-linear-gradient(top,#f5f5f5  ,#f1f1f1  );
-background-image: -moz-linear-gradient(top,#f5f5f5  ,#f1f1f1  );
-background-image: -ms-linear-gradient(top,#f5f5f5  ,#f1f1f1  );
-background-image: -o-linear-gradient(top,#f5f5f5  ,#f1f1f1  );
-background-image: linear-gradient(top,#f5f5f5  ,#f1f1f1  );
+/*
+background-image: "-webkit-gradient(linear,left top,left bottom,from(#f5f5f5  ),to(#f1f1f1  ))";
+background-image: "-webkit-linear-gradient(top,#f5f5f5  ,#f1f1f1  )";
+background-image: "-moz-linear-gradient(top,#f5f5f5  ,#f1f1f1  )";
+background-image: "-ms-linear-gradient(top,#f5f5f5  ,#f1f1f1  )";
+background-image: "-o-linear-gradient(top,#f5f5f5 , #f1f1f1  )";
+background-image: "linear-gradient(top,#f5f5f5  ,#f1f1f1  )";
+*/
 
 cursor: pointer;
 

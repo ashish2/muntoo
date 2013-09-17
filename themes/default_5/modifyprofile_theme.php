@@ -55,7 +55,8 @@ function modifyprofile_theme()
 	$cssTrClassNm = 'class="dth-wp_post-tr"';
 	$cssTdClassNm = 'class="dth-wp_post"';
 	
-	echo '
+	$str = '';
+	$str = '
 		<form method="post" action="">
 			<table class="disp_table" id="disp_table" align="center" width="100%">
 				<tr '.$cssTrClassNm.'>
@@ -117,7 +118,7 @@ function modifyprofile_theme()
 								$ht .= "<option value='$k' $sel>$v</option>";
 							}
 							
-							echo $ht .'
+							$str .= $ht .'
 						</select>
 					</td>
 				</tr>
@@ -129,6 +130,9 @@ function modifyprofile_theme()
 			</center>
 		</form>
 	';
+	
+	echo $str;
+	
 	
 }
 

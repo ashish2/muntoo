@@ -1,9 +1,10 @@
 <?php
 
+// Avoiding Directory Travsersal here.
 if(!defined('F'))
 	die('You are doing the wrong thing son.');
 
-// the link of this friends.php will go in the viewProfile() page, or other pages, 
+// The link of this friends.php will go in the viewProfile() page, or other pages, 
 // and users can add other users as friends
 function emotion()
 {
@@ -26,6 +27,12 @@ function emotion()
 	if( !isset($_REQUEST["post"]) || empty( $_REQUEST["post"] ) )
 	{
 		$error[] = "No Post specified to be liked";
+		return false;
+	}
+	
+	if( !isset( $_SERVER['HTTP_REFERER'] ) )
+	{
+		$error[] = "Something is just not right here. :-O";
 		return false;
 	}
 	
@@ -54,9 +61,9 @@ function emotion()
 			$qu = db_query($q);
 			
 			// If $qu successful, then ' successfully liked'
-			// Log it in the log_table all about this action committed, page_name , function name, parameters passed etc
+			// Log it in the log_table all about this action committed, page_name , function name, parameters passed, time etc
 			if($qu)
-				$_SESSION['notice'][0] = 'Liked';
+				$_SESSION['notice'][0] = "Post: $postId Liked";
 			// else, There was a mysql error, log mysql errors into mysql_error table
 			else
 				$_SESSION['notice'][0] = 'Couldn\'t like the post, Please try again.';
@@ -107,6 +114,9 @@ function emotion()
 	// redirect to HTTP_REFERER page
 	// header("Location: " );
 	//header( "Location: $globals[ind]action=board" );
+	
+	
+	
 	header( "Location: $_SERVER[HTTP_REFERER]" );
 	exit();
 	
@@ -114,37 +124,5 @@ function emotion()
 
 
 /* All Likes, List, still to do */
-function friendsList()
-{
-	global $themedir;
-	global $globals, $mysql, $theme, $done, $error, $errors, $notice;
-	global $l;
-	global $time;
-	global $user;
-	global $par;
-	global $db, $qu, $show;
-	
-	$theme["name"] = "friends";
-	$theme["call_theme_func"] = "friendsList";
-	
-	loadlang();
-	
-	fheader("Friends List");
-	
-	$fl = 'friends_list';
-	
-	// getting friendsList of a user
-	$uid = ( isset($_GET["uid"] ) ? (int) check_input( $_GET["uid"] ) : $user["uid"] );
-	
-	$q1 = "SELECT * FROM `users` WHERE `uid` IN ($user[$fl]) ";
-	$qu = db_query( $q1 );
-	
-	if ( is_resource($qu) )
-		$show = 1;
-	else 
-		$notice['no_friends'] = 'No friends to show.';
-	
-	
-}
 
 ?>

@@ -22,8 +22,12 @@ function fheader($title='', $css='', $js='')
 	include_js_files();
 	
 	echo '
+	<!DOCTYPE html>
 		<html>
 		<head>
+			<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+			<meta content="utf-8" http-equiv="encoding">
+		
 		<title>
 		'.( !empty($title) ? $title : 'Muntoo' ).
 		'
@@ -34,8 +38,11 @@ function fheader($title='', $css='', $js='')
 		$jses = '';
 		foreach($theme['js_files'] as $k => $v)
 		{
-			$js_file = $globals['boardurl']."/$themedir/". $user['theme_type'] . '/js/'.$v;
-			$jses .= '<script language="javascript" type="text/javascript" src="'.$js_file.'"></script>';
+			if ( $v[0] != '#' )
+			{
+				$js_file = $globals['boardurl']."/$themedir/". $user['theme_type'] . '/js/'.$v;
+				$jses .= '<script language="javascript" type="text/javascript" src="'.$js_file.'"></script>';
+			}
 		}
 		
 		echo "$jses";
@@ -127,7 +134,7 @@ function fnav()
 	<center>
 		<table cellspacing="0" cellpadding="5" class="nav" id="nav">
 			<tr>
-				<td id="1"><a class="nav_links" href="index.php?"><span class="funny">@</span>Home</a></td> ' .
+				<td id="1"><a class="nav_links" href="index.php?"><span class="funny">@</span>Home</a></td>' .
 /*				<td>
 				<ul>
 				<a href="index.php?action=usercp">User Panel</a>
@@ -138,7 +145,7 @@ function fnav()
 				
 */	'			<td id="2" ><a class="nav_links" href="index.php?action=mainBoard"><span class="funny">/</span>Forums</a></td> 
 				<td id="3"><a class="nav_links" href="index.php?action=modifyprofile"><span class="funny">#</span>Modify Profile</a></td>
-				<td id="4"><a class="nav_links" href="index.php?action=wall"><span class="funny">$</span>The Wall (stands Tall)</a></td>
+				<td id="4"><a id="wall" class="nav_links" href="index.php?action=wall"><span class="funny">$</span>The Wall (stands Tall)</a></td>
 				<td id="5"><a class="nav_links" href="index.php?action=listUsers"><span class="funny">^</span>List Users</a></td>
 				<td id="6"><a class="nav_links" href="index.php?action=viewProfile"><span class="funny">%</span>View Profile</a></td> ' .
 				( ( isset( $_SESSION['user']['uid'] ) && $_SESSION['user']['uid'] == 1 ) ? 
@@ -152,6 +159,8 @@ function fnav()
 	'		</tr>
 		</table>
 	</center>
+	<!-- div class sabse-main Starts -->
+	<div class="sabse-main">
 	';
 	
 	// Keep the Permissions in Mind, 
@@ -171,6 +180,8 @@ function ffooter($time_elapsed=0)
 {
 	// <i>Muntoo</i>! <small>!&copy;</small>&nbsp;
 	$foot = '
+	</div>
+	<!-- div class sabse-main Ends -->
 		<table class="footer" width="100%">
 			<tr>
 			<td>

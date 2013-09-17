@@ -378,7 +378,6 @@ function wall_theme()
 	echo $str;
 	$str = null;
 	
-	
 }
 
 

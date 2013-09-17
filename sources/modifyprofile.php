@@ -13,9 +13,11 @@ function modifyprofile()
 	
 	$theme['name'] = 'modifyprofile';
 	$theme['call_theme_func'] = 'modifyprofile';
+	$theme['page_title'] = 'Modify Profile';
 	
+	//  loadlang() is in index.php now
 	loadlang();
-	
+	//  fheader() is in index.php now
 	fheader($title = 'Modify Profile');
 	
 	// if NOT logged in, then redirect to "index.php?action=login" , ONLY for the moment

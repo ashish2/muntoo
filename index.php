@@ -281,6 +281,7 @@ function main()
 			// 'ACTION' => array('PAGE', 'FUNC' [, 'Link Name'] [, Main Link Name for Navig] )
 			// Eg. 'ACTION Name' => array('PAGE Name', 'FUNC Name' [, 'Text of the Link'] [, Name of Main <ul> Link and name of its child <li> link, used for Navig] )
 			'addFriend' => array( 'friends', 'addOrDelFriend', 'Add or Delete Friends', 3 => array('Profile', 'Add Friend' ) ),
+			
 			'addReply' => array('addReply', 'addReply', '', 3 => array('', '' ) ),
 			'admin' => array('admin', 'adminMain', '', 3 => array('Admin', 'Features and Options' )  ),
 			'ban' => array('bannedList', 'ban', '', 3 => array('Admin', 'Ban' ) ),
@@ -307,8 +308,7 @@ function main()
 			'wall' => array( 'wall', 'wall', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),
 			
 			'forgot_password' => array( 'forgot_password', 'forgot_password', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),
-			'nntp' => array( 'nntp/nntp', 'nntp', '', 3 => array('Profile', 'The Wall (stands Tall)' )
-			  ),
+			'nntp' => array( 'nntp/nntp', 'nntp', '', 3 => array('Profile', 'The Wall (stands Tall)' ) ),
 			
 			// /opt/lampp/htdocs/www/forums/myForum/3/sources/register.php
 			// /opt/lampp/htdocs/www/forums/myForum/3/sources/login.php
@@ -399,9 +399,14 @@ function main()
 }
 // func main ends
 
+// Loading language files
+// loadlang();
+
+// Echoing header
+// fheader($theme['page_title']);
+
 // Calling the Navigation bar, just before the theme file is loaded, and theme func is called below
 fnav();
-//echbr(3);
 
 if(isset($theme['name']))
 {
@@ -416,9 +421,11 @@ else
 
 if(isset($theme['call_theme_func']))
 {
+	// Calling theme func
 	$theme_func = $theme['call_theme_func'] . '_theme';
 	call_user_func($theme_func);
 	//call_user_func($theme['call_theme_func']);
+	
 }
 else
 {
@@ -426,16 +433,19 @@ else
 }
 
 
-//printrr(get_included_files() );
-
 echbr(3);
 
 // stop time
 $time->timer_stop();
 
+// Echoing Footer
 ffooter($time->time_elapsed(6));
 
+
+
 // TESTING
+
+//printrr(get_included_files() );
 
 
 // TESTING-
