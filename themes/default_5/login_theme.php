@@ -8,11 +8,11 @@ function login_theme()
 {
 	
 	
-	
 	global $globals, $mysql, $done, $error, $errors;
 	global $l;
 	
 	error_handler($error);
+	error_handler($errors);
 	
 	if( $done )
 	{
@@ -24,8 +24,9 @@ function login_theme()
 		echo '<center>';
 		echo $l['test_login_msg'];
 		
+		$action = $globals["only_ind_no_slash"].'action='.$_GET['action'];
 		echo '
-			<form action="" method="post">
+			<form action="'.$action.'" method="post">
 				<table align="center">
 					<tr>
 						<td width="70%">'.$l['user_email'].'</td>

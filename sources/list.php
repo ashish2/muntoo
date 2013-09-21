@@ -22,18 +22,18 @@ function listUsers()
 	
 	$theme['name'] = 'list';
 	$theme['call_theme_func'] = 'listUsers';
-	
-	loadlang();
-	
-	// fheader($title = 'View Profile');
-	fheader("List Users");
+	$theme['page_title'] = 'List Users';
+	//~loadlang();
+	//~// fheader($title = 'View Profile');
+	//~fheader("List Users");
 	
 	// if NOT logged in, then redirect to "index.php?action=login" , ONLY for the moment
 	// if from Admin Board Settings table, loginReq column is 1, then, login is required to view
 	// so redirect him to login page
 	if( $reqPrivs['board']['loginReq'] )
 		if( !userUidSet() )
-			redirect("$globals[boardurl]$globals[only_ind]action=login");
+			//~redirect("$globals[boardurl]$globals[only_ind]action=login");
+			return false;
 		
 	// Base64encode for everything coming from URL
 	// Checking input, checking everything coming from $_GET url, 

@@ -12,12 +12,9 @@ function bannedList()
 	
 	$theme['name'] = 'bannedList';
 	$theme['call_theme_func'] = 'bannedList';
-	
-	loadlang();
-	
-	//printrr( $reqPrivs );
-	
-	fheader('Banned List');
+	$theme['page_title'] = 'Banned List';
+	//~loadlang();
+	//~fheader('Banned List');
 	
 	//if ( $notLogged )
 	if ( !userUidSet() )
@@ -46,12 +43,9 @@ function ban($userId=null)
 	
 	$theme['name'] = 'bannedList';
 	$theme['call_theme_func'] = 'ban';
-	
-	loadlang();
-	
-	//printrr( $reqPrivs );
-	
-	fheader('Ban/Unban');
+	$theme['page_title'] = 'Ban/Unban';
+	//~loadlang();
+	//~fheader('Ban/Unban');
 	
 	/*
 	//if ( $notLogged )
@@ -123,6 +117,7 @@ function topics()
 	$theme['name'] = 'board';
 	$theme['call_theme_func'] = 'topics';
 	
+	// this $l will cause problems as it is already assigned array
 	loadlang($l = 'board');
 	
 	//$q1 = "SELECT `bname` FROM `board` WHERE `bid` = $_GET[board]";

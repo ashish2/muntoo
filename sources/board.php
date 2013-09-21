@@ -12,10 +12,10 @@ function board()
 	
 	$theme['name'] = 'board';
 	$theme['call_theme_func'] = 'board';
+	$theme['page_title'] = 'MainBoard';
 	
-	loadlang();
-	
-	fheader('MainBoard');
+	//~loadlang();
+	//~fheader('MainBoard');
 	
 	$q = "SELECT * FROM `board`";
 	
@@ -39,25 +39,29 @@ function topics()
 	
 	$theme['name'] = 'board';
 	$theme['call_theme_func'] = 'topics';
+	$theme['page_title'] = 'Logout';
 	
 	
 	// why should assignment like this, $l = 'board' , create a problem
 	// $l = 'board' , is actually creating unpredictable behaviour
 	///loadlang($l = 'board');
-	loadlang('board');
-	//printrr($l);
+	// bcoz $l is a global, and its an array containing other stuff from language files.
+	$theme['langdir'] = 'board';
+	//~loadlang('board');
 	
+	//printrr($l);
 	
 	//$q1 = "SELECT `bname` FROM `board` WHERE `bid` = $_GET[board]";
 	$q1 = "SELECT * FROM `board` WHERE `bid` = $_GET[board] LIMIT 1";
 	$qu1 = mysql_query($q1);
 	$board = mysql_fetch_assoc($qu1);
-	
 	//printrr($board);
 	
 	// want to display the title as, General Discussion, 
 	// so fetching it from the DB, so made the previous query 
-	fheader($board['bname'] );
+	//~fheader($board['bname'] );
+	$theme['page_title'] = $board['bname'];
+	
 	
 	// actual query to get users
 	$q = "SELECT * FROM `topics` WHERE `board_bid` = '$_GET[board]' ";
@@ -90,12 +94,14 @@ function topicReplies()
 	
 	$theme['name'] = 'board';
 	$theme['call_theme_func'] = 'topicReplies';
+	$theme['page_title'] = 'Topic Replies to '. $_GET['topic'];
+	$theme['langfile'] = 'board';
 	
 	// This is creating some funny problem of $l first character being something else
+	// as $l is an array, & then we are then assigning $l as a string 'board'
 	//loadlang($l = 'board');
-	loadlang('board');
-	
-	fheader("Topic Replies to $_GET[topic]");
+	//~loadlang('board');
+	//~fheader("Topic Replies to $_GET[topic]");
 	
 	//printrr( $user );
 	//printrr( debug_backtrace() );

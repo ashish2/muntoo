@@ -15,10 +15,10 @@ function the_endpage()
 	
 	$theme['name'] = "the_endpage";
 	$theme['call_theme_func'] = "the_endpage";
+	$theme['page_title'] = "the EndPage :P";
 	
-	loadlang();
-	
-	fheader($title = "the EndPage :P");
+	//~loadlang();
+	//~fheader($title = "the EndPage :P");
 	
 	
 	

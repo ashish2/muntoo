@@ -15,10 +15,10 @@ function sendMessage()
 	
 	$theme['name'] = 'messages';
 	$theme['call_theme_func'] = 'sendMessage';
+	$theme['page_title'] = 'Send Message';
 	
-	loadlang();
-	
-	fheader($title = 'Send Message');
+	//~loadlang();
+	//~fheader($title = 'Send Message');
 	
 	//$con = array();
 	//$con['dbname'] = 'myforum_3_testing';

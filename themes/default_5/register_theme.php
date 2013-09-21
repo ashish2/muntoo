@@ -19,9 +19,11 @@ function register_theme()
 	}
 	else
 	{
-	
+		
+		$action = $globals["only_ind_no_slash"].'action='.$_GET['action'];
+		
 		echo '
-			<form action="" method="post">
+			<form action="'.$action.'" method="post">
 				<table align="center">
 					<tr>
 						<td width="70%">'.$l['usrnm'].'</td>

@@ -9,12 +9,12 @@ function logout()
 	global $user;
 	global $l;
 	
-	//$theme['name'] = 'logout';
-	//$theme['call_theme_func'] = 'logout';
+	$theme['name'] = 'logout';
+	$theme['call_theme_func'] = 'logout';
+	$theme['page_title'] = 'Logout';
 	
-	loadlang();
-	
-	fheader($title = 'Logout');
+	//~loadlang();
+	//~fheader($title = 'Logout');
 	
 	if( isset($_GET["action"]) && $_GET["action"] == "logout")
 	{
@@ -24,7 +24,12 @@ function logout()
 //		printrr( $user );
 	}
 	
+	// Destroying session & redirecting so, 
+	// $user array, when starts trying to fill up from $_SESSION,
+	// it wont find anything.
 	header("Location:index.php");
+	exit();
+	//~return false;
 	
 }
 

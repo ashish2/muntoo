@@ -24,6 +24,28 @@
     */
 }
 
+.notice{
+	background-color: #FBEC5D; 
+	padding: 2px 2px; 
+	border: 1px solid gray;
+	position: relative;
+}
+
+.errors{
+	
+	background-color: #EEE9E9; 
+	
+	padding: 2px 2px; 
+	border: 1px solid gray;
+	position: relative;
+}
+
+.close-parent-div {
+	position: absolute;
+	right: 3px;
+	top: -3px;
+	cursor: pointer;
+}
 
 .red
 {
@@ -150,6 +172,7 @@ table.nav
 
 .main{
 	background: none repeat scroll 0 0 #FFFFFF;
+	padding-top: 20px;
 }
 
 /* Div Main / */

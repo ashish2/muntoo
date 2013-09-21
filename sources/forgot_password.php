@@ -14,10 +14,11 @@ function forgot_password()
 	
 	$theme['name'] = 'forgot_password';
 	$theme['call_theme_func'] = 'forgot_password';
+	$theme['page_title'] = 'Forgot Password';
 	
-	loadlang();
+	//~loadlang();
+	//~fheader($title = 'Forgot Password');
 	
-	fheader($title = 'Forgot Password');
 	$show = false;
 	$done = false;
 	

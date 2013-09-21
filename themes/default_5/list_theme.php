@@ -18,6 +18,9 @@ function listUsers_theme()
 	// if no (errors) then call this particular theme (listUsers_theme) (a valid) function
 	error_handler($errors);
 	
+	if( !userLoggedIn() )
+		return false;
+	
 	$cssThClassNm =  'class="dt-header"';
 	$cssTrClassNm = 'class="dth-list-img-tr"';
 	$cssTdClassNm = 'class="dth-list-img-td"';

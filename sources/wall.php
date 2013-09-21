@@ -15,12 +15,14 @@ function wall()
 	global $imgFolder;
 	// The array carrying the data
 	global $posts, $post_reps, $likes;
+	global $admin;
 	
 	$theme['name'] = 'wall';
 	$theme['call_theme_func'] = 'wall';
+	$theme['page_title'] = 'Wall';
 	
-	loadlang(); 
-	fheader('Wall');
+	//~loadlang(); 
+	//~fheader('Wall');
 	
 	// Base64encode for everything coming from URL
 	// Checking input, checking everything coming from $_GET url, 
@@ -35,8 +37,13 @@ function wall()
 		// so redirect him to login page
 		// if( $reqPrivs['board']['loginReq'] )
 			if( !userUidSet() )
-				redirect("$globals[boardurl]$globals[only_ind]action=login");
-				
+			{
+				// Removing Redirects as they were causing header to be seen twice when loaded with ajax.
+				//~redirect("$globals[boardurl]$globals[only_ind]action=login");
+				// Putting return false, instead, as we are now working with ajax
+				return false;
+				exit('Redirected');
+			}
 			// if( $user['perms'] & $reqPrivs['view']['a_priv'] )
 			if( $user['g_priv'] & $reqPrivs['view']['a_priv'] )
 				$uid = $_GET['uid'];
@@ -60,7 +67,13 @@ function wall()
 		// so redirect him to login page
 		// if( $reqPrivs['board']['loginReq'] )
 			if( !userUidSet() )
-				redirect("$globals[boardurl]$globals[only_ind]action=login");
+			{
+				// Removing Redirects as they were causing header to be seen twice when loaded with ajax.
+				//~redirect("$globals[boardurl]$globals[only_ind]action=login");
+				// Putting return false, instead, as we are now working with ajax
+				return false;
+				//exit('Redirected');
+			}
 	}
 	
 	//if( isset($_POST['wall_sub']) && !empty($_POST['post'] ) )
@@ -116,14 +129,17 @@ function wall()
 	ORDER BY  `wpwpr1`.`date` DESC 
 	";
 	
-	$c1m = md5($q);
-	// Initiating cache
-	$c1 = new Cache($c1m);
-	
 	$posts = array();
-	if ( $c1->exProcGet() )
+	if( isset($admin['settings']['cache']['switch']) && $admin['settings']['cache']['switch'] == 1)
 	{
-		$posts = (array) $c1->contents;
+		$c1m = md5($q);
+		// Initiating cache
+		$c1 = new Cache($c1m);
+		
+		if ( $c1->exProcGet() )
+		{
+			$posts = (array) $c1->contents;
+		}
 	}
 	else
 	{
@@ -134,7 +150,8 @@ function wall()
 		}
 	}
 	// Write the results as json string in cache file
-	$c1->exProcWrite($posts);
+	if( isset($admin['settings']['cache']['switch']) && $admin['settings']['cache']['switch'] == 1)
+		$c1->exProcWrite($posts);
 	
 	//~echo 'posts:';
 	//~printrr($posts);

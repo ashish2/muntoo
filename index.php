@@ -281,33 +281,29 @@ function main()
 			// 'ACTION' => array('PAGE', 'FUNC' [, 'Link Name'] [, Main Link Name for Navig] )
 			// Eg. 'ACTION Name' => array('PAGE Name', 'FUNC Name' [, 'Text of the Link'] [, Name of Main <ul> Link and name of its child <li> link, used for Navig] )
 			'addFriend' => array( 'friends', 'addOrDelFriend', 'Add or Delete Friends', 3 => array('Profile', 'Add Friend' ) ),
-			
 			'addReply' => array('addReply', 'addReply', '', 3 => array('', '' ) ),
 			'admin' => array('admin', 'adminMain', '', 3 => array('Admin', 'Features and Options' )  ),
 			'ban' => array('bannedList', 'ban', '', 3 => array('Admin', 'Ban' ) ),
 			'bannedList' => array('bannedList', 'bannedList', '', 3 => array('Admin', 'Banned List' ) ),
 			'board' => array('board', 'topics', '', 3 => array('Board', 'Board' ) ),
 			'createTopic' => array('addReply', 'createTopic', '', 3 => array('Board', 'Create Topic' ) ),
-			'friendsList' => array('friends', 'friendsList', '', 3 => array('Profile', 'Friends List' ) ),
-			
-			'emotion' => array( 'emotion', 'emotion', 'Emotion', 3 => array('', '' ) ),
-			
-			'listUsers' => array('list', 'listUsers', '', 3 => array('Profile', 'List Users' )  ),
+			'friendsList' => array('friends', 'friendsList', '', 3 => array('Profile', 'Friends List' ) ),						
+			'emotion' => array( 'emotion', 'emotion', 'Emotion', 3 => array('', '' ) ),			
+			'listUsers' => array('list', 'listUsers', '', 3 => array('Profile', 'List Users' )  ),			
 			'login' => array('login', 'login', '', 3 => array('Login', 'Login' ) ),
-			'logout' => array('logout', 'logout', '', 3 => array('Logout', 'Logout' ) ),
-			'mainBoard' => array('board', 'board', '', 3 => array('Board', 'Main Board' ) ),
-			'messages' => array('messages', 'sendMessage', '', 3 => array('Profile', 'Messages' )  ),
-			'modifyprofile' => array('modifyprofile', 'modifyprofile', '', 3 => array('Profile', 'Modify Profile' ) ),
+			'logout' => array('logout', 'logout', '', 3 => array('Logout', 'Logout' ) ),			
+			'mainBoard' => array('board', 'board', '', 3 => array('Board', 'Main Board' ) ),			
+			'messages' => array('messages', 'sendMessage', '', 3 => array('Profile', 'Messages' )  ),			
+			'modifyprofile' => array('modifyprofile', 'modifyprofile', '', 3 => array('Profile', 'Modify Profile' ) ),			
 			//'permissions' => array('permissions', 'permissions', '', 3 => array('Admin', 'Permissions' )  ),
-			'permissions' => array('permissions', 'permissions_test', '', 3 => array('Admin', 'Permissions' )  ),
+			'permissions' => array('permissions', 'permissions_test', '', 3 => array('Admin', 'Permissions' )  ),			
 			'register' => array('register', 'register', '', 3 => array('Register', 'Register' ) ),
 			'topic' => array('board', 'topicReplies', '', 3 => array('Board', 'Topic Replies' ) ),
-			'unban' => array('bannedList', 'ban', '', 3 => array('Admin', 'Un Ban' ) ),
-			'unFriend' => array( 'friends', 'addOrDelFriend', '', 3 => array('Profile', 'Un Friends' )  ),
-			'viewProfile' => array('viewProfile', 'viewProfile', '', 3 => array('Profile', 'View Profile' ) ),
-			'wall' => array( 'wall', 'wall', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),
-			
-			'forgot_password' => array( 'forgot_password', 'forgot_password', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),
+			'unban' => array('bannedList', 'ban', '', 3 => array('Admin', 'Un Ban' ) ),						
+			'unFriend' => array( 'friends', 'addOrDelFriend', '', 3 => array('Profile', 'Un Friends' )  ),			
+			'viewProfile' => array('viewProfile', 'viewProfile', '', 3 => array('Profile', 'View Profile' ) ),			
+			'wall' => array( 'wall', 'wall', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),			
+			'forgot_password' => array( 'forgot_password', 'forgot_password', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),			
 			'nntp' => array( 'nntp/nntp', 'nntp', '', 3 => array('Profile', 'The Wall (stands Tall)' ) ),
 			
 			// /opt/lampp/htdocs/www/forums/myForum/3/sources/register.php
@@ -400,13 +396,17 @@ function main()
 // func main ends
 
 // Loading language files
-// loadlang();
+loadlang();
 
-// Echoing header
-// fheader($theme['page_title']);
+// Adding condition, most probably for API kind of functionality
+if( !isset($_GET['noheader']) || $_GET['noheader'] != 1 )
+	// Echoing header
+	fheader($theme['page_title']);
 
+// Adding condition, most probably for API kind of functionality
+if( !isset($_GET['nonav']) || $_GET['nonav'] != 1 )
 // Calling the Navigation bar, just before the theme file is loaded, and theme func is called below
-fnav();
+	fnav();
 
 if(isset($theme['name']))
 {
@@ -429,7 +429,9 @@ if(isset($theme['call_theme_func']))
 }
 else
 {
-	//call some default theme func
+	// call some default theme func
+	// probably, some error theme, 
+	// stating "No THEME" , or "Empty Theme"
 }
 
 
@@ -438,6 +440,8 @@ echbr(3);
 // stop time
 $time->timer_stop();
 
+// Adding condition, most probably for API kind of functionality
+//~if( !isset($_GET['nofooter']) || $_GET['nofooter'] != 1 )
 // Echoing Footer
 ffooter($time->time_elapsed(6));
 

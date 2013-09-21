@@ -12,11 +12,11 @@ function permissions()
 	
 	$theme['name'] = 'permissions';
 	$theme['call_theme_func'] = 'permissions';
+	$theme['page_title'] = 'Permissions';
 	
-	loadlang();
-	
-	//fheader($title = 'Permissions');
-	fheader('Permissions');
+	//~loadlang();
+	//~//fheader($title = 'Permissions');
+	//~fheader('Permissions');
 	
 	include "$globals[rootdir]".'/classes/User.php';
 	
@@ -60,8 +60,10 @@ function permissions()
 
 function permissions_test()
 {
+	global $theme;
 	
 	//fheader('Permissions');
+	$theme['page_title'] = 'Permissions';
 	
 	$u = 7; // 00000111
 	$n = 1; // 00000001

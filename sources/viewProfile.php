@@ -15,18 +15,19 @@ function viewProfile()
 	
 	$theme['name'] = 'viewProfile';
 	$theme['call_theme_func'] = 'viewProfile';
+	$theme['page_title'] = 'View Profile';
 	
-	loadlang();
-	
-	// fheader($title = 'View Profile');
-	fheader("View Profile");
+	//~loadlang();
+	//~// fheader($title = 'View Profile');
+	//~fheader("View Profile");
 	
 	// if NOT logged in, then redirect to "index.php?action=login" , ONLY for the moment
 	// if from Admin Board Settings table, loginReq column is 1, then, login is required to view
 	// so redirect him to login page
 	if( $reqPrivs['board']['loginReq'] )
 		if( !userUidSet() )
-			redirect("$globals[boardurl]$globals[only_ind]action=login");
+			//~redirect("$globals[boardurl]$globals[only_ind]action=login");
+			return false;
 		
 	// Base64encode for everything coming from URL
 	// Checking input, checking everything coming from $_GET url, 

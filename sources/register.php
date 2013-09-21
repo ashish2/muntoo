@@ -11,10 +11,10 @@ function register()
 	
 	$theme['name'] = 'register';
 	$theme['call_theme_func'] = 'register';
+	$theme['page_title'] = 'Registration';
 	
-	loadlang();
-	
-	fheader('Registration');
+	//~loadlang();
+	//~fheader('Registration');
 	
 	if(isset($_POST['sub_register']))
 	{

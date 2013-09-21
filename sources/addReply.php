@@ -14,12 +14,15 @@ function createTopic()
 	
 	$theme['name'] = 'addReply';
 	$theme['call_theme_func'] = 'createTopic';
+	$theme['page_title'] = 'Create Topic';
 	
-	//loadlang("createTopic");
-	//loadlang(__FUNCTION__);
-	loadlang('allFuncLang', __FUNCTION__);
+	// Not using this at the moment
+	// $theme['langfile'] = 'allFuncLangFile';
+	$theme['langfunc'] = __FUNCTION__;
+	//-
 	
-	fheader($title = 'Create Topic' );
+	//~loadlang('allFuncLangFile', __FUNCTION__);
+	//~fheader($title = 'Create Topic' );
 	
 	// if NOT logged in, then redirect to "index.php?action=login" , ONLY for the moment
 	// if from Admin Board Settings table, loginReq column is 1, then, login is required to view
@@ -95,11 +98,16 @@ function addReply()
 	
 	$theme['name'] = 'addReply';
 	$theme['call_theme_func'] = 'addReply';
+	$theme['page_title'] = 'Add Reply';
+	
+	// Not using this at the moment
+	// $theme['langfile'] = 'allFuncLangFile';
+	$theme['langfunc'] = __FUNCTION__;
 	
 	//loadlang();
-	loadlang('allFunc', __FUNCTION__);
+	//~loadlang('allFunc', __FUNCTION__);
+	//~fheader($title = 'Add Reply');
 	
-	fheader($title = 'Add Reply');
 	
 	// if NOT logged in, then redirect to "index.php?action=login" , ONLY for the moment
 	// if from Admin Board Settings table, loginReq column is 1, then, login is required to view

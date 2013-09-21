@@ -17,10 +17,10 @@ function addOrDelFriend()
 	
 	$theme["name"] = "friends";
 	$theme["call_theme_func"] = "addOrDelFriend";
+	$theme["page_title"] = "Add/Delete Friend";
 	
-	loadlang();
-	
-	fheader("Add Friend");
+	// loadlang();
+	// fheader("Add Friend");
 	
 	//$con = array();
 	//$con["dbname"] = "myforum_3_testing";
@@ -111,10 +111,9 @@ function friendsList()
 	
 	$theme["name"] = "friends";
 	$theme["call_theme_func"] = "friendsList";
-	
-	loadlang();
-	
-	fheader("Friends List");
+	$theme["page_title"] = "Friends List";
+	//~loadlang();
+	//~fheader("Friends List");
 	
 	$fl = 'friends_list';
 	

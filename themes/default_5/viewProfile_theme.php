@@ -13,6 +13,9 @@ function viewProfile_theme()
 	error_handler($errors);
 	notice_handler($notice);
 	
+	if( !userLoggedIn() )
+		return false;
+	
 	$row=mysql_fetch_assoc($qu[1]);
 	
 	$cssThClassNm =  'class="dt-header"';
@@ -96,7 +99,7 @@ function viewProfile_theme()
 	if($uid != $user['uid'])
 	{
 		if( !(in_array( $_GET['uid'], $friends ) ) )
-			$str .= ' | <a href="index.php?action=addFriend&uid='.$_GET['uid'].'">'.$l['add_frnd'].'</a>';
+			$str .= ' | <a class="ajaxGetCall" href="index.php?action=addFriend&uid='.$_GET['uid'].'">'.$l['add_frnd'].'</a>';
 		else
 			$str .= ' | <a href="index.php?action=unFriend&uid='.$_GET['uid'].'">'.$l['unfrnd'].'</a>';
 	}

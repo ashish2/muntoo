@@ -18,10 +18,9 @@ function emotion()
 	
 	$theme["name"] = "emotion";
 	$theme["call_theme_func"] = "emotion";
-	
-	loadlang();
-	
-	fheader("Emotion");
+	$theme["page_title"] = "Emotion";
+	//~loadlang();
+	//~fheader("Emotion");
 	
 	// $_REQUEST will accept, $_GET as well as $_POST
 	if( !isset($_REQUEST["post"]) || empty( $_REQUEST["post"] ) )

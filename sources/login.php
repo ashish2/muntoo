@@ -12,10 +12,11 @@ function login()
 	
 	$theme['name'] = 'login';
 	$theme['call_theme_func'] = 'login';
+	$theme['page_title'] = 'Login';
 	
-	loadlang();
+	//~loadlang();
+	//~fheader($title = 'Login');
 	
-	fheader($title = 'Login');
 	
 	if(isset($_POST['sub_register']))
 	{
@@ -116,8 +117,14 @@ function login()
 			}
 			
 			*/
-			header("Location: index.php?action=wall");
 			
+			/*
+			if( $_SERVER['QUERY_STRING'] )
+				$qs = $_SERVER['QUERY_STRING'];
+			*/
+			
+			header("Location: index.php?action=wall");
+			exit('Redirected');
 		}
 		else
 		{

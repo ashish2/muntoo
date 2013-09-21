@@ -19,7 +19,6 @@ function fheader($title='', $css='', $js='')
 	// after include_js_files() function runs below
 	//$js = (!$js) ? $globals['boardurl']."/$themedir/". $user['theme_type'] . '/js/javascript.js' : $js;
 	
-	include_js_files();
 	
 	echo '
 	<!DOCTYPE html>
@@ -35,37 +34,39 @@ function fheader($title='', $css='', $js='')
 		<link rel="stylesheet" type="text/css" href="'.$css.'">
 		';
 		//<script language="javascript" type="text/javascript" src="'.$js.'"></script>';
-		$jses = '';
-		foreach($theme['js_files'] as $k => $v)
-		{
-			if ( $v[0] != '#' )
-			{
-				$js_file = $globals['boardurl']."/$themedir/". $user['theme_type'] . '/js/'.$v;
-				$jses .= '<script language="javascript" type="text/javascript" src="'.$js_file.'"></script>';
-			}
-		}
 		
-		echo "$jses";
+		//~include_js_files();
+		//~$jses = '';
+		//~foreach($theme['js_files'] as $k => $v)
+		//~{
+			//~if ( $v[0] != '#' )
+			//~{
+				//~$js_file = $globals['boardurl']."/$themedir/". $user['theme_type'] . '/js/'.$v;
+				//~$jses .= '<script language="javascript" type="text/javascript" src="'.$js_file.'"></script>';
+			//~}
+		//~}
+		//~echo "$jses";
+		
 		echo '
 		</head>
 		<body>
-		<table class="header">
-			<tr class="header">
-				<td width="15%">
-					<img src="images/site/s8.jpeg" >
-				</td>
-				<td valign="center" align="right">
-					<header class="mainheader">
-						<small>
-						<i>
-							<span class="header_text"><span class="span1">Mun</span><span class="span2">too</span></span><span class="red">.</span><span class="green">.</span><span class="blue">.</span><span class="yellow">.</span>
-						</i>
-						</small>
-					</header>
-				</td>
-			</tr>
-		</table>
-	';
+				<table class="header">
+					<tr class="header">
+						<td width="15%">
+							<img src="images/site/s8.jpeg" >
+						</td>
+						<td valign="center" align="right">
+							<header class="mainheader">
+								<small>
+								<i>
+									<span class="header_text"><span class="span1">Mun</span><span class="span2">too</span></span><span class="red">.</span><span class="green">.</span><span class="blue">.</span><span class="yellow">.</span>
+								</i>
+								</small>
+							</header>
+						</td>
+					</tr>
+				</table>
+		';
 }
 
 function fnav()
@@ -130,6 +131,24 @@ function fnav()
 	';
 	*/
 	
+	
+	$adminLink = '';
+	if( isset( $_SESSION['user']['uid'] ) && $_SESSION['user']['uid'] == 1 ) 
+	{
+		$adminLink = '<td id="7"><a id="admin" class="nav_links" href="index.php?action=admin"><span class="funny">&</span>Admin Board</a></td>';
+	}
+	
+	
+	$login_logout_link = '<td id="11"><a id="logout" class="" href="index.php?action=logout"><span class="funny"><-</span>Logout</a></td>' ;
+	if ( !isset( $_SESSION['user']['uid'] )  ) 
+	{
+		$login_logout_link = '<td id="9"><a id="register" class="nav_links" href="index.php?action=register"><span class="funny">+</span>Register</a></td>
+				<td id="10"><a id="login" class="nav_links" href="index.php?action=login"><span class="funny">-></span>Login</a></td>';
+	}
+	
+	// add class  "ajaxGetCall" 
+	// to links 
+	// if u wanna load them through ajax
 	echo '
 	<center>
 		<table cellspacing="0" cellpadding="5" class="nav" id="nav">
@@ -143,19 +162,17 @@ function fnav()
 				</td>
 				<td id="6"><a class="nav_links" href="index.php/viewProfile"><span class="funny">%</span>View Profile</a></td> ' .
 				
-*/	'			<td id="2" ><a class="nav_links" href="index.php?action=mainBoard"><span class="funny">/</span>Forums</a></td> 
-				<td id="3"><a class="nav_links" href="index.php?action=modifyprofile"><span class="funny">#</span>Modify Profile</a></td>
-				<td id="4"><a id="wall" class="nav_links ajaxGetCall" href="index.php?action=wall"><span class="funny">$</span>The Wall (stands Tall)</a></td>
-				<td id="5"><a class="nav_links" href="index.php?action=listUsers"><span class="funny">^</span>List Users</a></td>
-				<td id="6"><a class="nav_links" href="index.php?action=viewProfile"><span class="funny">%</span>View Profile</a></td> ' .
-				( ( isset( $_SESSION['user']['uid'] ) && $_SESSION['user']['uid'] == 1 ) ? 
-				'<td id="7"><a class="nav_links" href="index.php?action=admin"><span class="funny">&</span>Admin Board</a></td>' : '' ) .
-	'			<td id="8"><a class="nav_links" href="index.php?action=bannedList"><span class="funny">!</span>Banned</a></td> ' .
-				( ( !isset( $_SESSION['user']['uid'] )  ) ? 
-				'<td id="9"><a class="nav_links" href="index.php?action=register"><span class="funny">+</span>Register</a></td>
-				<td id="10"><a class="nav_links" href="index.php?action=login"><span class="funny">-></span>Login</a></td>'  : 
-				'<td id="11"><a class="nav_links" href="index.php?action=logout"><span class="funny"><-</span>Logout</a></td>' 
-				) . 
+*/	'			<td id="2" ><a id="mainBoard" class="nav_links" href="index.php?action=mainBoard"><span class="funny">/</span>Forums</a></td>
+				<td id="3"><a id="modifyprofile" class="nav_links" href="index.php?action=modifyprofile"><span class="funny">#</span>Modify Profile</a></td>
+				<td id="4"><a id="wall" class="nav_links" href="index.php?action=wall"><span class="funny">$</span>The Wall (stands Tall)</a></td>
+				<td id="5"><a id="listUsers" class="nav_links" href="index.php?action=listUsers"><span class="funny">^</span>List Users</a></td>
+				<td id="6"><a id="viewProfile" class="nav_links" href="index.php?action=viewProfile"><span class="funny">%</span>View Profile</a></td> ' .
+				
+				$adminLink .
+				
+	'			<td id="8"><a id="bannedList" class="nav_links" href="index.php?action=bannedList"><span class="funny">!</span>Banned</a></td> ' .
+	
+				$login_logout_link .
 	'		</tr>
 		</table>
 	</center>
@@ -178,26 +195,47 @@ function fnav()
 
 function ffooter($time_elapsed=0)
 {
+	global $globals, $user, $theme;
+	
+	$themedir = 'themes';
+	
 	// <i>Muntoo</i>! <small>!&copy;</small>&nbsp;
 	$foot = '
-	</div>
-	<!-- div class sabse-main Ends -->
-		<table class="footer" width="100%">
-			<tr>
-			<td>
-			<i>Muntoo</i>&nbsp;
-			</td>
-			<td align="right">
-			'.
-			( ( $time_elapsed ) ? '<font size="1"><i>Page loaded in ' . $time_elapsed . ' seconds &nbsp; </i>' : '' )
-			.'
-			</font>
-			</td>
-			</tr>
-		</table>
-		<br />
-		</body>
-		</html>
+			<table class="footer" width="100%">
+				<tr>
+				<td>
+				<i>Muntoo</i>&nbsp;
+				</td>
+				<td align="right">
+				'.
+				( ( $time_elapsed ) ? '<font size="1"><i>Page loaded in ' . $time_elapsed . ' seconds &nbsp; </i>' : '' )
+				.'
+				</font>
+				</td>
+				</tr>
+			</table>
+			<br />
+			
+		';
+		
+		// Just loading all JS files, just before div "sabse-main" ends
+		include_js_files();
+		$jses = '';
+		foreach($theme['js_files'] as $k => $v)
+		{
+			if ( $v[0] != '#' )
+			{
+				$js_file = $globals['boardurl']."/$themedir/". $user['theme_type'] . '/js/'.$v;
+				$jses .= '<script language="javascript" type="text/javascript" src="'.$js_file.'"></script>';
+			}
+		}
+		$foot .= '<div class="load-js-div">' .$jses.' </div>';
+			
+		$foot .= '
+		</div>
+		<!-- div class sabse-main Ends -->
+	</body>
+	</html>
 	';
 	
 	echo $foot;

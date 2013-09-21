@@ -15,10 +15,10 @@ function the_whatpage()
 	
 	$theme['name'] = "the_whatpage";
 	$theme['call_theme_func'] = "the_whatpage";
+	$theme['page_title'] = "the WhatPage :P";
 	
-	loadlang();
-	
-	fheader($title = "the WhatPage :P");
+	//~loadlang();
+	//~fheader($title = "the WhatPage :P");
 	
 	
 	

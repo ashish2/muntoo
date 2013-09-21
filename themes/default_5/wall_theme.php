@@ -19,6 +19,7 @@ function wall_theme()
 	global $posts, $post_reps, $likes;
 	
 	
+	
 	$imgType = '.jpg';
 	
 	if($error)
@@ -30,6 +31,8 @@ function wall_theme()
 	
 	notice_handler($notice);
 	
+	if( !userLoggedIn() )
+		return false;
 	
 	// you dont have to pass an imgname everytime this way,
 	// just have an error_span class, and in css u have the error_span class background-image
@@ -65,10 +68,11 @@ function wall_theme()
 	
 	$str .= '<center>';
 	
+	$action = $globals["only_ind_no_slash"].'action='.$_GET['action'];
 	$str .= '
 			<!-- #form starts -->
 			<div id="form" class="form_div">
-				<form method="post" action="">
+				<form method="post" action="'.$action.'">
 					<p>
 						<span valign="top" align="top">
 							'.$l['thoughts'] .'

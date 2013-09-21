@@ -15,13 +15,14 @@ function adminMain()
 	global $q;
 	global $reqPrivs;
 	
-	
 	$theme['name'] = 'admin';
 	$theme['call_theme_func'] = 'adminMain';
+	$theme['page_title'] = 'Admin Section';
 	
-	loadlang('admin');
+	$theme['langfile'] = 'admin';
 	
-	fheader($title = 'Admin Section');
+	//~loadlang('admin');
+	//~fheader($title = 'Admin Section');
 	
 	// if NOT logged in, then redirect to "index.php?action=login" , ONLY for the moment
 	// if from Admin Board Settings table, loginReq column is 1, then, login is required to view

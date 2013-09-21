@@ -58,63 +58,157 @@ function sel_all_chk_box(sel_all_id, chkbox_coll_name, this_el_id = null)
 	//~console.log(this);
 //~});
 
+
+var h;
+var formVals;
+var f;
+
+// Passing html as string
+function getAllScriptTagsFromStr( html){
+	script = html.match(/<script[^>]*>[^<]*<\/script>/g);
+	
+	// evaling script now, after appending html.
+	//~eval(script);
+	
+	return script;
+}
+
+function appendArrOfElemsIntoAnotherElem( arrOfElemsToAppend, appendInto){
+	$.each( arrOfElemsToAppend , function(i, v){
+		$(appendInto).append(v);
+	} );
+}
+
+// Now, showing fb type wait/loading icon
+// and, after posting successfully, a success message.
+function ajaxCall(method, url, params_to_add_on_url, postData)
+{
+	
+	// Adding params
+	if( params_to_add_on_url )
+		url = url + params_to_add_on_url;
+	
+	// data = {};
+	data = '';
+	if( postData)
+		data = postData;
+	
+	dict = {
+		type: method,
+		url: url,
+		data: data,
+		
+		success: function(html, textStatus) {
+			// Since return data is coming as a string, 
+			// we are parsing the html & then adding it to current pages html
+			// If i do a parseHTML, then this is avoiding to send multiple requests to load all javascripts
+			// if i comment this below, multiple js files will load, it will send multiple request to load multiple js.
+			
+			/// script = getAllScriptTagsFromStr( html);
+			
+			// If u want to parse HTML and then add into the page,
+			// then the scripts wont load, so uncomment above line, getAllScriptTagsFromStr()
+			// and below line appendArrOfElemsIntoAnotherElem()
+			//~html = $.parseHTML(html);
+			
+			// Appending scripts
+			/// appendArrOfElemsIntoAnotherElem( script, ".load-js-div");
+			
+			
+			
+			// Working
+			//~$(".sabse-main").html(html);
+			
+			// Working with animation
+			$(".sabse-main").hide(700, function () {
+				$(".sabse-main").html(html).show(700);
+				//~$(".sabse-main").html(html).slideDown(1000);
+			});
+			
+		},
+		
+		error: function(jqXHR, textStatus, errorThrown) {
+			// alert("An error occured! " + ( errorThrown ? errorThrown : jqXHR.status) );
+			console.log("An error occured! " + errorThrown);
+			console.log("An error occured! " +  jqXHR.status);
+			
+			// return false;
+		}
+		
+	};
+	
+	$.ajax( dict );
+	return false;
+}
+
 $( function() {
 	
-	$(".ajaxGetCall" ).on( "click", function() {
-		href = $( this ).attr("href");
-		//~href = 'http://localhost/www/forums/myForum/3/tests/json.php';
+	$(".nav_links" ).click( function(ev) {
 		
-		dict = {
-			type: "GET",
-			url: href,
-			// dataType: "html",
-			// dataType: "json",
-			
-			success: function(html, textStatus){
-				// Since return data is coming as a string, 
-				// we are parsing the html & then adding it to current pages html
-				// If i do a parseHTML, then this is avoiding to send multiple requests to load all javascripts
-				// if i comment this below, multiple js files will load, it will send multiple request to load multiple js.
-				html = $.parseHTML(html);
-				
-				// have to find body & append only body
-				// body = $(html).find("body");
-				
-				// console.log(body);
-				
-				//~body = $(html).find("body");
-				
-				
-				// Working
-				//~$("html").find("body").html(html);
-				
-				// Pointing to html element with document.documentElement
-				//~$(document.documentElement).html(html);
-				b= $(document.documentElement).find("head").remove();
-				b= $(document.documentElement).find("body").remove();
-				
-				//~b= $(document.documentElement).find("body");
-				//~b = $(b).append('<body>');
-				//~b = $(b).append(html);
-				//~$(b).append('</body>');
-				
-				//~$(document.body).remove();
-				$(html).appendTo(document.documentElement);
-				//~$(document.documentElement).append(html);
-				
-			},
-			
-			error: function(xhr, textStatus, errorThrown) {
-				alert("An error occured!" + ( errorThrown ? errorThrown : xhr.status) );
-			}
-			
-		};
-			
-			$.ajax( dict );
-			
+		// Probably now, dont even need to stopPropagation
+		//~ev.preventDefault();
+		//~ev.stopPropagation();
+		href = $( this ).attr("href");
+		
+		//~params = '';
+		moreParams = '&nonav=1';
+		params = '&noheader=1' + moreParams;
+		
+		// making the ajax call
+		ajaxCall( "GET", href, params, '' );
+		
+		// Now probably i can load js's, since i m unbinding click events
+		// yes can call js's again, as i m unbinding click events from this object
+		$(".nav_links" ).unbind("click");
+		
+		// doing preventDefault() by returning false, hopefully, it is happening.
+		return false;
+		
+	});
+	
+	
+	/*
+	 * Submitting form ajax
+	 * 
+	$("form").submit( function(){
+		//~console.log($(f));
+		//~console.log($(f).attr('action'));
+		//~console.log($(f).attr('method'));
+		
+		subButName = $(this).find("input[type='submit']").attr('name');
+		subButVal =  $(this).find("input[type='submit']").val();
+		
+		/// See JS/jQ Unserialize
+		/// And Unserialize forms
+		/// And post.
+		//~p1= $(f).find ("#post1");
+		//~console.log(p1);
+		
+		
+		f = this;
+		formVals = $(f).serialize();
+		formVals = formVals + '&' + subButName + '=' + subButVal;
+		
+		//~formVals = {};
+		//~formVals[f.elements[0].name] = f.elements[0].value;
+		//~formVals[subButName] = subButVal ;
+		
+		href = $(f).attr('action');
+		
+		params = '';
+		//~params = '&noheader=1&nonav=1';
+		
+		ajaxCall( "POST", href, params, formVals );
+		
 		return false;
 	});
 	
+	*/
+	
+	
+	$(".close-parent-div").click(function(){
+		$(this).parent().fadeOut("slow");
+	});
 	
 	
 	

@@ -333,7 +333,11 @@ function error_handler($error)
 		// write all this below html in the respective HTML file of that particular page
 		//'<div style="background-color: lightgrey; padding: 2px 2px; border: 1px solid gray">
 		// snow color #EEE9E9
-		'<div class="errors">'.
+		'<div class="errors">
+			<span class="close-parent-div">
+				<small>x</small>
+			</span>'.
+		
 		// lightred #ffe4e9
 		//'<div style="background-color: #ffe4e9; padding: 3px 1px; border: 1px solid #cc3344">
 				'<center>';
@@ -357,8 +361,6 @@ function error_handler($error)
 		$str .= '</ul>
 				</center>
 				</div>
-				<br />
-				<br />
 				';
 				
 		echo $str;
@@ -375,7 +377,11 @@ function notice_handler($error)
 	
 	$show = 0;
 	$str = '';
-	$str .= '<div style="background-color: #FBEC5D; padding: 2px 2px; border: 1px solid gray">
+	$str .= '<div class="notice">
+			<span class="close-parent-div">
+				<small>x</small>
+			</span>
+			
 			<center>
 			Notice:
 			<ul>';
@@ -417,8 +423,6 @@ function notice_handler($error)
 	$str .= '</ul>
 			</center>
 			</div>
-			<br />
-			<br />
 			';
 	
 	if( $show )
@@ -605,24 +609,31 @@ function echbr( $number=1)
 //************************************************************//
 
 // loadlang_new() func
+// Load a New langfile
+// & then run a langfunc
 function loadlang_new($langfile = '', $langfunc='')
 {
 	global $globals, $theme;
 	global $user;
 	global $l;
 	
+	// Get the name of custom langfile
 	// $lang = (!empty($langfile) ? $langfile : $theme['name']);
-	$langFile = (($langfile) ? $langfile : $theme['name']);
-	//$langFunc = (($langfunc) ? $langfunc : $theme['func']);
-	$langFunc = (($langfunc) ? $langfunc : $theme['name']);
+	$langFile = (($theme['langfile']) ? $theme['langfile'] : $theme['name']);
 	
+	// Get the name of custom langfunc
+	//$langFunc = (($langfunc) ? $langfunc : $theme['func']);
+	$langFunc = (($theme['langfunc']) ? $theme['langfunc'] : $theme['name']);
+	
+	$inc = $globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $langFile .'_lang.php';
+	
+	// Load a custom Langfile
 	// Including the lang file, so that we can call the lang func later in the next step.
 	//include_once($globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $theme['name'] .'_lang.php');
-	include_once($globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $langFile .'_lang.php');
+	include_once($inc);
+	
+	// Run the custom Langfunc
 	// Calling the lang func
-	
-	$globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $langFile .'_lang.php';
-	
 	$langFunc = $langFunc.'_lang';
 	$langFunc();
 	
@@ -635,14 +646,16 @@ function loadlang_ori($langdir = "", $langfile = '')
 	global $user;
 	global $l;
 	
-	$langdir = (!empty($langdir) ? $langdir : "");
-	$lang = (!empty($langfile) ? $langfile : $theme['name']);
+	//~$langdir = (!empty($langdir) ? $langdir : "");
+	//~$lang = (!empty($langfile) ? $langfile : $theme['name']);
+	$langdir = (!empty($theme['langdir']) ? $theme['langdir'] : "");
+	$lang = (!empty($theme['langfile']) ? $theme['langfile'] : $theme['name']);
 	
-//	include_once($globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $theme['name'] .'_lang.php');
-	$globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $lang .'_lang.php';
+	// include_once($globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $theme['name'] .'_lang.php');
+	$inc = $globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $lang .'_lang.php';
 	
 	// include_once($globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $lang .'_lang.php');
-	include_once($globals['rootdir'] . '/languages/' . $user['lang'] .'/'. "$langdir" . $lang .'_lang.php');
+	include_once($inc);
 	
 }
 
@@ -655,6 +668,7 @@ function loadlang($langfile = '', $langfunc='')
 	global $user;
 	global $l;
 	global $admin;
+	
 	
 	// sing and mult can be compared as 0 or 1, instead of doing string comparison
 	// 'sing' =1, 'mult' =2, OR 'sing'=0, 'mult'=1
