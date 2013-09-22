@@ -60,7 +60,6 @@ function sel_all_chk_box(sel_all_id, chkbox_coll_name, this_el_id = null)
 
 
 var h;
-var formVals;
 var f;
 
 // Passing html as string
@@ -143,6 +142,29 @@ function ajaxCall(method, url, params_to_add_on_url, postData)
 
 $( function() {
 	
+	// Will bind itself to jquery $.ajax(),
+	// and will show img everytime $.ajax is starting & 
+	// will hide image everytime $.ajax has stopped
+	//~$("<img src='loading.gif'/>").bind({
+		//~ajaxStart: function() { $(this).show(); },
+		//~ajaxStop: function() { $(this).hide(); }
+	//~});
+	//<img src='loading.gif'/>
+	//~$(".sabse-main").bind({
+		//~ajaxStart: function() { $(this).html("HI"); },
+		//~ajaxStop: function() { $(this).hide(""); }
+	//~});
+	
+	// $globals and all that other config stuff should also be getting passed to JS files.
+	// hard coding the img link FTM
+	$( document ).ajaxStart(function() {
+		$('.sabse-main').html("<img src='themes/default_5/images/loading.gif'/>");
+	}).ajaxStop(function() {
+		$('.sabse-main').html("");
+	});
+	
+	
+	
 	$(".nav_links" ).click( function(ev) {
 		
 		// Probably now, dont even need to stopPropagation
@@ -165,6 +187,7 @@ $( function() {
 		return false;
 		
 	});
+	
 	
 	
 	/*
