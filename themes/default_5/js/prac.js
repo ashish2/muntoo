@@ -208,9 +208,22 @@ $( function() {
 // Start(using jQuery)-
 
 
+// Using Pure JS
+
+// 1]
+// Both below are Same
+// Note: The First Set of Brackets in the Second One, before function, Like,  ( function(){var i=0; .... )
+//~var f= function(){var i=0; return function(){return ++i}}();
+//~var f= ( function(){var i=0; return function(){return ++i}} )();
+//~
+//~console.log( f );
+//~console.log( f() );
 
 
 
+
+
+// Using Pure JS-
 
 
 

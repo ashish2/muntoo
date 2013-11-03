@@ -63,7 +63,8 @@ var h;
 var f;
 
 // Passing html as string
-function getAllScriptTagsFromStr( html){
+function getAllScriptTagsFromStr( html)
+{
 	script = html.match(/<script[^>]*>[^<]*<\/script>/g);
 	
 	// evaling script now, after appending html.
@@ -72,14 +73,30 @@ function getAllScriptTagsFromStr( html){
 	return script;
 }
 
-function appendArrOfElemsIntoAnotherElem( arrOfElemsToAppend, appendInto){
-	$.each( arrOfElemsToAppend , function(i, v){
+function appendArrOfElemsIntoAnotherElem( arrOfElemsToAppend, appendInto)
+{
+	$.each( arrOfElemsToAppend, function(i, v){
 		$(appendInto).append(v);
-	} );
+	});
+}
+
+function unbindEvents()
+{
+	// FTM
+	// Unbinding click events before ajaxCall(),
+	// instead of after ajaxCall()
+	$(".nav_links" ).unbind("click");
+	
+	// Just unbinding popstate, since we are loading all javascripts
+	// we have to unbind all events & then bind them again.
+	// Maybe not the best approach to load javascripts all over again, as we have to unbind all events.
+	$(window).unbind("popstate");
+	
 }
 
 // Now, showing fb type wait/loading icon
 // and, after posting successfully, a success message.
+// In ajaxCall(),  take second Param as URL's and Not Href
 function ajaxCall(method, url, params_to_add_on_url, postData)
 {
 	
@@ -136,6 +153,9 @@ function ajaxCall(method, url, params_to_add_on_url, postData)
 		
 	};
 	
+	// Unbinding some events, then they get bound back automatically, when the Javascripts Loads & Runs.
+	unbindEvents();
+	
 	$.ajax( dict );
 	return false;
 }
@@ -164,31 +184,136 @@ $( function() {
 	});
 	
 	
-	
-	$(".nav_links" ).click( function(ev) {
+	function getCurrLocHref()
+	{
+		currentHref = location.href;
+		currentHref = currentHref.replace(/^.+\/([^\/]*)$/,'$1');
 		
-		// Probably now, dont even need to stopPropagation
-		//~ev.preventDefault();
-		//~ev.stopPropagation();
-		href = $( this ).attr("href");
+		return currentHref;
+	}
+	
+	function addToPushState(href, currentHref)
+	{
+		// Now changin the browser url & string it in the browser's history stack
+		if( href != currentHref)
+		{
+			
+			// ATTENTION: !!!===THIS===!!!! // Think This is OK. popstate below needs to be checked
+			// CHECK in FIREBUG, Y, 
+			//  pushState in function getData() & 
+			// popstate below, are firing multiple huge number of http requests
+			// 100, 170, 270 requests!!!
+			
+			// history.pushState( ) takes 3 arguments, (right now we are using just 1 argument FTM),
+			// cant add just href, add fullUrl here
+			// Args: state, title, url
+			//~window.history.pushState(null, null, href);
+			var loc = location.href;
+			//~window.history.pushState(null, null, loc);
+			window.history.pushState(null, null, href);
+		}
+		
+		return false;
+	}
+		
+	// getData, pushState()
+	//~function getData(elem)
+	function getData(url)
+	{
 		
 		//~params = '';
 		moreParams = '&nonav=1';
 		params = '&noheader=1' + moreParams;
 		
+		//~// FTM
+		//~// Unbinding click events before ajaxCall(),
+		//~// instead of after ajaxCall()
+		//~$(".nav_links" ).unbind("click");
+		
 		// making the ajax call
-		ajaxCall( "GET", href, params, '' );
+		// Pass fullURL of page, dont pass HREF's
+		ajaxCall( "GET", url, params, '' );
 		
 		// Now probably i can load js's, since i m unbinding click events
 		// yes can call js's again, as i m unbinding click events from this object
-		$(".nav_links" ).unbind("click");
+		//~$(".nav_links" ).unbind("click");
+		
+		return false;
+	}
+	
+	function checkHref_and_getData(elem)
+	{
+		
+		// Probably now, dont even need to stopPropagation
+		//~ev.preventDefault();
+		//~ev.stopPropagation();
+		// href, is the newHref , the new URL to Load, the new HREF to go to
+		href = $( elem ).attr("href");
+		currentHref = getCurrLocHref();
+		
+		console.log('href');
+		console.log(href);
+		console.log('currentHref');
+		console.log(currentHref);
+		
+		
+		addToPushState(href, currentHref);
+		
+		getData(href);
+		
+		return false;
+	}
+	
+	$(".nav_links" ).click( function(ev) {
+		
+		//~return getData($(this));
+		return checkHref_and_getData($(this));
 		
 		// doing preventDefault() by returning false, hopefully, it is happening.
-		return false;
-		
+		//~return false;
 	});
 	
 	
+	//========== pop state ============
+	
+	// ATTENTION: !!!===THIS===!!!!
+	// pushState above is working probably fine, still chk though, 
+	// popstate needs to be done Better, popstate making multiple HTTP requests
+	// CHECK in FIREBUG, Y, 
+	//  pushState in function getData() & 
+	// popstate below, are firing multiple huge number of http requests
+	// 100, 170, 270 requests!!!
+	$(window).bind('popstate', function(ev) {
+		
+		// FTM, ".nav_links" , this has to be made Generic
+		// Dont think we need to pass any elem here
+		//~elem = $(".nav_links");
+		
+		// Now probably i can load js's, since i m unbinding click events
+		// yes can call js's again, as i m unbinding click events from this object
+		// New js's are coming here, therefore, unbinding the click,
+		// before making the ajaxCall()
+		$(".nav_links" ).unbind("click");
+		
+		ev.preventDefault();
+		
+		href = location.href;
+		//addToPushState(href, currentHref);
+		
+		// Try to Make an ajaxCall() and maybe just avoid getData()
+		// making the ajax call
+		// Pass fullURL of page, dont pass HREF's
+		return getData(href);
+		//~return ajaxCall('GET', location.href);
+		
+		// Now probably i can load js's, since i m unbinding click events
+		// yes can call js's again, as i m unbinding click events from this object
+		//~$(".nav_links" ).unbind("click");
+		
+		//~return false;
+	});
+	
+	//==========
 	
 	/*
 	 * Submitting form ajax
@@ -230,8 +355,11 @@ $( function() {
 	
 	
 	$(".close-parent-div").click(function(){
-		$(this).parent().fadeOut("slow");
+		// $(this).parent().fadeOut("slow");
+		$(this).parent().slideToggle(700);
 	});
+	
+	
 	
 	
 	

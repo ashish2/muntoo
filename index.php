@@ -303,8 +303,15 @@ function main()
 			'unFriend' => array( 'friends', 'addOrDelFriend', '', 3 => array('Profile', 'Un Friends' )  ),			
 			'viewProfile' => array('viewProfile', 'viewProfile', '', 3 => array('Profile', 'View Profile' ) ),			
 			'wall' => array( 'wall', 'wall', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),			
-			'forgot_password' => array( 'forgot_password', 'forgot_password', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),			
+			'forgot_password' => array( 'forgot_password', 'forgot_password', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),
+			
+			// QnA module 
+			'qna' => array( 'qna', 'qna', 'Q n A',  ),
+			
+			// Other Modules
 			'nntp' => array( 'nntp/nntp', 'nntp', '', 3 => array('Profile', 'The Wall (stands Tall)' ) ),
+			
+			
 			
 			// /opt/lampp/htdocs/www/forums/myForum/3/sources/register.php
 			// /opt/lampp/htdocs/www/forums/myForum/3/sources/login.php

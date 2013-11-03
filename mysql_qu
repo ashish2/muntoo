@@ -442,5 +442,33 @@ ALTER TABLE  `like` DROP  `status` ;
 
 
 
+#Added 26 Sept 2013
+CREATE TABLE `qna_post` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `title` varchar(512),
+    `content` longtext NOT NULL,
+    `slug` varchar(128) NOT NULL,
+    `parent_id` integer COMMENT "#Rows having parent id are by default answers, rows not hving parent_id are Questions#",
+    `date` datetime NOT NULL,
+    `user_id` integer NOT NULL,
+    `user_ip` char(39) NOT NULL,
+    `status` integer COMMENT "#we dont want a boolean field here, since, we may add 2,3,4 and other number depicting some other state. Values 0-Deactivated, 1-Active, null means untouched#"
+);
+
+# References self
+ALTER TABLE `qna_post` ADD CONSTRAINT `parent_id_refs_id` FOREIGN KEY (`parent_id`) REFERENCES `qna_post` (`id`);
+
+
+#Added 27 Sept 2013
+CREATE TABLE  `qna_vote` (
+ `id` INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY ,
+ `post_id` INTEGER NOT NULL COMMENT  "#Foreign key referencing qna_post.id#",
+ `by_user` INTEGER NOT NULL COMMENT  "#Foreign key referencing users.id#",
+ `vote` INTEGER NOT NULL COMMENT  "#1 or -1, positive or negative vote#",
+ `date` DATETIME NOT NULL ,
+ `status` INTEGER COMMENT  "#values 0-Deactivated, 1-Active, null-probably untouched yet#"
+)
+
+ALTER TABLE `qna_vote` ADD CONSTRAINT `post_id_refs_id` FOREIGN KEY (`post_id`) REFERENCES `qna_post` (`id`);
 
 

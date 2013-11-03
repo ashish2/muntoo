@@ -138,6 +138,14 @@ function check_input($data)
 	{
 		$data = addslashes( $data );
 	}
+	else
+	{
+		$data = stripslashes( $data );
+		$data = addslashes( $data );
+	}
+	
+	// Converting Html characters, but what if $data contains, 
+	// chars like, \x00 and stuff
 	$data = htmlspecialchars($data);
 	
 	return $data;
