@@ -251,12 +251,6 @@ $( function() {
 		href = $( elem ).attr("href");
 		currentHref = getCurrLocHref();
 		
-		console.log('href');
-		console.log(href);
-		console.log('currentHref');
-		console.log(currentHref);
-		
-		
 		addToPushState(href, currentHref);
 		
 		getData(href);
