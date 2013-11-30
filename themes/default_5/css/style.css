@@ -747,6 +747,18 @@ body {
 /* Image hover= */
 
 
+/* Image gallery */
+
+.album-images-li img{
+    height: auto;
+    width: 120px;
+}
+
+.image
+{
+	text-align: center;
+	margin-top: 50px;
+}
 
 
 

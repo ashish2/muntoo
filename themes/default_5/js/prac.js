@@ -198,8 +198,18 @@ alert(typeof feature);
 // Document Ready
 $( function() {
 	
-	col();
+	//col();
 	//a();
+	
+	var f = Function;
+	//~console.log(f);
+	//~console.log(this);
+	
+	
+	
+	
+	
+	
 	
 });
 
@@ -218,7 +228,6 @@ $( function() {
 //~
 //~console.log( f );
 //~console.log( f() );
-
 
 
 

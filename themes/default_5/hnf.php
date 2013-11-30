@@ -22,7 +22,7 @@ function fheader($title='', $css='', $js='')
 	
 	echo '
 	<!DOCTYPE html>
-		<html>
+		<html ng-app>
 		<head>
 			<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 			<meta content="utf-8" http-equiv="encoding">
@@ -170,7 +170,9 @@ function fnav()
 				
 				$adminLink .
 				
-	'			<td id="8"><a id="bannedList" class="nav_links" href="index.php?action=bannedList"><span class="funny">!</span>Banned</a></td> ' .
+	'			<td id="8"><a id="bannedList" class="nav_links" href="index.php?action=bannedList"><span class="funny">!</span>Banned</a></td> 
+				<td id="9"><a id="imagegallery" class="nav_links" href="index.php?action=imagegallery"><span class="funny">I</span>ImageGallery</a></td>
+	' .
 	
 				$login_logout_link .
 	'		</tr>

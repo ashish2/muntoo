@@ -661,6 +661,14 @@ function loadlang_ori($langdir = "", $langfile = '')
 	
 	// include_once($globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $theme['name'] .'_lang.php');
 	$inc = $globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $lang .'_lang.php';
+	// if $inc file does not exists, 
+	// 1] then search if 'lang' index is set, & that file exists
+	// 2] if not, then search if a module folder exists, inside which the module name flder exists or not & inside that, module_name file exists,
+	// eg. modules/imagegallery/imagegallery.php (Not done yet, still left to implement)
+	if( !file_exists( $inc ) && isset($theme['lang']) )
+	{
+		$inc = $globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $theme['lang'] .'_lang.php';
+	}
 	
 	// include_once($globals['rootdir'] . '/languages/' . $user['lang'] .'/'. $lang .'_lang.php');
 	include_once($inc);

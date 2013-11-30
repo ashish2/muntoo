@@ -14,6 +14,11 @@ function login()
 	$theme['call_theme_func'] = 'login';
 	$theme['page_title'] = 'Login';
 	
+	
+	// Y m i not loading langs now?
+	// is it because of the ajax framework?
+	// i hv stopped loading, the languages folder in lotsa files, i suppose?
+	loadlang();
 	//~loadlang();
 	//~fheader($title = 'Login');
 	
@@ -21,8 +26,11 @@ function login()
 	if(isset($_POST['sub_register']))
 	{
 		
-		$email = mandff( check_input( $_POST['email'] ), $l['user_email_req'] );
-		$password = mandff( check_input($_POST['password'] ), $l['pass_req'] );
+		$email = isset( $_POST['email'] ) ? mandff( $_POST['email'], $l['user_email_req']) : null;
+		$password = isset($_POST['password']) ? mandff($_POST['password'], $l['pass_req']) : null;
+		
+		$email = check_input($email);
+		$password = check_input($password);
 		
 		if($error)
 		{

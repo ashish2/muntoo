@@ -472,3 +472,102 @@ CREATE TABLE  `qna_vote` (
 ALTER TABLE `qna_vote` ADD CONSTRAINT `post_id_refs_id` FOREIGN KEY (`post_id`) REFERENCES `qna_post` (`id`);
 
 
+
+# Added 17 Nov 2013
+DROP TABLE IF EXISTS `imagegallery_albums`;
+
+CREATE TABLE `imagegallery_albums` (
+`id` INT(8) PRIMARY KEY AUTO_INCREMENT,
+`user_id` INT(8)  COMMENT "# User who created the album #",
+`name` VARCHAR(255) COMMENT "#Name of the Album#",
+`description` LONGTEXT COMMENT "# Description about the Album,  eg. What it is all about, etc. #",
+`place` VARCHAR(255) COMMENT "# Where it was taken etc #",
+`date` datetime COMMENT "# Date of Creation of the Album #",
+`status` INT(4) COMMENT  "#values 0-Deactivated, 1-Active, null-probably untouched yet#"
+#FOREIGN KEY(`id`) REFERENCES users(`id`)
+)
+
+
+# Added 17 Nov 2013
+DROP TABLE IF EXISTS `imagegallery_photos`;
+
+CREATE TABLE `imagegallery_photos` (
+`id` INT(8) PRIMARY KEY AUTO_INCREMENT,
+`user_id` INT(8)  COMMENT "# User who uploaded the photo #",
+`album_id` INT(8) COMMENT "# Album Id, The Album in which the Photo resides #",
+`title` VARCHAR(255) COMMENT "#Title for the Photo#",
+`description` LONGTEXT COMMENT "# Description for the Photo,  eg. What it is all about, etc. #",
+`place` VARCHAR(255) COMMENT "# Where it was taken etc #",
+`actual_name` VARCHAR(255) COMMENT "# Actual Name of the photo, without the extension#",
+`actual_file_name` VARCHAR(255) COMMENT "# Actual Full File Name of the photo#",
+`photo_save_path` VARCHAR(255) COMMENT "# Path where photot is saved, and whats its new name #",
+`date` datetime COMMENT "# Date of Creation of the Photo #",
+`status` INT(4) COMMENT  "#values 0-Deactivated, 1-Active, null-probably untouched yet#"
+)
+
+
+# Added 17 Nov 2013
+CREATE TABLE `imagegallery_photo_comments` (
+`id` INT(8) PRIMARY KEY AUTO_INCREMENT,
+`user_id` INT(8)  COMMENT "# User who gave the comment on the photo #",
+`photo_id` INT(8) COMMENT "# Photo which the comment relates to #",
+`comment` LONGTEXT COMMENT "# Comment on the Photo #",
+`date` datetime COMMENT "# Date of Creation of the Photo #",
+`status` INT(4) COMMENT  "#values 0-Deactivated, 1-Active, null-probably untouched yet#"
+)
+
+
+# Added 23 Nov 2013
+ALTER TABLE `like` ADD COLUMN `module_table_name` VARCHAR(64);
+ALTER TABLE `like` ADD COLUMN `module_table_id` INT(8) AFTER `photos_id`;
+
+
+# Added 23 Nov 2013
+/*
+id, 
+question, 
+user_id, 
+module_table_id( post_id, either from imagegallery table-imageid, or post table postid etc.), 
+module_table_name (module_type, table_name/ or post_type: image_post, wall_post etc.), 
+date, 
+status
+*/
+CREATE TABLE `poll` (
+`id` INT(8) PRIMARY KEY AUTO_INCREMENT,
+`question` VARCHAR(1024) DEFAULT NULL COMMENT "#Question of the Poll#", 
+`user_id` INT(8)  COMMENT "# User who gave the comment on the photo #",
+`module_table_id` INT(8) COMMENT "# Related to the table id of the module ( Like if its from imagegallery then, module_table_id: id of imagegallery table, or post table id etc.)#", 
+`module_table_name` VARCHAR(64) COMMENT "#(module_type, table_name/ or post_type: Like module_table_name: 'imagegallery', image_post, wall_post etc.)#", 
+`date` datetime COMMENT "# Date of Creation of the Photo #",
+`status` INT(4) COMMENT  "#values 0-Deactivated, 1-Active, null-probably untouched yet#"
+)
+
+
+DROP TABLE IF EXISTS `poll_options`
+
+CREATE TABLE `poll_options` (
+`id` INT(8) PRIMARY KEY AUTO_INCREMENT, 
+`poll_id` INT(8) COMMENT "#Foreign Key References poll(`id`)#", 
+`option_key` TINYINT(1) UNSIGNED COMMENT "#( Integers, 1,2,3... so on. Most of the times being between 1-5)#", 
+`option_text` VARCHAR(512) DEFAULT NULL COMMENT "#Text of the option#",
+`date` datetime COMMENT "# Date of Creation of the Photo #",
+`status` INT(4) COMMENT  "#values 0-Deactivated, 1-Active, null-probably untouched yet#"
+)
+
+CREATE TABLE `poll_votes` (
+`id` INT(8) PRIMARY KEY AUTO_INCREMENT, 
+`poll_options_id` INT(8) COMMENT "#Foreign Key References poll_options(`id`) Field#", 
+`poll_options_other_text` VARCHAR(512) COMMENT "#(if in the optins, Other is selected, then a text box will come up, saying If Other, then what? 'other then what?', VARCHAR Field)#",
+`vote` TINYINT(1) COMMENT "# 0, -1 or (+1) , Indicating: 0: Null, Vote: +1, Vote_undo: -1#", 
+`user_id` INT(5) COMMENT "#References Users table (`id`)#", 
+`date` datetime COMMENT "# Date of Creation of the Photo #",
+`status` INT(4) COMMENT  "#values 0-Deactivated, 1-Active, null-probably untouched yet#"
+)
+
+
+
+
+
+
+
+

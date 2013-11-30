@@ -263,6 +263,10 @@ function main()
 	}
 	*/
 	
+	// imagegallery
+	$img_gall = 'imagegallery';
+	$poll = 'poll';
+	
 	if(isset($_GET['action']))
 	// $get HERE
 	// the below, line, only if from all the links 
@@ -276,6 +280,7 @@ function main()
 		// so, board => array('pageName', 'funcName') 
 		// so, board => array('board', 'topics') 
 		// ?action="board" in url, will result in, board.php included, & topics() function runs
+		
 		$actionarr = array(
 			// 'ACTION' => array('PAGE', 'FUNC')
 			// 'ACTION' => array('PAGE', 'FUNC' [, 'Link Name'] [, Main Link Name for Navig] )
@@ -308,9 +313,17 @@ function main()
 			// QnA module 
 			'qna' => array( 'qna', 'qna', 'Q n A',  ),
 			
-			// Other Modules
+			/// Other Modules
+			
+			// nntp
 			'nntp' => array( 'nntp/nntp', 'nntp', '', 3 => array('Profile', 'The Wall (stands Tall)' ) ),
 			
+			// imagegallery
+			//~"$img_gall" => array( "$img_gall/$img_gall", "$img_gall", '', 3 => array('Profile', 'The Wall (stands Tall)' ) ),
+			"$img_gall" => array( "$img_gall/$img_gall", "_main", '', 3 => array('Profile', 'The Wall (stands Tall)' ) ),
+			
+			// Polling
+			"$poll" => array( "$poll/$poll", "_main", '', 3 => array('Profile', 'The Wall (stands Tall)' ) ),
 			
 			
 			// /opt/lampp/htdocs/www/forums/myForum/3/sources/register.php
@@ -392,6 +405,9 @@ function main()
 	}
 	
 	$inc = "$sourcedir/{$actionarr[$_REQUEST['action']][0]}$php";
+	if ( !file_exists($inc) )
+		$inc = "$sourcedir/modules/{$actionarr[$_REQUEST['action']][0]}$php";
+	
 	// $get HERE
 	//$inc = "$sourcedir/{$actionarr[$get[0]][0]}$php";
 	include_once($inc);
@@ -418,6 +434,13 @@ if( !isset($_GET['nonav']) || $_GET['nonav'] != 1 )
 if(isset($theme['name']))
 {
 	$theme_name = $globals['themedir'].'/'.$user['theme_type'].'/'.$theme['name'].'_theme.php';
+	
+	//~if ( !file_exists( $theme_name ) )
+	//~{
+		//~$modules = 'modules';
+		//~echo $theme_name = $globals['themedir'].'/'.$user['theme_type'].'/'.$modules .'/'.$theme['folder'] .'/'.$theme['name'].'_theme.php';
+	//~}
+	
 	include_once($theme_name);
 	$theme_name = null;
 }
@@ -456,7 +479,7 @@ ffooter($time->time_elapsed(6));
 
 // TESTING
 
-//printrr(get_included_files() );
+//~printrr(get_included_files() );
 
 
 // TESTING-

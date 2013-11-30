@@ -7,7 +7,6 @@
 function login_theme()
 {
 	
-	
 	global $globals, $mysql, $done, $error, $errors;
 	global $l;
 	
