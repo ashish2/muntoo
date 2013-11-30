@@ -6,6 +6,7 @@ error_reporting(-1);
 
 $dir = dirname(__FILE__);
 include_once($dir.'/functions/func.php');
+include_once($dir.'/functions/morefunc.php');
 include_once($dir.'/themes/default/hnf.php');
 $dir = null;
 
