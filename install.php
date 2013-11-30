@@ -98,7 +98,7 @@ if(isset($_POST['dbinstall']))
 	// else give an error and give a link to go back and start installation from this page itself.
 	if(!is_writable($dirName) )
 	{
-		$error['dir_unwritable'] = 'Directory "' . $dirName . '" does not seem to be writable, please try changing permissions, and submit the form again.';
+		$error['dir_unwritable'] = 'Directory "' . $dirName . '" does not seem to be writable by the Server, please try changing permissions, and submit the form again.';
 		//die();
 	}
 	

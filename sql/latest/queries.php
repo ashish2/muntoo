@@ -312,6 +312,7 @@ $q[] = "CREATE TABLE IF NOT EXISTS `board` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 ";
 
+/*
 --
 -- Dumping data for table `board`
 --

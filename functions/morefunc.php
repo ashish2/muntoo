@@ -8,12 +8,18 @@ function include_js_files()
 	
 	$js_files_arr = array();
 	
-	$js_file_list = $globals['themedir']."/".$user['theme_type']."/js/include_js_files";
+	$g_theme_dir = null;
+	$g_theme_dir = $globals['themedir'];
+	if( !isset( $globals['themedir'] ) || empty( $globals['themedir'] ) )
+		$g_theme_dir = 'themes';
+	
+	$js_file_list = $g_theme_dir."/".$user['theme_type']."/js/include_js_files";
 	$js_files_arr = file($js_file_list);
 	
 	$theme['js_files'] = array_filter(array_map("trim", $js_files_arr));
 	//$theme['js_files'] = array_filter($js_files_arr, "trim");
 	$js_files_arr = null;
+	$g_theme_dir = null;
 	
 }
 
