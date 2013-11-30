@@ -501,10 +501,6 @@ function setSomeDefaults_User()
 	// REMOVE IT LATER, bcoz u have to take this values from DB
 	$user['ip'] = $_SERVER['REMOTE_ADDR'];
 	
-	
-	//$user['theme_type'] = 'smashing_magazine';
-	//$user['theme_type'] = 'theme_4';
-	
 	$user['theme_type'] = ( isset($user['theme_type'] )  ) ? $user['theme_type'] : 'default';
 	$user['lang'] = ( isset($user['lang'] )  ) ? $user['lang'] : 'en_US';
 	

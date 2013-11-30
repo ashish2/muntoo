@@ -139,37 +139,80 @@ if(isset($_POST['dbinstall']))
 ////=======
 ////>>>>>>> Stashed changes
 	
-	'$globals["cookiename"] = $cookiename = \'MFCOOKIE44' . "'; \n" . 
-	'// Will have to write the below things in this file at installation ' . "\n" . 
-	'// extra added ' . "\n" .
-	'$globals["ind"] = $globals["boardurl"]."/index.php?"; ' . "\n" . 
-	'$globals["only_ind"] = "/index.php?"; ' . "\n\n// Added all \n\n" . 
-	'$globals["funcdir"] = $funcdir = \'' . $dirName . '/functions\';' . 
-	"\n" . 
-	'// Only for the moment, will be removed later.' . 
-	"\n" . 
-	'// Extra added Admin specifications' . 
-	"\n" . 
-	'// Admin settings will come from settings table of admin' . 
-	"\n" . 
-	'$admin["settings"]["ai"] = 1;' . 
-	"\n" . 
-	'// Single file for Languages as in all languages function kept in single file, ' . 
-	"\n" . 
-	'// or multiple file for multiple functions' . 
-	"\n" . 
-	'//$admin["settings"]["lang"]["func_run"] = "sing";' . 
-	"\n" . 
-	'$admin["settings"]["lang"]["func_run"] = "mult";' . 
-	"\n" . 
-	'// extra added' . 
-	"\n" . 
-	'// DB Specifications' . 
-	"\n" . 
-	'$db = array(); ' . 
-	"\n" . 
-	'$db["type"] = "mysql";' . 
-	"\n" . 
+	'$globals["cookiename"] = $cookiename = "MFCOOKIE44";' 
+	. "\n" . 
+	'// Will have to write the below things in this file at installation ' 
+	. "\n" . 
+	'// extra added ' 
+	. "\n" .
+	'$globals["ind"] = $globals["boardurl"]."/index.php?"; ' 
+	. "\n" . 
+	'$globals["only_ind"] = "/index.php?"; ' 
+	. "\n
+	\n
+	// Added all 
+	\n
+	\n" . 
+	'$globals["funcdir"] = $funcdir = \'' . $dirName . '/functions\';' 
+	. "\n" . 
+	'$globals["only_ind_no_slash"] = "index.php?";'
+	. "\n" . 
+	'// Only for the moment, will be removed later.' 
+	. "\n" . 
+	'// Extra added Admin specifications' 
+	. "\n" . 
+	'// Admin settings will come from settings table of admin' 
+	. "\n" . 
+	'$admin["settings"]["ai"] = 1;' 
+	. "\n" . 
+	'// Single file for Languages as in all languages function kept in single file, ' 
+	. "\n" . 
+	'// or multiple file for multiple functions' 
+	. "\n" . 
+	'//$admin["settings"]["lang"]["func_run"] = "sing";' 
+	. "\n" . 
+	'$admin["settings"]["lang"]["func_run"] = "mult";' 
+	. "\n" . 
+	'// Admin Cache switch 0/1 - off/on - Dont Cache/Cache'
+	. "\n" . 
+	'$admin["settings"]["cache"]["switch"] = 0;'
+	. "\n" . 
+	'// extra added' 
+	. "\n" . 
+	'// DB Specifications' 
+	. "\n" . 
+	'$db = array(); ' 
+	. "\n" . 
+	'$db["type"] = "mysql";' 
+	. "\n" . 
+	'// More added, which we need to write during installation'
+	. "\n" . 
+	'$imgFolder = array();'
+	. "\n" . 
+	'$imgFolder["root"] = "images";'
+	. "\n" . 
+	'$imgFolder["site"] = "$imgFolder[root]/site";'
+	. "\n" . 
+	'$imgFolder["uploaded"] = array();'
+	. "\n" . 
+	'$imgFolder["uploaded"]["root"] = "$imgFolder[root]/uploaded";'
+	. "\n" . 
+	'$imgFolder["uploaded"]["ori"] = "$imgFolder[root]/uploaded/ori";'
+	. "\n" . 
+	'$imgFolder["uploaded"]["medium"] = "$imgFolder[root]/uploaded/medium";'
+	. "\n" . 
+	'$imgFolder["uploaded"]["small"] = "$imgFolder[root]/uploaded/small";'
+	. "\n" . 
+	'$imgFolder["uploaded"]["vsmall"] = "$imgFolder[root]/uploaded/vsmall";'
+	. "\n" . 
+	'// User Globals'
+	. "\n" . 
+	'// Just FTM, Maybe removed later,'
+	. "\n" . 
+	'// As User Globals will come from DB'
+	. "\n" . 
+	'$globals["user"]["theme_type"] = "default_5";'
+	. "\n" . 
 	
 	"?>"
 	;
@@ -368,6 +411,13 @@ if(isset($_POST['admin_set']))
 		{
 			
 		}
+		
+		/*
+		Maybe this can be used for writing sql queries into DB from sql file, Check.
+		$db = new PDO($dsn, $user, $password);
+		$sql = file_get_contents('file.sql');
+		$qr = $db->exec($sql);
+		*/
 		
 		// Write the config file here, on this step
 		// take more info like to be written,
