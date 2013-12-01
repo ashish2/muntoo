@@ -166,12 +166,20 @@ function fnav()
 				<td id="3"><a id="modifyprofile" class="nav_links" href="index.php?action=modifyprofile"><span class="funny">#</span>Modify Profile</a></td>
 				<td id="4"><a id="wall" class="nav_links" href="index.php?action=wall"><span class="funny">$</span>The Wall (stands Tall)</a></td>
 				<td id="5"><a id="listUsers" class="nav_links" href="index.php?action=listUsers"><span class="funny">^</span>List Users</a></td>
-				<td id="6"><a id="viewProfile" class="nav_links" href="index.php?action=viewProfile"><span class="funny">%</span>View Profile</a></td> ' .
+				<td id="6"><a id="viewProfile" class="nav_links" href="index.php?action=viewProfile"><span class="funny">%</span>View Profile</a></td> 
+				
+				<td id="7"><a id="sendMessage" class="nav_links" href="index.php?action=sendMessage"><span class="funny">></span>Send Message</a></td>
+				<td id="8"><a id="viewMessage" class="nav_links" href="index.php?action=viewMessage"><span class="funny"><></span>View Message</a></td>
+				
+				<td id="9"><a id="friendsList" class="nav_links" href="index.php?action=friendsList"><span class="funny">w</span>Friends List</a></td> 
+				<td id="10"><a id="imagegallery" class="nav_links" href="index.php?action=imagegallery"><span class="funny">I</span>ImageGallery</a></td>
+				 
+				' .
 				
 				$adminLink .
 				
-	'			<td id="8"><a id="bannedList" class="nav_links" href="index.php?action=bannedList"><span class="funny">!</span>Banned</a></td> 
-				<td id="9"><a id="imagegallery" class="nav_links" href="index.php?action=imagegallery"><span class="funny">I</span>ImageGallery</a></td>
+	'			
+				<td id="11"><a id="bannedList" class="nav_links" href="index.php?action=bannedList"><span class="funny">!</span>Banned</a></td> 
 	' .
 	
 				$login_logout_link .

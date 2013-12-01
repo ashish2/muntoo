@@ -298,7 +298,10 @@ function main()
 			'login' => array('login', 'login', '', 3 => array('Login', 'Login' ) ),
 			'logout' => array('logout', 'logout', '', 3 => array('Logout', 'Logout' ) ),			
 			'mainBoard' => array('board', 'board', '', 3 => array('Board', 'Main Board' ) ),			
+			
 			'messages' => array('messages', 'sendMessage', '', 3 => array('Profile', 'Messages' )  ),			
+			'viewMessage' => array('messages', 'viewMessage', '', 3 => array('Profile', 'Messages' )  ),			
+			
 			'modifyprofile' => array('modifyprofile', 'modifyprofile', '', 3 => array('Profile', 'Modify Profile' ) ),			
 			//'permissions' => array('permissions', 'permissions', '', 3 => array('Admin', 'Permissions' )  ),
 			'permissions' => array('permissions', 'permissions_test', '', 3 => array('Admin', 'Permissions' )  ),			

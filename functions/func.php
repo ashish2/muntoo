@@ -638,8 +638,9 @@ function loadlang_new($langfile = '', $langfunc='')
 	
 	// Run the custom Langfunc
 	// Calling the lang func
-	$langFunc = $langFunc.'_lang';
-	$langFunc();
+	// Not used for the moment
+	//~$langFunc = $langFunc.'_lang';
+	//~$langFunc();
 	
 }
 
