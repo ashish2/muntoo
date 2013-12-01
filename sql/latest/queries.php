@@ -101,7 +101,7 @@ $q[] = "CREATE TABLE IF NOT EXISTS `ai_actions_taken` (
   PRIMARY KEY (`ai_actions_taken_id`),
   UNIQUE KEY `users_uid` (`users_uid`),
   KEY `users_uid_2` (`users_uid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 ";
 
 /*
