@@ -110,13 +110,11 @@ $q[] = "CREATE TABLE IF NOT EXISTS `ai_actions_taken` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `ai_actions_taken` (`ai_actions_taken_id`, `users_uid`, `ban`, `ban_ip`, `warn_ip`) VALUES
 (1, 0, NULL, NULL, NULL),
 (3, 8, NULL, NULL, NULL),
 (13, 13, NULL, NULL, NULL);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -245,14 +243,12 @@ $q[] = "CREATE TABLE IF NOT EXISTS `ai_logs` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `ai_logs` (`ai_id`, `users_uid`, `reason`, `type`, `any_definition`, `datetime`, `aiul_ai_u_l_id`) VALUES
 (1, 3, 'cause', 'spam_words', NULL, 0, NULL),
 (2, 3, 'cause', 'spam_words', NULL, 0, NULL),
 (3, 1, 'cause', 'spam_words', '', 1339334770, 0),
 (4, 4, 'cause', 'spam_words', '', 1342351641, 0);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -322,12 +318,10 @@ $q[] = "CREATE TABLE IF NOT EXISTS `board` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `board` (`bid`, `bname`, `bdesc`, `bdate`, `bcreatedby`, `bcreatedbyuid`) VALUES
 (1, 'General Discussion', 'Place where you can discuss anything in general.', '06-05-2011', 'a1u', 1),
 (2, 'Funny', 'funny topics here', 'today', 'a1u', 1);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -354,7 +348,6 @@ $q[] = "CREATE TABLE IF NOT EXISTS `forgot_password` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `forgot_password` (`id`, `uid`, `email`, `password`, `code`, `datetime`) VALUES
 (1, 1, 'a1@a.com', '', 'ascru5', 1351963400),
 (2, 1, 'a1@a.com', '', 'x0oyy6', 1351963414),
@@ -365,7 +358,6 @@ $q[] = "INSERT INTO `forgot_password` (`id`, `uid`, `email`, `password`, `code`,
 (7, 8, 'a8@a.com', '', 'hpkcpt', 1351965101),
 (8, 8, 'a8@a.com', '', 'maknwu', 1351965865);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -422,11 +414,9 @@ $q[] = "CREATE TABLE IF NOT EXISTS `imagegallery_albums` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `imagegallery_albums` (`id`, `user_id`, `name`, `description`, `place`, `date`, `status`) VALUES
 (1, 1, 'Album 1', 'This is Album 1.', NULL, '2013-11-17 23:21:49', NULL);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -457,7 +447,7 @@ $q[] = "CREATE TABLE IF NOT EXISTS `imagegallery_photos` (
 -- Dumping data for table `imagegallery_photos`
 --
 */
-/*
+
 $q[] = "INSERT INTO `imagegallery_photos` (`id`, `user_id`, `album_id`, `title`, `description`, `place`, `actual_name`, `actual_file_name`, `photo_save_path`, `date`, `status`) VALUES
 (1, 1, 1, 'img1', 'nice img', NULL, '530453_480800458639231_1780902926_n.jpg', '530453_480800458639231_1780902926_n.jpg', 'images/imagegallery/530453_480800458639231_1780902926_n.jpg', '2013-11-19 04:53:06', NULL),
 (2, 1, 1, 'img1', 'nice img', NULL, '530453_480800458639231_1780902926_n.jpg', '530453_480800458639231_1780902926_n.jpg', 'images/imagegallery/2013/11/18/', '2013-11-19 05:00:58', NULL),
@@ -466,7 +456,6 @@ $q[] = "INSERT INTO `imagegallery_photos` (`id`, `user_id`, `album_id`, `title`,
 (5, 1, 1, 'img1', 'nice img', NULL, '530453_480800458639231_1780902926_n.jpg', '530453_480800458639231_1780902926_n.jpg', 'images/imagegallery/2013/11/18/', '2013-11-19 05:08:32', NULL),
 (6, 1, 1, 'img1', 'nice img', NULL, '530453_480800458639231_1780902926_n.jpg', '530453_480800458639231_1780902926_n.jpg', 'images/imagegallery/2013/11/18/530453_480800458639231_1780902926_n.jpg', '2013-11-19 05:09:42', NULL);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -513,7 +502,7 @@ $q[] = "CREATE TABLE IF NOT EXISTS `like` (
 -- Dumping data for table `like`
 --
 */
-/*
+
 $q[] = "INSERT INTO `like` (`id`, `users_id`, `wpwpr_id`, `photos_id`, `module_table_id`, `module_table_name`) VALUES
 (1, 1, 27, NULL, NULL, NULL),
 (2, 1, 19, NULL, NULL, NULL),
@@ -526,7 +515,6 @@ $q[] = "INSERT INTO `like` (`id`, `users_id`, `wpwpr_id`, `photos_id`, `module_t
 (9, 1, 74, NULL, NULL, NULL),
 (10, 1, 65, NULL, NULL, NULL);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -551,12 +539,10 @@ $q[] = "CREATE TABLE IF NOT EXISTS `mysql_error_logs` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `mysql_error_logs` (`id`, `mysql_errno`, `mysql_error`, `query`) VALUES
 (1, '1054', 'Unknown column ''regTime'' in ''field list''', 'INSERT INTO `users`(`username`, `password`, `email`, `url`, `salt`, `group`, `regTime`) VALUES(''a11u'', ''c2706a32f98fa9f3b1be004af1c7b593'', ''a11e@a.com'', ''a11w.com'', ''abc'', ''1'', 1368249168)'),
 (2, '1062', 'Duplicate entry ''11'' for key ''PRIMARY''', 'INSERT INTO `profile` (`users_uid`) VALUES(''11'')');
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -585,14 +571,12 @@ $q[] = "CREATE TABLE IF NOT EXISTS `pm` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `pm` (`pm_id`, `pm_id_head`, `pm_from_uid`, `pm_deleted_by_sender`, `pm_from_name`, `pm_sent_time`, `pm_subject`, `pm_body`) VALUES
 (1, 0, 1, 0, 'a1u', 0, 'hi', 'how are u dude?'),
 (2, 0, 1, 0, 'a1u', 0, 'hi', 'how are u dude?'),
 (3, 0, 1, 0, 'a1u', 0, 'Hi.', 'haalooo'),
 (4, 0, 1, 0, 'a1u', 0, 'Hi.', 'haalooo');
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -620,14 +604,12 @@ $q[] = "CREATE TABLE IF NOT EXISTS `pm_recepients` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `pm_recepients` (`pm_id`, `pm_sent_to_uid`, `pm_labels`, `pm_is_read`, `pm_is_new`, `pm_is_deleted`) VALUES
 (3, 1, '-1', 0, 1, 0),
 (3, 2, '-1', 0, 1, 0),
 (4, 1, '-1', 0, 1, 0),
 (4, 2, '-1', 0, 1, 0);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -655,7 +637,6 @@ $q[] = "CREATE TABLE IF NOT EXISTS `poll` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `poll` (`id`, `question`, `user_id`, `module_table_id`, `module_table_name`, `date`, `status`) VALUES
 (1, 'What do you think about this pic?', 1, 4, 'imagegallery_photos', '2013-11-24 00:00:00', 1),
 (2, 'how does this pic look?', 1, 6, 'imagegallery_photos', '2013-11-24 15:29:37', 1),
@@ -665,7 +646,6 @@ $q[] = "INSERT INTO `poll` (`id`, `question`, `user_id`, `module_table_id`, `mod
 (7, 'how is my photo friendssss?', 1, 6, 'imagegallery_photos', '2013-11-24 19:24:10', NULL),
 (8, 'how is my photo friendssss?', 1, 6, 'imagegallery_photos', '2013-11-24 19:25:03', NULL);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -692,7 +672,6 @@ $q[] = "CREATE TABLE IF NOT EXISTS `poll_options` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `poll_options` (`id`, `poll_id`, `option_key`, `option_text`, `date`, `status`) VALUES
 (1, 1, 1, 'Ugly', NULL, 1),
 (2, 1, 2, 'Bad', NULL, 1),
@@ -709,7 +688,6 @@ $q[] = "INSERT INTO `poll_options` (`id`, `poll_id`, `option_key`, `option_text`
 (13, 8, 1, 'Great!!', '2013-11-24 19:25:03', NULL),
 (14, 8, 2, 'Awesome!!!', '2013-11-24 19:25:03', NULL);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -737,7 +715,6 @@ $q[] = "CREATE TABLE IF NOT EXISTS `poll_votes` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `poll_votes` (`id`, `poll_options_id`, `poll_options_other_text`, `vote`, `user_id`, `date`, `status`) VALUES
 (1, 1, NULL, 1, 9, NULL, 1),
 (2, 2, NULL, 1, 8, NULL, 1),
@@ -754,7 +731,6 @@ $q[] = "INSERT INTO `poll_votes` (`id`, `poll_options_id`, `poll_options_other_t
 (13, 14, NULL, 1, 7, NULL, 1),
 (14, 14, NULL, 1, 8, NULL, 1);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -782,7 +758,6 @@ $q[] = "CREATE TABLE IF NOT EXISTS `profile` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `profile` (`users_uid`, `display_name`, `about`, `dob`, `sex`, `display_pic_url`, `perfume`) VALUES
 (1, '', 'im this and also i m that.', 0, 'm', '', 'html'),
 (2, 'A2U', 'whats this?\r\ni think its the &quot;about me section&quot;.', 0, 'm', '', ''),
@@ -797,7 +772,6 @@ $q[] = "INSERT INTO `profile` (`users_uid`, `display_name`, `about`, `dob`, `sex
 (12, NULL, NULL, NULL, NULL, NULL, NULL),
 (13, NULL, NULL, NULL, NULL, NULL, NULL);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -828,7 +802,6 @@ $q[] = "CREATE TABLE IF NOT EXISTS `qna_post` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `qna_post` (`id`, `title`, `content`, `slug`, `parent_id`, `date`, `user_id`, `user_ip`, `status`) VALUES
 (1, 'title question 1', 'description of title question 1', 'title-question-1', NULL, '2013-09-26 00:00:00', 1, '', 1),
 (2, NULL, 'answer 1 to question 1', '', 1, '2013-09-26 09:00:00', 1, '', 1),
@@ -837,7 +810,6 @@ $q[] = "INSERT INTO `qna_post` (`id`, `title`, `content`, `slug`, `parent_id`, `
 (5, NULL, 'reply 2 to q 1', '', 1, '2013-09-26 20:00:00', 1, '', 1),
 (6, NULL, 'reply 3 to q 1', '', 1, '2013-09-26 21:00:00', 1, '', 1);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -886,7 +858,7 @@ $q[] = "CREATE TABLE IF NOT EXISTS `replies` (
 -- Dumping data for table `replies`
 --
 */
-/*
+
 $q[] = "INSERT INTO `replies` (`rid`, `rsubject`, `rbody`, `topic_tid`, `poster_users_uid`, `date`, `user_ip`) VALUES
 (1, 'reply to topic 1', 'this is reply1 topic 1, \r\nall u frends enjoy topic 1\r\n', 1, 1, 1312046377, '127.0.0.1'),
 (2, 'reply to topic 1', 'this is reply2 to topic 1.\r\nenjoy topic 1, guys.\r\n', 1, 1, 1312046380, '127.0.0.1'),
@@ -1009,7 +981,6 @@ $q[] = "INSERT INTO `replies` (`rid`, `rsubject`, `rbody`, `topic_tid`, `poster_
 (119, 'rep to top 1', 'whats happening? \r\nfuck sex', 1, 4, 1342351642, '127.0.0.1'),
 (120, '', 'rep1 to top2', 39, 1, 1348902098, '127.0.0.1');
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -1035,11 +1006,9 @@ $q[] = "CREATE TABLE IF NOT EXISTS `TEST_1` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `TEST_1` (`about`, `dob`, `sex`, `displaypic_url`, `website_url`, `perfume`) VALUES
 ('hi hi hi', '2011-10-27 19:19:21', '', NULL, NULL, NULL);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -1090,7 +1059,6 @@ $q[] = "CREATE TABLE IF NOT EXISTS `topics` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `topics` (`tid`, `tname`, `tdesc`, `tdate`, `tcreatedby`, `tcreatedbyuid`, `tcreatedbyuid_IPv4`, `tcreatedbyuid_IPv6`, `board_bid`) VALUES
 (1, 'topic1', 'this is topic 1', 'today', 'a1u', 1, NULL, NULL, 1),
 (2, 'topic2', 'this is topic2', 'today2', 'a1u', 1, NULL, NULL, 1),
@@ -1120,7 +1088,6 @@ $q[] = "INSERT INTO `topics` (`tid`, `tname`, `tdesc`, `tdate`, `tcreatedby`, `t
 (38, 'topic 31', 'this is topic nmbr 31', '1334258724', 'admin', 1, '\0\0', NULL, 1),
 (39, 'top2', 'topic 2 is here.', '1348902063', 'admin', 1, '\0\0', NULL, 1);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -1153,7 +1120,6 @@ $q[] = "CREATE TABLE IF NOT EXISTS `users` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `users` (`uid`, `username`, `password`, `email`, `url`, `salt`, `group`, `friends_list`, `is_banned`, `displayPicId`, `regTime`) VALUES
 (1, 'admin', 'e38561d99e538eb7d936acb92bd847b0', 'a1@a.com', 'a1.com', 'abc', 5, '3', NULL, 1, NULL),
 (2, 'a2u', 'f9a3362e3ce11bd9ab7551a56a88270c', 'a2@a.com', 'a2.com', 'abc', 1, '3,1,4', NULL, 2, NULL),
@@ -1169,7 +1135,6 @@ $q[] = "INSERT INTO `users` (`uid`, `username`, `password`, `email`, `url`, `sal
 (12, 'a12u', '580b31defc1a21bf91c712d3c4d7cd00', 'a12e@a.com', 'a12w.com', 'abc', 1, '', NULL, NULL, 1368249785),
 (13, 'a13u', '714b5db203d786e4be89289a4aed9928', 'a13e@a.com', 'a13w.com', 'abc', 1, '', NULL, NULL, 1368249941);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -1198,7 +1163,6 @@ $q[] = "CREATE TABLE IF NOT EXISTS `wall_post` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `wall_post` (`wp_id`, `wp_on_uid`, `wp_by_uid`, `wp_post`, `wp_date`, `wpr_id`, `deleted`) VALUES
 (1, 3, 1, 'hi '' \\ kajfdh &quot;ok&quot;;', 1332583192, NULL, 0),
 (2, 3, 1, 'hi '' \\ kajfdh &quot;ok&quot;;', 1332583228, '42', 0),
@@ -1229,7 +1193,6 @@ $q[] = "INSERT INTO `wall_post` (`wp_id`, `wp_on_uid`, `wp_by_uid`, `wp_post`, `
 (27, 3, 3, 'hi, guys, here is my thought...', 1348323582, NULL, 0),
 (28, 1, 1, 'HI', 1362042985, NULL, 0);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -1262,7 +1225,6 @@ $q[] = "CREATE TABLE IF NOT EXISTS `wall_posts_wall_post_replies` (
 --
 */
 
-/*
 $q[] = "INSERT INTO `wall_posts_wall_post_replies` (`id`, `on_uid`, `by_uid`, `post`, `date`, `post_id`, `type`, `status`) VALUES
 (1, 3, 1, 'hi '' \\ kajfdh &quot;ok&quot;;', 1332583192, NULL, 1, 1),
 (2, 3, 1, 'hi '' \\ kajfdh &quot;ok&quot;;', 1332583228, NULL, 1, 1),
@@ -1348,7 +1310,7 @@ $q[] = "INSERT INTO `wall_posts_wall_post_replies` (`id`, `on_uid`, `by_uid`, `p
 (84, 1, 1, 'a', 1379644823, NULL, 1, 1),
 (85, NULL, 1, 'hi', 1384707592, '84', 2, 1);
 ";
-*/
+
 /*
 -- --------------------------------------------------------
 
@@ -1373,7 +1335,7 @@ $q[] = "CREATE TABLE IF NOT EXISTS `wall_post_reply` (
 -- Dumping data for table `wall_post_reply`
 --
 */
-/*
+
 $q[] = "INSERT INTO `wall_post_reply` (`wpr_id`, `wpr_content`, `wpr_by_uid`, `wpr_date`, `wp_id`, `status`) VALUES
 (1, 'hi reply', 3, 1333405128, 19, NULL),
 (2, '', 1, 1333405196, 19, NULL),
@@ -1413,7 +1375,6 @@ $q[] = "INSERT INTO `wall_post_reply` (`wpr_id`, `wpr_content`, `wpr_by_uid`, `w
 (42, 'suup yo.', 3, 1348314901, 2, NULL),
 (41, 'ok hi.', 1, 1347911571, 24, NULL);
 ";
-*/
 
 /*
 -- --------------------------------------------------------
@@ -1438,7 +1399,7 @@ $q[] = "CREATE TABLE IF NOT EXISTS `wp_wpr` (
 -- Dumping data for table `wp_wpr`
 --
 */
-/*
+
 $q[] = "INSERT INTO `wp_wpr` (`id`, `wp_id`, `wpr_id`, `log_entry`) VALUES
 (1, 2, 42, NULL),
 (2, 16, 19, NULL),
@@ -1473,7 +1434,6 @@ $q[] = "INSERT INTO `wp_wpr` (`id`, `wp_id`, `wpr_id`, `log_entry`) VALUES
 (31, 23, 29, NULL),
 (32, 24, 41, NULL);
 ";
-*/
 
 /*
 --

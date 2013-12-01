@@ -27,29 +27,31 @@ function viewProfile_theme()
 	<h3>'.$l['usr_prof'].'</h3>
 	<table class="disp_table" id="disp_table">';
 	
-	foreach( $row as $k => $v )
+	if( $row )
 	{
-		if ( $k == 'salt' || $k == 'password' )
+		foreach( $row as $k => $v )
 		{
-			unset( $row[$k] );
-			continue;
+			if ( $k == 'salt' || $k == 'password' )
+			{
+				unset( $row[$k] );
+				continue;
+			}
+			
+			$k = str_replace("_", " ", $k) ;
+			$k = ucfirst($k);
+			
+			$str .=  "
+			<tr $cssTrClassNm>
+				<td $cssTdClassNm>
+					$k
+				</td>
+				<td $cssTdClassNm>
+					$v
+				</td>
+			</tr>
+			";
 		}
-		
-		$k = str_replace("_", " ", $k) ;
-		$k = ucfirst($k);
-		
-		$str .=  "
-		<tr $cssTrClassNm>
-			<td $cssTdClassNm>
-				$k
-			</td>
-			<td $cssTdClassNm>
-				$v
-			</td>
-		</tr>
-		";
 	}
-	
 	$uid = ( isset($_GET['uid'] ) ? (int) check_input( $_GET['uid'] ) : $user['uid'] );
 	
 	if( mysql_num_rows( $qu[2] ) == 1 )

@@ -347,7 +347,8 @@ if(isset($_POST['admin_set']))
 	$adminpass = mandff($_POST['adminpass'], 'Invalid Admin Password');
 	$adminemail = mandff($_POST['adminemail'], 'Invalid Email');
 	
-	$adminpass = md5($adminpass);
+	$salt = 'abc';
+	$adminpass = md5($adminpass.$salt);
 	
 	if(!empty($error))
 	{
@@ -374,9 +375,10 @@ if(isset($_POST['admin_set']))
 		// ERROR: Fire a CREATE TABLE `users` , before Firing INSERT INTO `users`
 		
 		//$q = "INSERT INTO `users` (`username`, `password`, `email`, `user_level`) VALUES ('$adminuser', '$adminpass', '$adminemail', '1')";
-		$q0 = "INSERT INTO `users` (`username`, `password`, `email`, `user_level`) VALUES(1, 'admin', 'e38561d99e538eb7d936acb92bd847b0', 'a1@a.com', 'a1.com', 'abc', 5, '', NULL)";
+		//~$q0 = "INSERT INTO `users` (`username`, `password`, `email`, `url`, `salt`, `group`, `user_level`) VALUES('$adminuser', '$adminpass', '$adminemail', 'a1.com', '$salt', 5, '', NULL)";
+		$q0 = "INSERT INTO `users` (`username`, `password`, `email`, `url`, `salt`, `group`, `is_banned`, `regTime`) VALUES('$adminuser', '$adminpass', '$adminemail', 'a1.com', '$salt', 5, 0, NOW())";
 		//$mq = $mysql->mq($q);
-		$mq = mysql_query($q0);
+		//~$mq = mysql_query($q0);
 		
 		//$exec = shell_exec("nohup mysql -u ".$dbuser." -p ".$dbpass . " " . $dbname . " < /opt/lampp/htdocs/www/forums/myForum/2/myforum_2.sql");
 		
@@ -424,7 +426,15 @@ if(isset($_POST['admin_set']))
 		// take more info like to be written,
 		// $sourcedir, $rootdir
 		
+		// Creating the Admin User Here
+		$mq = mysql_query($q0);
 		
+		$ins_id = mysql_insert_id();
+		//echo "ins_id = " . $ins_id;
+		
+		// an insert id goes in here, which becomes the user[uid]
+		$q1 = "INSERT INTO `profile` (`users_uid`) VALUES('$ins_id')";
+		$mq2 = mysql_query($q1);
 		
 		
 		header("Location: install.php?step=3");

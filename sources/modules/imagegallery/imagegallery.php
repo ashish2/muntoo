@@ -62,7 +62,7 @@ function viewalbum()
 function createalbum()
 {
 	
-	global $user;
+	global $user, $globals;
 	global $theme;
 	global $error, $errors, $row;
 	
@@ -100,7 +100,9 @@ function createalbum()
 		$q = db_query($query);
 		
 		$row = null;
-		if($row = mysql_fetch_row($q) )
+		$row = mysql_insert_id();
+		//~if($row = mysql_fetch_row($q) )
+		if($row)
 			$done = true;
 		
 		if( $row ) 
@@ -174,7 +176,13 @@ function uploadimage()
 					$y = date("Y");
 					$m = date("m");
 					$d = date("d");
+					
+					$prepend = null;
+					$prepend = trim(shell_exec(`echo pwd`));
+					
 					$pathname = "images/imagegallery/$y/$m/$d/";
+					//~$pathname = "$prepend/images/imagegallery/$y/$m/$d/";
+					
 					$file = $_FILES["file"]["name"];
 					
 					$fullPath = $pathname . $file;
@@ -183,14 +191,20 @@ function uploadimage()
 					{
 						$moved = null;
 						
-						// save as Folder 2013, month11, date 19
-						if( !dirname($pathname) )
-							mkdir ( $pathname, 0777, true );
+						$dirname = null;
+						$dirname = file_exists($pathname);
 						
+						// save as Folder 2013, month11, date 19
+						if( !$dirname )
+							mkdir( $pathname, 0777, true );
+						
+						$moved = null;
 						$moved = move_uploaded_file( $_FILES["file"]["tmp_name"], $fullPath );
 						
 						if( $moved )
 						{
+							
+							$uid = $user["uid"];
 							
 							$files_file_name = $_FILES['file']['name'];
 							
@@ -204,13 +218,17 @@ function uploadimage()
 							)
 							VALUES
 							(
-								'$user[uid]', '$albid', 
-								'$_POST[title]', '$_POST[desc]', 
+								'$uid', '$albid', 
+								'$title', '$description', 
 								'$files_file_name', '$files_file_name',  
 								'$fullPath', NOW()
 							)";
 							
 							$row = db_query($query);
+							
+							
+							if( $row)
+								$notice[] = "File created!!!";
 							
 						}
 						else

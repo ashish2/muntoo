@@ -178,8 +178,10 @@ function wall()
 		while ($lik = mysql_fetch_assoc($qu) )
 			$likes[$lik['id']][] = $lik['users_id'];
 	}
+	
 	// Write the results as json string in cache file
-	$c2->exProcWrite($likes);
+	if( isset($admin['settings']['cache']['switch']) && $admin['settings']['cache']['switch'] == 1)
+		$c2->exProcWrite($likes);
 	
 	// This Query, To get wall_post_replies
 	// After the first above query, to get wall_post
