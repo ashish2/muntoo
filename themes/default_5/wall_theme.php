@@ -178,7 +178,7 @@ function wall_theme()
 					if( isset($likes[$vv['id2']]) )
 					{
 						
-						$count = count($likes[$k]);
+						//~$count = count($likes[$k]);
 						
 						//if( $key = array_search($i['wp_id'], $u_wpr ) )
 						if( in_array( $user['uid'], $likes[$vv['id2']] ) )
@@ -207,7 +207,7 @@ function wall_theme()
 					<span>
 						<small>
 							$date
-							<a href=$globals[ind]action=emotion&e=like&uid=$user[uid]&post=$vv[id2]>".ucfirst($like_unlike)."</a>
+							<a href=$globals[ind]action=emotion&e=$like_unlike&uid=$user[uid]&post=$vv[id2]>".ucfirst($like_unlike)."</a>
 						</small>
 						</span>
 					</li>";

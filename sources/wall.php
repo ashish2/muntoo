@@ -157,12 +157,18 @@ function wall()
 	//~printrr($posts);
 	
 	// To get Likes, May have to add Status field, where status = 1 (active)
+	/*
 	$q = "SELECT  `wpwpr`.`id` ,  `l`.`users_id` 
 	FROM  `wall_posts_wall_post_replies`  `wpwpr` 
 	JOIN  `like`  `l`  
 	WHERE  `l`.`wpwpr_id` =  `wpwpr`.`id` 
 	AND  `wpwpr`.`on_uid` = $uid";
+	*/
 	
+	$q = "SELECT  `wpwpr`.`id` ,  `l`.`users_id` 
+	FROM  `wall_posts_wall_post_replies`  `wpwpr` 
+	JOIN  `like`  `l`  
+	WHERE  `l`.`wpwpr_id` =  `wpwpr`.`id`";
 	
 	$likes = array();
 	

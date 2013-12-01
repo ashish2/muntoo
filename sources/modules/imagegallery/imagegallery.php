@@ -44,14 +44,16 @@ function viewalbum()
 	// Base64encode for everything coming from URL
 	// Checking input, checking everything coming from $_GET url, 
 	// sanitizing it, and casting it into an (int) datatype
-	$uid = ( isset($_GET["albid"] ) ? (int) check_input( $_GET["albid"] ) : null );
+	$uid = ( isset($_GET["uid"] ) ? (int) check_input( $_GET["uid"] ) : $user["uid"] );
+	$album_id = ( isset($_GET["albid"] ) ? (int) check_input( $_GET["albid"] ) : null );
 	
 	// Add if $user['uid'] != $_GET['uid'] , then, see if he is Admin or Editor
 	// Else, Not allowed to access this area, permission denied & return false
 	// ---Permission stuff here---
 	
 	//~$query  = "SELECT * FROM `users` `u` RIGHT JOIN `profile` `p` ON `u`.`uid`=`p`.`users_uid` WHERE `u`.`uid`=$uid";
-	$query  = "SELECT * FROM `imagegallery_photos` `p` RIGHT JOIN `users` `u` ON `p`.`album_id`=`u`.`uid` WHERE `u`.`uid`=$uid";
+	//~$query  = "SELECT * FROM `imagegallery_photos` `p` RIGHT JOIN `users` `u` ON `p`.`album_id`=`u`.`uid` WHERE `u`.`uid`=$uid";
+	$query  = "SELECT * FROM `imagegallery_photos` `p` RIGHT JOIN `users` `u` ON `p`.`user_id`= `u`.`uid` WHERE `p`.`album_id` = $album_id AND `u`.`uid`=$uid";
 	
 	// JOIN `banned` `b` on `u`.`uid`=`b`.`ban_uid`
 	$qe = db_query($query);
