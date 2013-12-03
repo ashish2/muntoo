@@ -16,22 +16,26 @@ error_reporting(-1);
 //error_reporting(1);
 //error_reporting(E_ALL);
 
+// Config files now in config folder
+$config = 'config/config.php';
+$config_bak = 'config/.config.php.bak';
+
 // if config.php file does not exists, check if DB exists
 ///if(!file_exists('config.php') && !db_select(DB_NAME) )
 ////if(!file_exists('config.php') )
-if(!file_exists('config.php') )
+if(!file_exists($config) )
 {
 	// AI: search for config.php.bak whether its present in this directory
 	// if it is, then make it config, else search for config.php in this & sub-directories, 
 	// else see if u can dynamically create another config, if u can, create it, 
 	// else go to header install.php
 	// searchForFile('.config.php.bak', './', 0);
-	if( file_exists('.config.php.bak') )
+	if( file_exists("$config_bak") )
 	{
 		// there may be different errors while copying, like, 
 		// permissions error, check for the errors, what are those errors, 
 		// and try to fix those errors if u can, and then try the 'copy' again.
-		if(!copy('.config.php.bak', 'config.php') )
+		if(!copy($config_bak, $config) )
 		{
 			
 			// pass array to write with a filename, string to write, time, etc, 
@@ -64,7 +68,7 @@ if(!file_exists('config.php') )
 }
 
 // Including the major required files
-include_once('config.php'); 
+include_once($config); 
 include_once($rootdir . '/functions/func.php');
 include_once($rootdir . '/functions/wam.php');
 

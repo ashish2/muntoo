@@ -93,12 +93,14 @@ if(isset($_POST['dbinstall']))
 	
 	
 	$dirName = dirname(__FILE__);
+	// Add config/ folder to this
+	$configDir = "$dirName/config";
 	
 	// if directory is_writable only then move forward, 
 	// else give an error and give a link to go back and start installation from this page itself.
-	if(!is_writable($dirName) )
+	if(!is_writable($configDir) )
 	{
-		$error['dir_unwritable'] = 'Directory "' . $dirName . '" does not seem to be writable by the Server, please try changing permissions, go back and try submitting the form again.';
+		$error['dir_unwritable'] = 'Directory "' . $configDir . '" does not seem to be writable by the Server, please try changing permissions, go back and try submitting the form again.';
 		//die();
 	}
 	

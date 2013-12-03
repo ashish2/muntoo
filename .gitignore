@@ -19,8 +19,8 @@ classes/modules
 sources/modules/nntp
 
 # Files
-config.php
-.config.php.bak
+config/config.php
+config/.config.php.bak
 
 # All files that Ends with a particular extension
 *~

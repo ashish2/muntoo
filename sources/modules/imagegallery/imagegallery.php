@@ -278,8 +278,11 @@ function viewimage()
 		return false;
 	}
 	
-	$query = "SELECT * FROM `imagegallery_photos` WHERE `id`=$imageid";
+	$query = "SELECT * FROM `imagegallery_photos` WHERE `id`= $imageid";
 	$qe = db_query($query);
+	
+	$query = "SELECT * FROM `imagegallery_like` WHERE `i_p_id` =  $imageid";
+	
 	
 }
 

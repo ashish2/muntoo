@@ -565,6 +565,20 @@ CREATE TABLE `poll_votes` (
 )
 
 
+# Added 2 Dec 2013
+CREATE TABLE `imagegallery_like` (
+ `id` int(4) NOT NULL AUTO_INCREMENT,
+ `users_id` int(10) DEFAULT NULL COMMENT '#user id who likes the other objects like, wall_post(wp_id), wall_post_reply(wpr_id), photos(photos_id) etc#',
+ `i_p_id` int(8) DEFAULT NULL COMMENT '# imagegallery_photos id that have been liked by user#',
+  `i_p_c_id` int(8) DEFAULT NULL COMMENT '# imagegallery_photo_comments id liked by the user#', 
+ `module_table_id` int(8) DEFAULT NULL,
+ `module_table_name` varchar(64) DEFAULT NULL,
+ PRIMARY KEY (`id`),
+ KEY `users_id` (`users_id`),
+ KEY `i_p_id` (`i_p_id`),
+ KEY `i_p_c_id` (`i_p_c_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1
+
 
 
 
