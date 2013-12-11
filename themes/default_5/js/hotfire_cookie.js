@@ -14,18 +14,21 @@
 	// Options is a dict which will be used as settings/config for the plugin
 	$.fn.hotfire = function(options) {
 		// I'll do my awesome stuff here
-		
-		
-		// What's this for?
-		var dict = {
-			"a": 1,
-			"b": 2,
-		};
+		"use strict";
 		
 		// Settings
 		var settings = {
 			"cookieName": "LOCALHOST",
 		};
+		
+		// add the 2 dicts into the first one
+		if(options) {
+			//~$.extend(this.settings, options);
+			settings = $.extend({}, settings, options);
+		}
+		
+		console.log(settings);
+		
 		
 		function json_s(obj){
 			return JSON.stringify(obj);
@@ -37,14 +40,7 @@
 		
 		// Initialization function for the plugin
 		this.hotfire = function() {
-			
-			// add the 2 dicts into the first one
-			if(options) {
-				//~$.extend(this.settings, options);
-				$.extend({}, settings, options);
-			}
-			
-			settings.cookie = this.checkCookie();
+			//~settings.cookie = this.checkCookie();
 		};
 		
 		// Store cookie as string type 
@@ -71,6 +67,15 @@
 				//~cookie.key = value;
 				cookie[key] = value;
 				
+		//~console.log(1);
+		//~// Y this IS working? Actually this shud not work, THIS also works
+		//~console.log(cookie[key]);
+		//~
+		//~console.log(2);
+		//~// Y this is NOT working? Actually this shud work, SEE why this not working?
+		//~console.log(cookie.key);
+		
+		
 				// setting the cookie again, in string format
 				cookie = JSON.stringify(cookie);
 				
@@ -82,9 +87,9 @@
 			{
 				// Create dict of cookie
 				cookie = {};
+				
 				//~cookie.key = value;
 				cookie[key] = value;
-				
 				
 				// Stringify 
 				cookie = JSON.stringify(cookie);
@@ -158,11 +163,91 @@
 	
 })(jQuery);
 
-$().hotfire();
+//~options = {"a": 1, "b": 2, "cookieName": "NEW"}
+options = {};
+$().hotfire(options);
 
 //~$.fn.hotfire();
 //~$("html").hotfire().del();
 
+
+
+/*
+ * 
+(function ($) {
+	$.fn.hotfire = function(options) {
+		var settings = {
+			"cookieName": "LOCALHOST",
+		};
+		function json_s(obj){
+			return JSON.stringify(obj);
+		}
+		function json_p(str){
+			return JSON.parse(str);
+		}
+		this.hotfire = function() {
+			if(options) {
+				settings = $.extend({}, settings, options);
+			}
+			
+			
+		};
+		
+			console.log('settings');
+			console.log(settings);
+		
+		this.add = function(key, value) {
+			var cookie = this.checkCookie();
+			if(cookie)
+			{
+				cookie = JSON.parse(cookie);
+				cookie[key] = value;
+		console.log(1);
+		console.log(cookie[key]);
+		console.log(2);
+		console.log(cookie.key);
+				cookie = JSON.stringify(cookie);
+				$.cookie(settings.cookieName, cookie);
+				
+			}
+			else
+			{
+				cookie = {};
+				cookie[key] = value;
+				cookie = JSON.stringify(cookie);
+				$.cookie(settings.cookieName, cookie);
+			}
+			return this;
+		};
+		this.checkCookie = function () {
+			if (settings.cookieName)
+			{
+				var hf_cookie = settings.cookieName;
+					return $.cookie(hf_cookie);
+			}
+		};
+		this.del = function(key) {
+			var cookie = this.checkCookie();
+			if(cookie)
+			{
+				cookie = JSON.parse(cookie);
+				if(cookie[key])
+				{
+					delete cookie[key];
+					cookie = JSON.stringify(cookie);
+					$.cookie(settings.cookieName, cookie);
+				}
+			}
+			return this;			
+		};
+		
+		return this;
+	};
+})(jQuery);
+
+$().hotfire();
+
+*/
 
 
 /*
