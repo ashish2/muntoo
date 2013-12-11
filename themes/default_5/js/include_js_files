@@ -1,5 +1,6 @@
 # Starting with a hash # is a comment, anything u want commented can be hashed
 jquery-1.9.1.min.js
+jquery.cookie.js
 javascript.js
 #json2.js
 #backbone-min.js
@@ -7,3 +8,4 @@ javascript.js
 angular_javascript.js
 underscore.js
 prac.js
+hotfire_cookie.js
