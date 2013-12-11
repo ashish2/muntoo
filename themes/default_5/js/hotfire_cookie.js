@@ -73,6 +73,7 @@
 				
 				// setting the cookie again, in string format
 				cookie = JSON.stringify(cookie);
+				
 				$.cookie(settings.cookieName, cookie);
 				
 			}
@@ -83,6 +84,7 @@
 				cookie = {};
 				//~cookie.key = value;
 				cookie[key] = value;
+				
 				
 				// Stringify 
 				cookie = JSON.stringify(cookie);
@@ -101,10 +103,11 @@
 			{
 				var hf_cookie = settings.cookieName;
 				
-				if( $.cookie(hf_cookie) )
+				//~if( $.cookie(hf_cookie) )
+					// this cookie will return undefined if cookie not present or cookie content if present
 					return $.cookie(hf_cookie);
-				else
-					return null;
+				//~else
+					//~return null;
 			}
 			
 		};
