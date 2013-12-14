@@ -8,96 +8,199 @@
 // Requires 
 // jquery.js and jquery.cookie.js
 
+// NEXt TO DO:
+// 1]
+// Next Add timestamp, create & delete timestamp
+// In order to delete the already set key. -- DONE
+
+// 2]
+// Check cookie timestamp & new key timestamp & compare
+// If there is a timestamp that is longer than the cookie expiry 
+// extend the cookie expiry by that new timestamp.
+
+// 3]
+// Citation3 , start converting the dates into Unix Timestamp -- DONE
+
+// 4]
+// Now, loop through all cookies,
+// and check their expire time,
+// if it is more than Now(),
+// then delete that [key] -- DONE
+
+// Now
+// 5]
+// Doing crypt-decrypt of the cookie with some default salt, or salt given by user
+
 (function ($) {
 	
 	// Defining HotFire Plugin
 	// Options is a dict which will be used as settings/config for the plugin
 	$.fn.hotfire = function(options) {
 		// I'll do my awesome stuff here
+		
 		"use strict";
 		
 		// Settings
 		var settings = {
 			"cookieName": "LOCALHOST",
+			"default_Delete_Timestamp": 86500,
+			"numberOfRunTimesBeforeKeyDeletes": 10, // Number of times add() function can run, before Key (cookie) deletes
+			"numberOfRunTime": 0, // default numberOfRunTime to start with
+			"cookieOptions": {
+				expires: 180,            // cookie duration in seconds 
+				domain: 'localhost.com',  // cookie domain
+				path: '/',            // cookie path
+				secure: false,           // cookie secure
+			},
+			
 		};
 		
 		// add the 2 dicts into the first one
 		if(options) {
-			//~$.extend(this.settings, options);
 			settings = $.extend({}, settings, options);
 		}
 		
-		console.log(settings);
-		
-		
-		function json_s(obj){
+		// Not used ATM
+		this.json_s = function(obj){
 			return JSON.stringify(obj);
 		}
 		
-		function json_p(str){
+		// Not used ATM
+		this.json_p = function(str){
 			return JSON.parse(str);
 		}
 		
-		// Initialization function for the plugin
+		// Some Initialization function for the plugin
 		this.hotfire = function() {
-			//~settings.cookie = this.checkCookie();
+		};
+		
+		this.getExpiry = function(expire) {
+				
+				var list = [];
+				var str, num, multiplier, exp;
+				
+				var now;
+				now = this.getNow();
+				
+				list = expire.match(/([0-9])([a-zA-Z])/i);
+				num = Number(list[1]);
+				str = list[2];
+				
+				// multiplier by default is 1 day (86500 secs, which we are already using)
+				multiplier = 1;
+				
+				// start regexp & get d,m,y & the integer with it, else default int = 1
+				// if "d", eg. "2d"
+				// then, 2 * 86500
+				if( str == "d")
+					multiplier = 1;
+				else if(str == "m")
+					// if "m" , eg. "2m"
+					// then "m=30", so, 86500 * 30 * 2
+					multiplier = 30;
+				else if( str == "y")
+					// if "y" in expire, eg. 2y
+					// then, "y = 30*12" , so, 86500 * (30 * 12) * 2
+					multiplier = 30 * 12;
+				
+				// if exp is null, set expire to default, 86500
+				if(expire == null)
+					exp = now + settings.default_Delete_Timestamp;
+				else
+				{
+					// Citation3
+					// Convert date here
+					// assign, & start converting
+					exp = now + ( num * multiplier * settings.default_Delete_Timestamp );
+				}
+			
+			return exp;
+		};
+		
+		this.getNow = function(){
+			
+			var date = new Date;
+			var now = date.getTime();
+			return now;
+		};
+		
+		this.checkCookieExpiry = function(){
+			
+			settings.numberOfRunTime++;
+			
+			// It has reached 10, so start checking & delete if required, and set numberOfRunTime to 0 again
+			if( settings.numberOfRunTime > settings.numberOfRunTimesBeforeKeyDeletes)
+			{
+				var cookie;
+				cookie = JSON.parse(this.checkCookie() );
+				if(cookie)
+				{
+					var now;
+					now = this.getNow();
+					
+					$.each(cookie, function(k, v) { 
+						if (v.expire < now) {
+							delete cookie[k];
+						}
+					});
+					
+					// Stringify it
+					cookie = JSON.stringify(cookie);
+					// & write the cookie again
+					$.cookie(settings.cookieName, cookie, { path: settings.cookieOptions.path });
+					
+				}
+				
+				settings.numberOfRunTime = 0;
+			}
+			
 		};
 		
 		// Store cookie as string type 
 		// add/delete cookie as dict type
 		// Add cookie
-		this.add = function(key, value) {
+		// @params: 
+		// key: keyname to add
+		// value: value to add
+		// expire: expiry date, if null, default expiry will be used, expiry of -1 means never.
+		this.add = function(key, value, expire=null) {
 			
 			// Check for our cookie whether its present or not.
 			var cookie = this.checkCookie();
 			
-			// if its present, 
-			// read the cookie 
-			// Undo the SHA1
-			// & add into it, 
-			// redo the SHA1
-			// set/send the cookie
-			// cookie should be a string
+			// if its present,  // read the cookie 
+			// Undo the SHA1 // & add into it,  // redo the SHA1
+			// set/send the cookie // cookie should be a string
 			if(cookie)
-			{
 				// parse the cookie which has come in string type
 				cookie = JSON.parse(cookie);
-				
-				// Setting new values
-				//~cookie.key = value;
-				cookie[key] = value;
-				
-		//~console.log(1);
-		//~// Y this IS working? Actually this shud not work, THIS also works
-		//~console.log(cookie[key]);
-		//~
-		//~console.log(2);
-		//~// Y this is NOT working? Actually this shud work, SEE why this not working?
-		//~console.log(cookie.key);
-		
-		
-				// setting the cookie again, in string format
-				cookie = JSON.stringify(cookie);
-				
-				$.cookie(settings.cookieName, cookie);
-				
-			}
-			// else create cookie and add into it.
 			else
-			{
+				// else create cookie and add into it.
 				// Create dict of cookie
 				cookie = {};
 				
-				//~cookie.key = value;
-				cookie[key] = value;
+				// get the time, at right Now 
+				var now;
+				now = this.getNow();
+				
+				// Get expiry date of cookie
+				var exp;
+				exp = this.getExpiry(expire);
+				
+				// Setting new values
+				cookie[key] = {value: value, create: now, expire: exp};
 				
 				// Stringify 
+				// setting the cookie again, in string format
 				cookie = JSON.stringify(cookie);
 				
 				// set stringified cookie
-				$.cookie(settings.cookieName, cookie);
-			}
-			
+				$.cookie(settings.cookieName, cookie, { path: settings.cookieOptions.path } );
+				
+				// Cookie Expiry Check & if required Deletion
+				// checkCookieExpiry
+				this.checkCookieExpiry();
+				
 			return this;
 		};
 		
@@ -116,6 +219,21 @@
 			}
 			
 		};
+		
+		this.get = function(key){
+			// Check for our cookie whether its present or not.
+			var cookie = this.checkCookie();
+			if(cookie)
+			{
+				cookie = JSON.parse(cookie);
+				if(cookie[key])
+				{
+					return cookie[key];
+				}
+				return null;
+			}
+			
+		}
 		
 		// Delete Cookie
 		this.del = function(key) {
@@ -138,7 +256,7 @@
 					cookie = JSON.stringify(cookie);
 					
 					// & write the cookie again
-					$.cookie(settings.cookieName, cookie);
+					$.cookie(settings.cookieName, cookie, { path: settings.cookieOptions.path } );
 				}
 				
 			}
@@ -148,106 +266,27 @@
 		};
 		
 		// Return all the required objects in the plugin
-		//~return {
-			//~"add": this.add,
-			//~"del": this.del,
-		//~};
 		return this;
 		
 	};
 	
 	//end-
 	
-	// Running the Plugin Functions
-	
-	
-})(jQuery);
 
+// Running the Plugin Functions
 //~options = {"a": 1, "b": 2, "cookieName": "NEW"}
 options = {};
+//~$.hotfire = $().hotfire(options);
 $().hotfire(options);
+
+})(jQuery);
+
 
 //~$.fn.hotfire();
 //~$("html").hotfire().del();
 
 
 
-/*
- * 
-(function ($) {
-	$.fn.hotfire = function(options) {
-		var settings = {
-			"cookieName": "LOCALHOST",
-		};
-		function json_s(obj){
-			return JSON.stringify(obj);
-		}
-		function json_p(str){
-			return JSON.parse(str);
-		}
-		this.hotfire = function() {
-			if(options) {
-				settings = $.extend({}, settings, options);
-			}
-			
-			
-		};
-		
-			console.log('settings');
-			console.log(settings);
-		
-		this.add = function(key, value) {
-			var cookie = this.checkCookie();
-			if(cookie)
-			{
-				cookie = JSON.parse(cookie);
-				cookie[key] = value;
-		console.log(1);
-		console.log(cookie[key]);
-		console.log(2);
-		console.log(cookie.key);
-				cookie = JSON.stringify(cookie);
-				$.cookie(settings.cookieName, cookie);
-				
-			}
-			else
-			{
-				cookie = {};
-				cookie[key] = value;
-				cookie = JSON.stringify(cookie);
-				$.cookie(settings.cookieName, cookie);
-			}
-			return this;
-		};
-		this.checkCookie = function () {
-			if (settings.cookieName)
-			{
-				var hf_cookie = settings.cookieName;
-					return $.cookie(hf_cookie);
-			}
-		};
-		this.del = function(key) {
-			var cookie = this.checkCookie();
-			if(cookie)
-			{
-				cookie = JSON.parse(cookie);
-				if(cookie[key])
-				{
-					delete cookie[key];
-					cookie = JSON.stringify(cookie);
-					$.cookie(settings.cookieName, cookie);
-				}
-			}
-			return this;			
-		};
-		
-		return this;
-	};
-})(jQuery);
-
-$().hotfire();
-
-*/
 
 
 /*
