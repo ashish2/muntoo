@@ -271,6 +271,8 @@ function viewimage()
 	$theme['page_title'] = 'Image Gallery: View Image';
 	
 	$imageid = ( isset($_GET["imageid"] ) ? (int) check_input( $_GET["imageid"] ) : null );
+	$uid = $user["uid"];
+	
 	
 	if(!$imageid)
 	{
@@ -279,13 +281,61 @@ function viewimage()
 	}
 	
 	$query = "SELECT * FROM `imagegallery_photos` WHERE `id`= $imageid";
-	$qe = db_query($query);
+	$qe["pic"] = db_query($query);
 	
-	$query = "SELECT * FROM `imagegallery_like` WHERE `i_p_id` =  $imageid";
+	// Image Likes, not queried & implemented right now.
+	//~$query = "SELECT * FROM `imagegallery_like` WHERE `i_p_id` =  $imageid";
 	
+	// image comments
+	if( isset( $_POST['submit']) &&  $_POST['submit'] )
+	{
+		$comment = mandff(check_input($_POST["comment"] ), "Comment Empty");
+		
+		$query = "INSERT INTO `imagegallery_photo_comments` (`user_id`, `photo_id`, `comment`, `date`, `status`) VALUES($uid, $imageid, '$comment', NOW(), 1)";
+		$qq = db_query($query);
+		
+	}
+	
+	$query = "SELECT * FROM `imagegallery_photo_comments` WHERE `photo_id`=$imageid";
+	$qe["comm"] = db_query($query);
+	
+	//~$query = "SELECT * FROM `imagegallery_photo_ratings` WHERE `photo_id`=$imageid";
+	$query = "SELECT AVG(`rating`) `rating` FROM `imagegallery_photo_ratings` WHERE `photo_id`=$imageid";
+	$qe["rating"] = db_query($query);
 	
 }
 
+function hotnot()
+{
+	
+	global $theme, $reqPrivs, $error;
+	global $user;
+	
+	$imageid = ( isset($_GET["imageid"] ) ? (int) check_input( $_GET["imageid"] ) : null );
+	$rating = ( isset($_GET["rating"] ) ? (int) check_input( $_GET["rating"] ) : null );
+	$uid = $user["uid"];
+	
+	if(!$imageid)
+	{
+		$error[] = 'No album id specified, Please go back and try again.';
+		return false;
+	}
+	if(!$rating)
+	{
+		$error[] = 'No Rating specified, Please go back and try again.';
+		return false;
+	}
+	
+	
+	$query = "INSERT INTO `imagegallery_photo_ratings` (`user_id`, `photo_id`, `rating`, `date`, `status`) VALUES($uid, $imageid, $rating, NOW(), 1);";
+	$qe = db_query($query);
+	
+	$redirect = ( isset($_SERVER['HTTP_REFERER'] ) && !empty($_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '?');
+	
+	header( "Location: $redirect" );
+	exit();
+	
+}
 
 // Main runs here
 // and routes to other pages/functions
@@ -333,6 +383,10 @@ function _main()
 			
 		case 'uploadimage':
 			uploadimage();
+			break;
+		
+		case 'hotnot':
+			hotnot();
 			break;
 		
 		default:

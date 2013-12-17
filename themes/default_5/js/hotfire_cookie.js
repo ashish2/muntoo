@@ -29,7 +29,10 @@
 
 // Now
 // 5]
-// Doing crypt-decrypt of the cookie with some default salt, or salt given by user
+// Encrypt-decrypt of the cookie.
+
+// 6]
+// See if the size of the cookie is not exceeding the max size of a cookie allowed on browser.
 
 (function ($) {
 	

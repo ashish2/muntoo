@@ -580,6 +580,16 @@ CREATE TABLE `imagegallery_like` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1
 
 
+# Added 17 Dec 2013
+CREATE TABLE `imagegallery_photo_ratings` (
+ `id` int(8) NOT NULL AUTO_INCREMENT,
+ `user_id` int(8) DEFAULT NULL COMMENT '# User who gave the comment on the photo #',
+ `photo_id` int(8) DEFAULT NULL COMMENT '# Photo which the comment relates to #',
+ `rating` int(8) COMMENT '# Rating given to the Photo #',
+ `date` datetime DEFAULT NULL COMMENT '# Date of Creation of the Photo #',
+ `status` int(4) DEFAULT NULL COMMENT '#values 0-Deactivated, 1-Active, null-probably untouched yet#',
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
 
 
 

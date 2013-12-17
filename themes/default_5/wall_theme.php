@@ -203,7 +203,8 @@ function wall_theme()
 					$date = date("g:i a d-F-Y", $vv['date2'] );
 					
 					//$st .= "<li style='decoration: none;'>(<a href=$globals[ind]action=viewProfile&uid=$row[uid]>$row[username]</a>) $row[wpr_content]</li>";
-					$st .= "<li style='decoration: none;'><a href=$globals[ind]action=viewProfile&uid=$vv[by_uid2]><img title=$vv[username] src={$imgFolder['uploaded']['vsmall']}/$vv[by_uid2]$imgType></a> $vv[post2]
+					$st .= "
+					<li style='decoration: none;'><a href=$globals[ind]action=viewProfile&uid=$vv[by_uid2]><img title=$vv[username] src={$imgFolder['uploaded']['vsmall']}/$vv[by_uid2]$imgType></a> $vv[post2]
 					<span>
 						<small>
 							$date
@@ -295,23 +296,34 @@ function wall_theme()
 					';
 								
 								$sss = '';
-								$sss .= "<select>
-								<option value='0'>Select Emotion</option>
-								<option value='$postId-$like_unlike'>".ucfirst($like_unlike) ."</option>
+								$sss .= "
+								<select>
+									<option value='0'>Select Emotion</option>
+									<option value='$postId-$like_unlike'>".ucfirst($like_unlike) ."</option>
+								";
+								foreach($emotion_arr as $kkk => $vvv)
+									$sss .= "
+										<option value='$postId-$kkk'>$vvv</option>
+									";
+								
+								$sss .= "
+								</select>
 								";
 								
-								foreach($emotion_arr as $kkk => $vvv)
-									$sss .= "<option value='$postId-$kkk'>$vvv</option>";
+								//~$postID = $wp_posts[$v[0]["id1"]];
 								
-								$sss .= '</select>';
-						
-						$sss .= "</small>
-								</span>
 								
-					<span '.$cssTdClassNm.'>
-						<input type='checkbox' id='wp_posts[$v[0][id1]]' name='wp_posts[]' onclick='sel_all_chk_box(\'#select_all\', this.name, this)'>
-						</span>
+							$sss .= "
+								</small>
+								";
+								
+					$sss .= "
+					<span $cssTdClassNm>
+						<input type=\"checkbox\" id=$postId name=\"wp_posts[]\" onclick=\"sel_all_chk_box('#select_all', this.name, this)\">
+					</span>
+						";
 						
+						$sss .= "
 							</div>
 						";
 						

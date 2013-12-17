@@ -221,9 +221,9 @@ function viewimage_theme()
 	
 	<?php
 	
-	if( mysql_num_rows($qe) > 0 )
+	if( mysql_num_rows($qe["pic"]) > 0 )
 	{
-		$row = mysql_fetch_assoc($qe);
+		$row = mysql_fetch_assoc($qe["pic"]);
 	?>
 		<div class="image">
 			<div class="image-caption">
@@ -238,6 +238,101 @@ function viewimage_theme()
 				<?php echo $row['description']; ?>
 			</div>
 		</div>
+		
+		<div class="rating">
+			
+			<?php
+				if(mysql_num_rows($qe["rating"]) > 0 )
+				{
+					$row_r = mysql_fetch_assoc($qe["rating"]);
+			?>
+					<div class="total-rating">
+						Rating: <?=$row_r["rating"]; ?>
+					</div>
+			<?php
+				}
+			?>
+			
+			Rate this pic:
+			<div class="rate">
+				Hot 
+				<?php
+					for( $i=10; $i >0; $i--)
+						echo "<a href='?action=imagegallery&subaction=hotnot&imageid=$imageid&rating=$i'>$i</a> ";
+				?>
+				Not
+			</div>
+		</div>
+		
+		<br />
+		
+		<center>
+			<!-- #form starts -->
+			<div class="form_div" id="form">
+				<form action="" method="post">
+					<p>
+						<span align="top" valign="top">
+							Post a comment
+						</span>
+						<span>
+							<textarea placeholder="Comment..." dir="ltr" cols="70" rows="3" name="comment" id="comment"></textarea>
+						</span>
+						<br>
+						<br>
+					<input type="submit" value="Post" class="mun-button-default" name="submit">
+					</p>
+				</form>
+			</div>
+			<br>
+			<!-- #form ends -->
+		</center>
+		
+		
+		<?php
+			// if there is a comment, start showing pic comments
+			if(mysql_num_rows($qe["comm"]) > 0)
+			{
+				$cssTrClassNm = "dth-wp_post-comment";
+		?>
+				<!-- Image comments start here -->
+				<div class="comments">
+					<ul class="comment-list">
+					<?php
+						// while loop on comments
+						while( $row_c = mysql_fetch_assoc($qe["comm"]) )
+						{
+					?>
+							<li <?=$cssTrClassNm;?>>
+								<article>
+									<footer class="comment-meta">
+										<div class="comment-atuhor vcard">
+											<span class="fn">
+												<a href='<?=$globals['ind'].'action=viewProfile&uid='.$row_c['user_id']?>'>Userid: <?=$row_c['user_id'];?></a> :::
+											</span>
+											<a class="date" href="#">
+												<?php
+												echo $row_c['date'];
+												?>
+											</a>
+										</div>
+									</footer>
+									<div class ="comment-content">
+										<p '.$cssTdClassNm.' id="wp_post">
+											<?=$row_c['comment'];?>
+										</p>
+									</div>
+								</article>
+							</li>
+					<?php
+						}
+					?>
+					</ul>
+				</div>
+		
+		<?php
+			}
+		?>
+		
 	<?php
 	}
 	else

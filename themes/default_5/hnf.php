@@ -244,6 +244,8 @@ function ffooter($time_elapsed=0)
 		$foot .= '
 		</div>
 		<!-- div class sabse-main Ends -->
+		<div class="diablo">
+		</div>
 	</body>
 	</html>
 	';
