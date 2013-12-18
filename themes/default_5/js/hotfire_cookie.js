@@ -34,6 +34,7 @@
 // 6]
 // See if the size of the cookie is not exceeding the max size of a cookie allowed on browser.
 
+
 (function ($) {
 	
 	// Defining HotFire Plugin
