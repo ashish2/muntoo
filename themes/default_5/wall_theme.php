@@ -72,7 +72,7 @@ function wall_theme()
 	$str .= '
 			<!-- #form starts -->
 			<div id="form" class="form_div">
-				<form method="post" action="'.$action.'">
+				<form method="post" action="">
 					<p>
 						<span valign="top" align="top">
 							'.$l['thoughts'] .'
@@ -184,7 +184,8 @@ function wall_theme()
 						if( in_array( $user['uid'], $likes[$vv['id2']] ) )
 						{
 							$like_unlike = $l['unlike'];
-							unset($likes[$k]);
+							// unset($likes[$k]);
+							unset($likes[$vv['id2']]);
 						}
 						else
 						{
@@ -225,7 +226,6 @@ function wall_theme()
 			// If key exists, then show unlike & unset key
 			if( isset($likes[$k]) )
 			{
-				
 				$count = count($likes[$k]);
 				
 				//if( $key = array_search($i['wp_id'], $u_wpr ) )
@@ -257,6 +257,10 @@ function wall_theme()
 			// If this post id in present in the $user['likes'] array, then show unlike, else show like 
 			////$like_unlike = ( !in_array($i['wp_id'], $user['likes'] ) $l['like'] :  $l['unlike'] );
 			
+			$on_off_line = ( $v[0]['is_online'] ) ? "Online" : "Offline";
+			$on_off_line_html = "<small><i>$on_off_line</i></small>";
+			
+			
 			// The kind of $posts array() thats coming with the query,
 			// We know that, Wall Post & First Wall_Post_Reply both shud be taken from Index 0
 			// So, We'll take the Wall Post from the First Index, Index 0 of $posts array(),
@@ -270,6 +274,7 @@ function wall_theme()
 							<div class="comment-atuhor vcard">
 								<span class="fn">
 									<a href='.$globals['ind'].'action=viewProfile&uid='.$v[0]['by_uid1'].'>'.$v[0]['username'].'</a>
+									'.$on_off_line_html.'
 								</span>
 								
 								<a class="date" href="#">'.
@@ -291,37 +296,42 @@ function wall_theme()
 									$l['add_rep'] .
 								'</a> 
 								
-								
-					
 					';
-								
-								$sss = '';
-								$sss .= "
-								<select>
-									<option value='0'>Select Emotion</option>
-									<option value='$postId-$like_unlike'>".ucfirst($like_unlike) ."</option>
-								";
-								foreach($emotion_arr as $kkk => $vvv)
-									$sss .= "
-										<option value='$postId-$kkk'>$vvv</option>
-									";
-								
-								$sss .= "
-								</select>
-								";
-								
-								//~$postID = $wp_posts[$v[0]["id1"]];
+						
+						$sss = '';
+						
+						/*
+						 * // Emotion array, having Emotions for eg., Like, F*ck, Sex, No Emotion
+						$sss .= "
+						<select>
+							<option value='0'>Select Emotion</option>
+							<option value='$postId-$like_unlike'>".ucfirst($like_unlike) ."</option>
+						";
+						foreach($emotion_arr as $kkk => $vvv)
+							$sss .= "
+								<option value='$postId-$kkk'>$vvv</option>
+							";
+						$sss .= "
+						</select>
+						";
+						*/
+						// Not working see y?
+						$sss .= "<a href=$globals[ind]action=emotion&e=$like_unlike&uid=$user[uid]&post=$postId>".ucfirst($like_unlike)."</a>";
+						
+						//~$postID = $wp_posts[$v[0]["id1"]];
 								
 								
 							$sss .= "
 								</small>
 								";
-								
-					$sss .= "
-					<span $cssTdClassNm>
-						<input type=\"checkbox\" id=$postId name=\"wp_posts[]\" onclick=\"sel_all_chk_box('#select_all', this.name, this)\">
-					</span>
-						";
+							/*
+							 * // Checkbox to select & delete the comment
+							$sss .= "
+								<span $cssTdClassNm>
+									<input type=\"checkbox\" id=$postId name=\"wp_posts[]\" onclick=\"sel_all_chk_box('#select_all', this.name, this)\">
+								</span>
+								";
+							*/
 						
 						$sss .= "
 							</div>

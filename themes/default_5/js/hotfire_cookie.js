@@ -47,7 +47,7 @@
 		// Settings
 		var settings = {
 			"cookieName": "LOCALHOST",
-			"default_Delete_Timestamp": 86500,
+			"default_Delete_Timestamp": 86400,
 			"numberOfRunTimesBeforeKeyDeletes": 10, // Number of times add() function can run, before Key (cookie) deletes
 			"numberOfRunTime": 0, // default numberOfRunTime to start with
 			"cookieOptions": {
@@ -166,8 +166,8 @@
 		// @params: 
 		// key: keyname to add
 		// value: value to add
-		// expire: expiry date, if null, default expiry will be used, expiry of -1 means never.
-		this.add = function(key, value, expire=null) {
+		// expire: expiry date, if null, default expiry will be used, default expire as 1day(ideally default expiry shud be for this session), expiry of -1 means never.
+		this.add = function(key, value, expire="1d") {
 			
 			// Check for our cookie whether its present or not.
 			var cookie = this.checkCookie();
@@ -224,6 +224,8 @@
 			
 		};
 		
+		// Returns the key: value pair, if key is mentioned.
+		// If Key not mentioned, returns the whole cookie.
 		this.get = function(key){
 			// Check for our cookie whether its present or not.
 			var cookie = this.checkCookie();
@@ -234,7 +236,7 @@
 				{
 					return cookie[key];
 				}
-				return null;
+				return cookie;
 			}
 			
 		}
@@ -280,6 +282,7 @@
 // Running the Plugin Functions
 //~options = {"a": 1, "b": 2, "cookieName": "NEW"}
 options = {};
+//~$.hf = $().hotfire(options);
 //~$.hotfire = $().hotfire(options);
 $().hotfire(options);
 

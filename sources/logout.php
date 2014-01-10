@@ -16,6 +16,12 @@ function logout()
 	//~loadlang();
 	//~fheader($title = 'Logout');
 	
+	// Updating the "is_online" column in db `users` table, setting it to 0
+	// Doing this, before, session_destroy()
+	$q = "Update `users` SET `is_online` = 0 WHERE `uid`= $user[uid]";
+	db_query($q);
+	//-
+	
 	if( isset($_GET["action"]) && $_GET["action"] == "logout")
 	{
 		session_destroy();
@@ -23,6 +29,7 @@ function logout()
 //			unset( $user["$k"] );
 //		printrr( $user );
 	}
+	
 	
 	// Destroying session & redirecting so, 
 	// $user array, when starts trying to fill up from $_SESSION,

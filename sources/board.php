@@ -49,8 +49,6 @@ function topics()
 	$theme['langdir'] = 'board';
 	//~loadlang('board');
 	
-	//printrr($l);
-	
 	//$q1 = "SELECT `bname` FROM `board` WHERE `bid` = $_GET[board]";
 	$q1 = "SELECT * FROM `board` WHERE `bid` = $_GET[board] LIMIT 1";
 	$qu1 = mysql_query($q1);
@@ -103,22 +101,27 @@ function topicReplies()
 	//~loadlang('board');
 	//~fheader("Topic Replies to $_GET[topic]");
 	
-	//printrr( $user );
+	//~printrr( $user );
 	//printrr( debug_backtrace() );
 	
 	// $q = "select * from `topics` where `tid` = $_GET[topic]";
 	//$q = "select * from `topics` where `tid` = $_GET[topic] LIMIT 1";
-	$q = "select * from `topics` `t` RIGHT JOIN `users` `u` ON `t`.`tcreatedbyuid`=`u`.`uid` WHERE `t`.`tid` = $_GET[topic] LIMIT 1";
-	
+	//~$q = "SELECT * from `topics` `t` RIGHT JOIN `users` `u` ON `t`.`tcreatedbyuid`=`u`.`uid` WHERE `t`.`tid` = $_GET[topic] LIMIT 1";
+	$q = "SELECT * from `topics` `t` RIGHT JOIN `users` `u` ON `t`.`tcreatedbyuid`=`u`.`uid` WHERE `t`.`tid` = $_GET[topic]";
 	$qu[1] = db_query($q);
-		
+	
 	// to show ip addresses in human readable format
 	///while($my = mysql_fetch_assoc($q2_2 ) )
 		///printrr( inet_ntop ($my['tcreatedbyuid_IPv4'] ) );
 	
 	
 	
-	$q = "SELECT * FROM `replies` WHERE `topic_tid` = $_GET[topic]";
+	//~$q = "SELECT * FROM `replies` WHERE `topic_tid` = $_GET[topic]";
+	$q = "SELECT * FROM `replies` `r` 
+		LEFT JOIN `users` `u` ON  `u`.`uid` = `r`.`poster_users_uid`
+		WHERE `r`.`topic_tid` = $_GET[topic]
+	";
+	
 	$qu[2] = db_query($q);
 	
 	//echo date("g:i a d-F-Y");

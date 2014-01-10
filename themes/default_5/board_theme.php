@@ -270,12 +270,26 @@ function topicReplies_theme()
 	
 	while( $i = mysql_fetch_assoc($qu[2]) )
 	{
+		
 		// (if we hav permision only then show, no-eidting button)<p align="right">edit</p>
 		$table .= '
 			<tr '.$cssTrClassNm.'>
 				<td '.$cssTdClassNm.'>'.$i['poster_users_uid'].'</td>
-				<td '.$cssTdClassNm.'>'.'Subj: '.$i['rsubject'].'<br />Body: '.$i['rbody'].'<br />IP: '.$i['user_ip'].'</td>
-				<td '.$cssTdClassNm.'>'.date("g:i a d-F-Y", $i['date'] ).'</td>
+				<td '.$cssTdClassNm.'>' .
+					'Subj: '.$i['rsubject'] .
+					'<br />Body: ' .
+					$i['rbody'] .
+					'<br />IP: ' .
+					$i['user_ip'] .
+					'<br />' .
+					'<span>' .
+					'Signature: ' .
+						$i['signature'] .
+					'</span>'.
+				'</td>
+				<td '.$cssTdClassNm.'>'.
+					date("g:i a d-F-Y", $i['date'] ).
+				'</td>
 			</tr>
 			';
 	}

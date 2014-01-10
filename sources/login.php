@@ -131,6 +131,11 @@ function login()
 				$qs = $_SERVER['QUERY_STRING'];
 			*/
 			
+			// Update that this user is logged in, updating the is_online column in `users` table
+			$q = "Update `users` SET `is_online` = 1 WHERE `uid`= $data[uid]";
+			db_query($q);
+			
+			
 			header("Location: index.php?action=wall");
 			exit('Redirected');
 		}

@@ -592,6 +592,9 @@ CREATE TABLE `imagegallery_photo_ratings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 
 
+# Added 11 Jan 2014
+ALTER TABLE `users` ADD COLUMN `is_online` TINYINT COMMENT "#1-Online , 0-Offline#"
+ALTER TABLE `users` ADD COLUMN `signature` text DEFAULT null
 
 
 

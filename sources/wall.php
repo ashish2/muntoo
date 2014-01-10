@@ -27,7 +27,7 @@ function wall()
 	// Base64encode for everything coming from URL
 	// Checking input, checking everything coming from $_GET url, 
 	// sanitizing it, and casting it into an (int) datatype
-	// $uid = ( isset($_GET["uid"] ) ? (int) check_input( $_GET["uid"] ) : $user["uid"] );
+	$uid = ( isset($_GET["uid"] ) ? (int) check_input( $_GET["uid"] ) : $user["uid"] );
 	
 	// if get uid set, see if user has permission to view this profile, if yes then allow, else error, no permission
 	if( isset($_GET['uid']) )
@@ -120,7 +120,7 @@ function wall()
 	
 	/* Slight change, This Right */
 	$q = "
-	SELECT  `wpwpr1`.`id` `id1` ,  `wpwpr1`.`on_uid` ,  `wpwpr1`.`by_uid` `by_uid1` , IFNULL(  `wpwpr1`.`post` , null ) `post1` ,  `wpwpr1`.`type` ,  `wpwpr2`.`id` `id2` , `wpwpr1`.`by_uid` `by_uid2`, IFNULL(  `wpwpr2`.`post` , null ) `post2` ,  `wpwpr2`.`type` ,  `wpwpr1`.`date` `date1` ,  `wpwpr2`.`date` `date2`,  `u`.`uid` , `u`.`username` 
+	SELECT  `wpwpr1`.`id` `id1` ,  `wpwpr1`.`on_uid` ,  `wpwpr1`.`by_uid` `by_uid1` , IFNULL(  `wpwpr1`.`post` , null ) `post1` ,  `wpwpr1`.`type` ,  `wpwpr2`.`id` `id2` , `wpwpr1`.`by_uid` `by_uid2`, IFNULL(  `wpwpr2`.`post` , null ) `post2` ,  `wpwpr2`.`type` ,  `wpwpr1`.`date` `date1` ,  `wpwpr2`.`date` `date2`,  `u`.`uid` , `u`.`username`, `u`.`is_online`
 	FROM  `wall_posts_wall_post_replies`  `wpwpr1` 
 	LEFT JOIN  `wall_posts_wall_post_replies`  `wpwpr2` ON  `wpwpr2`.`post_id` =  `wpwpr1`.`id` 
 	LEFT JOIN  `users` `u` ON  `u`.`uid` =  `wpwpr1`.`by_uid` 
@@ -149,12 +149,10 @@ function wall()
 			$posts[$row['id1']][] = $row;
 		}
 	}
+	
 	// Write the results as json string in cache file
 	if( isset($admin['settings']['cache']['switch']) && $admin['settings']['cache']['switch'] == 1)
 		$c1->exProcWrite($posts);
-	
-	//~echo 'posts:';
-	//~printrr($posts);
 	
 	// To get Likes, May have to add Status field, where status = 1 (active)
 	/*
