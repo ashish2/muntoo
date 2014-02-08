@@ -7,7 +7,7 @@ function login()
 {
 	
 	global $globals, $mysql, $theme, $done, $error;
-	global $user;
+	global $user, $time;
 	global $l;
 	
 	$theme['name'] = 'login';
@@ -131,8 +131,9 @@ function login()
 				$qs = $_SERVER['QUERY_STRING'];
 			*/
 			
+			$now = round( $time->scriptTime() ) ;
 			// Update that this user is logged in, updating the is_online column in `users` table
-			$q = "Update `users` SET `is_online` = 1 WHERE `uid`= $data[uid]";
+			$q = "Update `users` SET `is_online` = 1, `last_login` = $now WHERE `uid`= $data[uid]";
 			db_query($q);
 			
 			

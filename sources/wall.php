@@ -27,7 +27,7 @@ function wall()
 	// Base64encode for everything coming from URL
 	// Checking input, checking everything coming from $_GET url, 
 	// sanitizing it, and casting it into an (int) datatype
-	$uid = ( isset($_GET["uid"] ) ? (int) check_input( $_GET["uid"] ) : $user["uid"] );
+	//~$uid = ( isset($_GET["uid"] ) ? (int) check_input( $_GET["uid"] ) : $user["uid"] );
 	
 	// if get uid set, see if user has permission to view this profile, if yes then allow, else error, no permission
 	if( isset($_GET['uid']) )

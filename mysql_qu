@@ -597,4 +597,10 @@ ALTER TABLE `users` ADD COLUMN `is_online` TINYINT COMMENT "#1-Online , 0-Offlin
 ALTER TABLE `users` ADD COLUMN `signature` text DEFAULT null
 
 
+# Added 13 Jan 2014
+ALTER TABLE `users` ADD COLUMN `last_login` DATE NOT NULL DEFAULT '0001-01-01';
+ALTER TABLE `users` MODIFY COLUMN `last_login` INT(10) DEFAULT NULL;
+
+ALTER TABLE `users` ADD COLUMN `last_login` INT(10) DEFAULT NULL; ( default value actually is supposed to be, NOW() )
+
 

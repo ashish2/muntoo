@@ -8,7 +8,7 @@ function board()
 	global $themedir, $theme, $l;
 	global $globals, $mysql, $theme, $done, $errors;
 	global $user;
-	global $qu;
+	global $qu, $qq, $newest_member_q, $users_online;
 	
 	$theme['name'] = 'board';
 	$theme['call_theme_func'] = 'board';
@@ -17,10 +17,26 @@ function board()
 	//~loadlang();
 	//~fheader('MainBoard');
 	
-	// $q = "SELECT * FROM `board`";
+	//~$q = "SELECT * FROM `board`";
 	$q = "SELECT * FROM `board` `b` JOIN `users` `u` WHERE `b`.`bcreatedbyuid`=`u`.`uid`";
-	
 	$qu = mysql_query($q);
+	
+	// Getting the last 5 recent posts
+	//~$q = "SELECT * FROM `topics` ORDER BY `tdate` DESC LIMIT 5";
+	$q = "
+		SELECT * FROM `replies` `r` 
+		LEFT JOIN `topics` `t` 
+		ON `r`.`topic_tid` = `t`.`tid`
+		ORDER BY `r`.`date` DESC LIMIT 5
+	";
+	$qq = db_query($q);
+	
+	$q = "SELECT * FROM `users` ORDER BY `regTime` DESC LIMIT 1";
+	$newest_member_q = db_query($q);
+	
+	$q = "SELECT * FROM `users` WHERE `is_online`= 1";
+	$users_online = db_query($q);
+	
 	
 	// printrr( $GLOBALS );
 	// printrr( $_SESSION );
@@ -62,13 +78,22 @@ function topics()
 	
 	
 	// actual query to get users
-	$q = "SELECT * FROM `topics` WHERE `board_bid` = '$_GET[board]' ";
-	// $q = "SELECT * FROM `topics` WHERE `board_bid` = '$_GET[board]'";
+	//~$q = "SELECT * FROM `topics` WHERE `board_bid` = '$_GET[board]'";
+	$q['number_of_replies_to_this_board'] = "SELECT * , COUNT(`r`.`rid`) `number_of_replies` FROM `topics` `t` 
+	JOIN `replies` `r` ON `t`.`tid` = `r`.`topic_tid`
+	WHERE `t`.`board_bid` = '$_GET[board]' ORDER BY `r`.`date` DESC";
+	
+	echo $q['number_of_replies_to_this_board'];
+	$qu['number_of_replies_to_this_board'] = mysql_query($q['number_of_replies_to_this_board']);
+	
+	
+	
+	$q['topics_in_board'] = "SELECT * FROM `topics` WHERE `board_bid` = '$_GET[board]'";
 	// echo $q;
 	// firing another mysql_query, bcoz, 
 	// otherwise, mysql_fetch_array takes up 1st row of the query.
 	// firing query to be used in theme page
-	$qu = mysql_query($q);
+	$qu['topics_in_board'] = mysql_query($q['topics_in_board']);
 	
 	// Add new thing $board, 
 	// which will have the details of Board
@@ -107,7 +132,7 @@ function topicReplies()
 	// $q = "select * from `topics` where `tid` = $_GET[topic]";
 	//$q = "select * from `topics` where `tid` = $_GET[topic] LIMIT 1";
 	//~$q = "SELECT * from `topics` `t` RIGHT JOIN `users` `u` ON `t`.`tcreatedbyuid`=`u`.`uid` WHERE `t`.`tid` = $_GET[topic] LIMIT 1";
-	$q = "SELECT * from `topics` `t` RIGHT JOIN `users` `u` ON `t`.`tcreatedbyuid`=`u`.`uid` WHERE `t`.`tid` = $_GET[topic]";
+	$q = "SELECT * from `topics` `t` RIGHT JOIN `users` `u` ON `t`.`tcreatedbyuid`=`u`.`uid` WHERE `t`.`tid` = $_GET[topic] LIMIT 1";
 	$qu[1] = db_query($q);
 	
 	// to show ip addresses in human readable format

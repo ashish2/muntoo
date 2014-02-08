@@ -270,6 +270,7 @@ function main()
 	// imagegallery
 	$img_gall = 'imagegallery';
 	$poll = 'poll';
+	$api = 'api';
 	
 	if(isset($_GET['action']))
 	// $get HERE
@@ -317,8 +318,14 @@ function main()
 			'wall' => array( 'wall', 'wall', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),			
 			'forgot_password' => array( 'forgot_password', 'forgot_password', '', 3 => array('Profile', 'The Wall (stands Tall)' )  ),
 			
+			// Sample page to try stuff
+			'sample' => array( 'sample', '_main', '', 3 => array('Profile', 'Sample' )  ),
+			
 			// QnA module 
 			'qna' => array( 'qna', 'qna', 'Q n A',  ),
+			
+			// API
+			"$api" => array( "$api", "_main", '', 3 => array('Profile', 'The Wall (stands Tall)' ) ),
 			
 			/// Other Modules
 			

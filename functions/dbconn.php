@@ -15,9 +15,17 @@ function dbconn( $conArr = array() )
 	$db['dbname'] = ( isset( $conArr['dbname'] ) ? $conArr['dbname'] :  $globals['dbname'] );
 	
 	//$dbconn = mysql_connect($db['host'] , $db['dbuser'] , $db['dbpass'] ) or die('DB Connection could not be established.<br />ErrorNo: '.mysql_errno() . '<br />Error: ' .mysql_error());
-	$dbconn = mysql_connect($db['dbhost'] , $db['dbuser'] , $db['dbpass'] ) or die('DB Connection could not be established.<br />ErrorNo: '.mysql_errno() . '<br />Error: ' .mysql_error());
-	$seldb = mysql_select_db($db['dbname'], $dbconn) or $error['cud_nt_sel_db'] = $l['cud_nt_sel_db'];
+	$dbconn = @mysql_connect( $db['dbhost'] , $db['dbuser'] , $db['dbpass'], false, 0 );
+	if( !is_resource($dbconn) )
+		die('
+				<title>Oh, Shucks!!! DB gone away?</title>
+				DB Connection could not be established.<br />ErrorNo: '.
+				mysql_errno() . 
+				'<br />Error: ' .
+				mysql_error()
+		);
 	
+	$seldb = mysql_select_db($db['dbname'], $dbconn) or $error['cud_nt_sel_db'] = $l['cud_nt_sel_db'];
 	//return $seldb;
 	
 }
@@ -41,19 +49,19 @@ function pdo_func($conArr = array())
 	
 	// Long Way
 	/*
-	$stmt = $pdo_dbh->prepare('INSERT INTO REGISTRY (name, value) VALUES (:name, :value)');
-	$stmt->bindParam(':name', $name);
-	$stmt->bindParam(':value', $value);
-	// insert one row
-	$name = 'one';
-	$value = 1;
-	$stmt->execute();
+		$stmt = $pdo_dbh->prepare('INSERT INTO REGISTRY (name, value) VALUES (:name, :value)');
+		$stmt->bindParam(':name', $name);
+		$stmt->bindParam(':value', $value);
+		// insert one row
+		$name = 'one';
+		$value = 1;
+		$stmt->execute();
 	*/
 	
 	// Short Way
 	/*
-	$stmt = $dbh->prepare('UPDATE people SET name = :new_name WHERE id = :id');
-	$stmt->execute( array('new_name' => $name, 'id' => $id) );
+		$stmt = $dbh->prepare('UPDATE people SET name = :new_name WHERE id = :id');
+		$stmt->execute( array('new_name' => $name, 'id' => $id) );
 	*/
 	
 }

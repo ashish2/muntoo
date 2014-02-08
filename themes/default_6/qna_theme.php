@@ -3,7 +3,7 @@
 // if not defined
 
 
-function board_theme()
+function qna_theme()
 {
 	global $globals, $mysql, $theme, $done, $errors, $l;
 	
@@ -12,7 +12,7 @@ function board_theme()
 	// user level, user permissions
 	global $user;
 	global $board, $replies;
-	global $qu, $qq, $newest_member_q, $users_online;
+	global $qu;
 	
 	// boards will be listed here, get data from DB
 	// Board table, having, board_id, board_name, board_desc, 
@@ -44,13 +44,12 @@ function board_theme()
 		<table class="disp_table" id="disp_table" width=90%>
 			<tr>
 				<th class="dt-header">
-					'.$l['bname'].'
+					'.$l['stream'].'
 				</th>
-				<th class="dt-header">
-					'.$l['bcreatedby'].'
-				</th>
-				<th class="dt-header" >
-					'.$l['bdate'].'
+			</tr>
+			<tr>
+				<th>
+					<small><a href="#">Ask A Question (Create Topic)</a></small>
 				</th>
 			</tr>
 		';
@@ -61,95 +60,95 @@ function board_theme()
 		echo '
 			<tr class="dth-wp_post-tr">
 				<td class="dth-wp_post">
-					<a href="'.$globals['ind'].'action=board&board='.$i['bid'].'">'.$i['bname'].'</a><br /> <small>'.$i['bdesc']. '</small>
-				</td>
-				
-				<td class="dth-wp_post">
-					<a href="'.$globals['ind'].'action=viewProfile&uid='.$i['uid'].'" data-url="'.$i['url'].'" data-email="'.$i['email'].'">'.$i['username'].'</a><br />
-				</td>
-				
-				<td class="dth-wp_post">
-					'.$i['bdate'].'
+					<a href="'.$globals['ind'].'action=qna&qid='.$i['id'].'">'.$i['title'].'</a><br /> <small>'.$i['content']. '</small>
 				</td>
 			</tr>';
-			
 	
 	}
 	
-			
-				
 	echo '
 		</table>
-		
-		<div>
-			Last 5 Recent Posts:
-			<ul>
-			';
-			$li_str = '';
-			while( $row = mysql_fetch_assoc($qq) )
-			{
-				$li_str .= "<li>
-					<a href='$globals[ind]action=topic&topic=$row[tid]'>$row[tname]</a>
-				</li>";
-			}
-			
-			$row = null;
-			
-			echo $li_str;
-			
-			echo '
-			</ul>
-		</div>
-		
-		<div class="newest-member">
-			';
-		$row = mysql_fetch_assoc($newest_member_q);
-		
-		echo "
-		<div>
-			<div>
-				Welcome our Latest Member: <a href='$globals[ind]action=viewProfile&uid=$row[uid]'>$row[username]</a>
-				<br />
-				You can post a greeting on his wall: 
-				<a href='$globals[ind]action=wall&uid=$row[uid]'>here</a>
-			</div>
-		</div>
-		";
-		
-		$user_online_str = "";
-		$user_online_str = "
-		<div>
-			<div>
-				Users online: 
-			</div>
-			<ul class='user-online-list'>
-			";
-		
-		$row = null;
-		while($row = mysql_fetch_assoc($users_online))
-		{
-			$user_online_str .= "
-				<li>
-					<a href='$globals[ind]action=viewProfile&uid=$row[uid]'>$row[username]</a>
-				</li>
-			";
-		}
-			
-		$user_online_str .= "
-			</ul>
-		</div>";
-		
-		echo $user_online_str;
-		
-		echo '
-		</div>
-		
 	</center>
 	';
 	
 	
 	
 }
+
+function qnaQ_theme()
+{
+	global $globals, $mysql, $theme, $done, $errors, $l;
+	
+	// Get all data of the user, whether to allow 
+	// him to view or enter the board.
+	// user level, user permissions
+	global $user;
+	global $board, $replies;
+	global $qu;
+	
+	// boards will be listed here, get data from DB
+	// Board table, having, board_id, board_name, board_desc, 
+	// user_id who started board(admin or moderator), 
+	// number of replies in Reply table
+	// who replied etc, replies to a board_id in reply table
+	// name of board, which username started board, 
+	// how many posts in board
+	
+	/*
+	echo '
+		<table border="1" >
+			<tr id="disp_table">
+				<td>
+					'.$l['bname'].'
+				</td>
+				<td>
+					'.$l['bcreatedby'].'
+				</td>
+				<td>
+					'.$l['bdate'].'
+				</td>
+			</tr>
+		';
+	*/
+	
+	if ( mysql_num_rows($qu ) > 0 )
+	{
+		echo '
+		<center>
+			<table class="disp_table" id="disp_table" width=90%>
+				<tr>
+					<th class="dt-header">
+						'.$l['stream'].'
+					</th>
+				</tr>
+			';
+		
+		for(; $i = mysql_fetch_assoc($qu); )
+		{
+			
+			echo '
+				<tr class="dth-wp_post-tr">
+					<td class="dth-wp_post">
+						<a href="'.$globals['ind'].'action=qna&qid='.$i['id'].'">'.$i['title'].'</a><br /> <small>'.$i['content']. '</small>
+						<br />
+						
+						<small><a href="#">add reply</a></small>
+					</td>
+				</tr>';
+		
+		}
+		
+		echo '
+			</table>
+		</center>
+		';
+	}
+	else
+		notice_handler('NO RESULTS TO SHOW');
+	
+	
+}
+
 
 function topics_theme()
 {
@@ -186,8 +185,9 @@ function topics_theme()
 			</tr>
 			';
 			
-	for( ; $i = mysql_fetch_assoc($qu['topics_in_board']); )
+	for( ; $i = mysql_fetch_assoc($qu); )
 	{
+		//printrr($i);
 		
 		echo '
 			<tr class="dth-wp_post-tr">
@@ -227,9 +227,7 @@ function topicReplies_theme()
 	global $board;
 	global $l;
 	
-	$topicId = $_GET['topic'];
-	
-	echo '<a href="index.php?action=addReply&topic='.$topicId.'">add reply</a>';
+	echo '<a href="index.php?action=addReply&topic='.$_GET['topic'].'">add reply</a>';
 	
 	echbr(2);
 	$row = mysql_fetch_assoc($qu[1] ) ;
@@ -337,30 +335,12 @@ function topicReplies_theme()
 	
 	while( $i = mysql_fetch_assoc($qu[2]) )
 	{
-		
-		
 		// (if we hav permision only then show, no-eidting button)<p align="right">edit</p>
 		$table .= '
 			<tr '.$cssTrClassNm.'>
 				<td '.$cssTdClassNm.'>'.$i['poster_users_uid'].'</td>
-				<td '.$cssTdClassNm.'>' .
-					'Subj: '.$i['rsubject'] .
-					'<br />'.
-					'Perm: <a id="'.$i["rid"].'" href=index.php?action=topic&topic='.$topicId.'#'.$i["rid"].'>#'.$i["rid"].'</a>'.
-					'<br />'.
-					'Body: ' .
-					$i['rbody'] .
-					'<br />IP: ' .
-					$i['user_ip'] .
-					'<br />' .
-					'<span>' .
-					'Signature: ' .
-						$i['signature'] .
-					'</span>'.
-				'</td>
-				<td '.$cssTdClassNm.'>'.
-					date("g:i a d-F-Y", $i['date'] ).
-				'</td>
+				<td '.$cssTdClassNm.'>'.'Subj: '.$i['rsubject'].'<br />Body: '.$i['rbody'].'<br />IP: '.$i['user_ip'].'</td>
+				<td '.$cssTdClassNm.'>'.date("g:i a d-F-Y", $i['date'] ).'</td>
 			</tr>
 			';
 	}

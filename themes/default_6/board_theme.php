@@ -85,17 +85,14 @@ function board_theme()
 			Last 5 Recent Posts:
 			<ul>
 			';
-			$li_str = '';
 			while( $row = mysql_fetch_assoc($qq) )
 			{
-				$li_str .= "<li>
+				echo "<li>
 					<a href='$globals[ind]action=topic&topic=$row[tid]'>$row[tname]</a>
 				</li>";
 			}
 			
 			$row = null;
-			
-			echo $li_str;
 			
 			echo '
 			</ul>
@@ -186,8 +183,9 @@ function topics_theme()
 			</tr>
 			';
 			
-	for( ; $i = mysql_fetch_assoc($qu['topics_in_board']); )
+	for( ; $i = mysql_fetch_assoc($qu); )
 	{
+		//printrr($i);
 		
 		echo '
 			<tr class="dth-wp_post-tr">

@@ -5,10 +5,9 @@
 // Algos
 
 // Select all checkbox Algo
-function sel_all_chk_box(sel_all_id, chkbox_coll_name, this_el_id)
+function sel_all_chk_box(sel_all_id, chkbox_coll_name, this_el_id = null)
 {
-	// if  var this_el_id is not "undefined" then...
-	if(this_el_id !== "undefined")
+	if(this_el_id != null)
 	{
 		// Case 1 DONE
 		// if this_el_id is false, then, set select all false
@@ -146,8 +145,8 @@ function ajaxCall(method, url, params_to_add_on_url, postData)
 		
 		error: function(jqXHR, textStatus, errorThrown) {
 			// alert("An error occured! " + ( errorThrown ? errorThrown : jqXHR.status) );
-			//~console.log("An error occured! " + errorThrown);
-			//~console.log("An error occured! " +  jqXHR.status);
+			console.log("An error occured! " + errorThrown);
+			console.log("An error occured! " +  jqXHR.status);
 			
 			// return false;
 		}

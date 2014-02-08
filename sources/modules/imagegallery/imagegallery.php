@@ -16,7 +16,9 @@ function imagegallery()
 	$theme['call_theme_func'] = __FUNCTION__;
 	$theme['page_title'] = 'Image Gallery';
 	
-	$uid = $user['uid'];
+	//~$uid = $user['uid'];
+	$uid = ( isset($_GET["uid"] ) ? (int) check_input( $_GET["uid"] ) : $user["uid"] );
+	
 	$query = "SELECT * FROM `imagegallery_albums` WHERE `user_id`= $uid;";
 	$qe = db_query($query);
 	
@@ -77,6 +79,9 @@ function createalbum()
 	
 	$theme['page_title'] = 'Image Gallery: Create Album';
 	
+	// Uid
+	$uid = ( isset($_GET["uid"] ) ? (int) check_input( $_GET["uid"] ) : $user["uid"] );
+	
 	$done = false;
 	
 	if(isset( $_POST['submit'] ) && !empty($_POST['submit']))
@@ -96,7 +101,7 @@ function createalbum()
 			`description`,
 			`date`
 			)
-			VALUES ('$user[uid]', '$name', '$desc', NOW());
+			VALUES ('$uid', '$name', '$desc', NOW());
 			";
 			
 		$q = db_query($query);
@@ -110,8 +115,8 @@ function createalbum()
 		if( $row ) 
 			$notice[] = "Album created, you can visit your album 
 				<a href='$globals[ind]action=imagegallery&subaction=showalbum&albid=$row[id]'>here</a>
-			 and start uploading pictures.";
-		 
+			and start uploading pictures.";
+		
 	}
 	
 }
@@ -206,6 +211,7 @@ function uploadimage()
 						if( $moved )
 						{
 							
+							// User who uploaded the photo
 							$uid = $user["uid"];
 							
 							$files_file_name = $_FILES['file']['name'];
@@ -271,6 +277,8 @@ function viewimage()
 	$theme['page_title'] = 'Image Gallery: View Image';
 	
 	$imageid = ( isset($_GET["imageid"] ) ? (int) check_input( $_GET["imageid"] ) : null );
+	
+	// User who is logged in
 	$uid = $user["uid"];
 	
 	
@@ -313,6 +321,8 @@ function hotnot()
 	
 	$imageid = ( isset($_GET["imageid"] ) ? (int) check_input( $_GET["imageid"] ) : null );
 	$rating = ( isset($_GET["rating"] ) ? (int) check_input( $_GET["rating"] ) : null );
+	
+	// User who is logged in
 	$uid = $user["uid"];
 	
 	if(!$imageid)
