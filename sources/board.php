@@ -83,7 +83,7 @@ function topics()
 	JOIN `replies` `r` ON `t`.`tid` = `r`.`topic_tid`
 	WHERE `t`.`board_bid` = '$_GET[board]' ORDER BY `r`.`date` DESC";
 	
-	echo $q['number_of_replies_to_this_board'];
+	//echo $q['number_of_replies_to_this_board'];
 	$qu['number_of_replies_to_this_board'] = mysql_query($q['number_of_replies_to_this_board']);
 	
 	

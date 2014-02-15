@@ -72,6 +72,9 @@ include_once($config);
 include_once($rootdir . '/functions/func.php');
 include_once($rootdir . '/functions/wam.php');
 
+// start time
+$time = new Script_Timer;
+$time->timer_start();
 
 include_once($rootdir . '/functions/morefunc.php');
 include_once($rootdir . '/functions/func_rel_to_db.php');
@@ -81,9 +84,6 @@ include_once( $rootdir.'/classes/Cache.php');
 // Setting default timezone
 date_default_timezone_set('Europe/London');
 
-// start time
-$time = new Script_Timer;
-$time->timer_start();
 
 // ob_start
 ob_start();
@@ -142,6 +142,12 @@ if( isset( $_SESSION['user']['loggedIn'] ) && $_SESSION['user']['loggedIn'] )
 	fillUserArr();
 }
 
+// Check who is Active
+whoIsActive();
+
+// Update Last Activity of the User to Right Now
+if( isset($user['uid']) && !empty($user['uid']) )
+	lastActivityRightNow();
 
 // printrr( $user );
 
@@ -304,7 +310,7 @@ function main()
 			'logout' => array('logout', 'logout', '', 3 => array('Logout', 'Logout' ) ),			
 			'mainBoard' => array('board', 'board', '', 3 => array('Board', 'Main Board' ) ),			
 			
-			'messages' => array('messages', 'sendMessage', '', 3 => array('Profile', 'Messages' )  ),			
+			'sendMessage' => array('messages', 'sendMessage', '', 3 => array('Profile', 'Messages' )  ),			
 			'viewMessage' => array('messages', 'viewMessage', '', 3 => array('Profile', 'Messages' )  ),			
 			
 			'modifyprofile' => array('modifyprofile', 'modifyprofile', '', 3 => array('Profile', 'Modify Profile' ) ),			

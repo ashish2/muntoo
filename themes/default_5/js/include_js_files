@@ -1,13 +1,27 @@
 # Starting with a hash # is a comment, anything u want commented can be hashed
+
+#FTM
 jquery-1.9.1.min.js
+
+#jQuery 1.2.2 for TimePass and Testing
+#jquery-1.2.2.js
+
 jquery.cookie.js
 javascript.js
+
 #json2.js
-backbone-min.js
+
+#BackBone
+#backbone-min.js
+
 #angular.min.js
 angular_javascript.js
+
 underscore.js
+
 prac.js
+
 hotfire_cookie.js
+
 diabolical.js
 

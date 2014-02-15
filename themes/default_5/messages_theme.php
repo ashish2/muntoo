@@ -19,7 +19,7 @@ function sendMessage_theme()
 			<table align="center" width="90%" border="0">
 				<tr>
 					<td width="30%">'.$l['to'].'</td>
-					<td><input type="text" name="to"> </td>
+					<td><input type="text" name="to"> <small>(to: username here)</small></td>
 				</tr>'.
 				/*
 				<tr>

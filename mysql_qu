@@ -604,3 +604,9 @@ ALTER TABLE `users` MODIFY COLUMN `last_login` INT(10) DEFAULT NULL;
 ALTER TABLE `users` ADD COLUMN `last_login` INT(10) DEFAULT NULL; ( default value actually is supposed to be, NOW() )
 
 
+# 15 Feb 2014
+alter table `users`  add column `last_activity` int(10) DEFAULT NULL;
+
+
+
+
