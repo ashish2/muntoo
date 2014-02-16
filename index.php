@@ -142,6 +142,7 @@ if( isset( $_SESSION['user']['loggedIn'] ) && $_SESSION['user']['loggedIn'] )
 	fillUserArr();
 }
 
+// THIS IS A VERY HEAVY FUNCTION ON DB, CHECK
 // Check who is Active
 whoIsActive();
 

@@ -133,7 +133,7 @@ function login()
 			
 			$now = round( $time->scriptTime() ) ;
 			// Update that this user is logged in, updating the is_online column in `users` table
-			$q = "Update `users` SET `is_online` = 1, `last_login` = $now WHERE `uid`= $data[uid]";
+			$q = "Update `users` SET `is_online` = 1, `last_login` = $now, `last_activity`= $now WHERE `uid`= $data[uid]";
 			db_query($q);
 			
 			
