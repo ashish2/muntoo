@@ -26,6 +26,9 @@ function friendsList_theme()
 	error_handler($error);
 	notice_handler ($notice);
 	
+	if( !userLoggedIn() )
+		return false;
+	
 	$str = '';
 	if( $show )
 	{

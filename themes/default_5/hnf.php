@@ -186,9 +186,23 @@ function fnav()
 	'		</tr>
 		</table>
 	</center>
+	
 	<!-- div class sabse-main Starts -->
 	<div class="sabse-main">
+		
 	';
+/*
+		<!-- Angular Testing -->
+		<div class="angular-testing" ng-app="MyTutorialApp">
+		
+			<div class="ang-cont" ng-controller="MainCtrl">
+				{{understand}}
+			</div>
+			
+		</div>
+		<!-- Angular Testing/ -->
+*/
+
 	
 	// Keep the Permissions in Mind, 
 	// Permissions hasnt been taken care of here
@@ -231,11 +245,14 @@ function ffooter($time_elapsed=0)
 		// Just loading all JS files, just before div "sabse-main" ends
 		include_js_files();
 		$jses = '';
+		$media_url = '';
+		$media_url = get_media_url();
+		
 		foreach($theme['js_files'] as $k => $v)
 		{
 			if ( $v[0] != '#' )
 			{
-				$js_file = $globals['boardurl']."/$themedir/". $user['theme_type'] . '/js/'.$v;
+				$js_file = $media_url."/$themedir/". $user['theme_type'] . '/js/'.$v;
 				$jses .= '<script language="javascript" type="text/javascript" src="'.$js_file.'"></script>';
 			}
 		}

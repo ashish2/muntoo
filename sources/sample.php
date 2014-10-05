@@ -136,13 +136,67 @@ function viewpoll()
 	
 }
 
+function nginx_bench_test()
+{
+	global $globals, $imgFolder;
+	
+	// Load Images
+	// Testing Nginx & Apache load Times
+	$imgFolder['uploaded']['random'] = "/ignore/random";
+
+	// IGNORE Folder
+	$dir = '/opt/lampp/htdocs/ash3_opt_www/forums/myForum/3/ignore/random/1';
+	// Remove all this later---
+	$dh  = opendir($dir);
+	while (false !== ($filename = readdir($dh))) {
+		$files[] = $filename;
+	}
+
+	$str = '';
+	//for ( $i =0; $i < 100; $i++)
+	foreach($files as $k => $v)
+		// Media Url to test Nginx
+		// $str .= "<img src=\"$globals[media_board_root_url]/{$imgFolder['uploaded']['small']}/2.jpg\"> <br /><br />";
+		$str .= "<img src=\"$globals[media_board_root_url]/{$imgFolder['uploaded']['random']}/1/$v\"> <br /><br />";
+
+	echo $str;
+	
+}
+
+function apache_bench_test()
+{
+	global $globals, $imgFolder;
+	
+	// Load Images
+	// Testing Nginx & Apache load Times
+	$imgFolder['uploaded']['random'] = "/ignore/random";
+
+	// IGNORE Folder
+	$dir = '/opt/lampp/htdocs/ash3_opt_www/forums/myForum/3/ignore/random/1';
+	// Remove all this later---
+	$dh  = opendir($dir);
+	while (false !== ($filename = readdir($dh))) {
+		$files[] = $filename;
+	}
+
+	$str = '';
+	//for ( $i =0; $i < 100; $i++)
+	foreach($files as $k => $v)
+		// Board Url to test Apache 
+		// $str .= "<img src=\"$globals[boardurl]/{$imgFolder['uploaded']['small']}/1.jpg\"> <br /><br />";
+		$str .= "<img src=\"$globals[boardurl]/{$imgFolder['uploaded']['random']}/1/$v\"> <br /><br />";
+
+	echo $str;
+	
+}
+
+
 // Main runs here
 // and routes to other pages/functions
 function _main()
 {
 	
-	global $theme, $reqPrivs, $error;
-	
+	global $globals, $theme, $reqPrivs, $error, $user;
 	
 	// Folder not getting used for the moment
 	//~$theme['folder'] = __FUNCTION__;
@@ -156,16 +210,33 @@ function _main()
 	$subaction = '';
 	$subaction = isset( $_GET['subaction'] ) && !empty($_GET['subaction']) ? $_GET['subaction'] : '';
 	
+	// FTM, remove this line LATER
+	$reqPrivs['board']['loginReq'] = 0;
+	
 	if( $reqPrivs['board']['loginReq'] )
+	{
 		if( !userUidSet() )
 		{
 			$error[] = "User not logged in. Please login and try again";
-			//~redirect("$globals[boardurl]$globals[only_ind]action=login");
+			redirect("$globals[boardurl]$globals[only_ind]action=login");
 			return false;
 		}
+	}
+	else
+		$user['uid'] = 1;
+		
 	
 	switch($subaction)
 	{
+		
+		case 'nginx':
+			nginx_bench_test();
+			break;
+		
+		case 'apache':
+			apache_bench_test();
+			break;
+		
 		case 'create':
 			// Call createpoll func
 			createpoll();

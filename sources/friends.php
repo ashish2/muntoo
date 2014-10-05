@@ -105,7 +105,7 @@ function friendsList()
 	global $globals, $mysql, $theme, $done, $error, $errors, $notice;
 	global $l;
 	global $time;
-	global $user;
+	global $user, $reqPrivs;
 	global $par;
 	global $db, $qu, $show;
 	
@@ -117,6 +117,11 @@ function friendsList()
 	
 	$fl = 'friends_list';
 	
+	if( $reqPrivs['board']['loginReq'] )
+		if( !userUidSet() )
+			//~redirect("$globals[boardurl]$globals[only_ind]action=login");
+			return false;
+
 	// getting friendsList of a user
 	$uid = ( isset($_GET["uid"] ) ? (int) check_input( $_GET["uid"] ) : $user["uid"] );
 	

@@ -39,9 +39,8 @@
 	
 	// Defining HotFire Plugin
 	// Options is a dict which will be used as settings/config for the plugin
-	$.fn.hotfire = function(options) {
+	$.hf = $.hotfire = function(options) {
 		// I'll do my awesome stuff here
-		
 		"use strict";
 		
 		// Settings
@@ -57,8 +56,18 @@
 				secure: false,           // cookie secure
 			},
 			
+				// We define an empty anonymous function so that
+				// we don't need to check its existence before calling it.
+				// use: settings.beforeCookieAdd.call( someParametersThatYouWantToPass )
+				beforeCookieAdd: function() {}, // inside, addCookie function, just before adding cookie, settings.beforeCookieAdd.call( this );
+				afterCookieAdd: function() {},
+				beforeCookieDelete: function() {},
+				afterCookieDelete: function() {},
+				// ... rest of settings ...
+				
 		};
 		
+
 		// add the 2 dicts into the first one
 		if(options) {
 			settings = $.extend({}, settings, options);
@@ -76,6 +85,7 @@
 		
 		// Some Initialization function for the plugin
 		this.hotfire = function() {
+			return "This is hotfire here.";
 		};
 		
 		this.getExpiry = function(expire) {
@@ -280,13 +290,14 @@
 	
 	//end-
 	
-
 // Running the Plugin Functions
 //~options = {"a": 1, "b": 2, "cookieName": "NEW"}
 options = {};
-//~$.hf = $().hotfire(options);
+// As a Utility Method, not accessing the DOM, not required to access the DOM, but attached to the, $ function itself, `$.hotfire`
+var hf = new $.hotfire(options);
 //~$.hotfire = $().hotfire(options);
-$().hotfire(options);
+// As a General Method, as a DOM function, attached to `$().hotfire`
+//$().hotfire(options);
 
 })(jQuery);
 

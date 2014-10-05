@@ -23,4 +23,19 @@ function include_js_files()
 	
 }
 
+function get_media_url()
+{
+	global $globals;
+	
+	$media_url = '';
+	// Taking Media Url for Media Files
+	if( isset( $globals['media_board_root_url']) && !empty($globals['media_board_root_url']) )
+		$media_url = $globals['media_board_root_url'];
+	else 
+		$media_url = $globals['boardurl'];
+	//-
+	return $media_url;
+}
+
+
 ?>

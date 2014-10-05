@@ -13,6 +13,9 @@ function sendMessage_theme()
 	
 	error_handler($error);
 	notice_handler($notice);
+
+	if( !userLoggedIn() )
+		return false;
 	
 	echo '
 		<form method="post" action="" name="form1">
@@ -65,6 +68,9 @@ function viewMessage_theme()
 	
 	error_handler($error);
 	notice_handler($notice);
+	
+	if( !userLoggedIn() )
+		return false;
 	
 	// Loop for InBox
 	$cssThClassNm =  'class="dt-header"';

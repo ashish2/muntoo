@@ -61,8 +61,10 @@ function listUsers_theme()
 			
 			$td .= "<td $multCssClass>
 				<div class=\"image-box\">
-					<div class=\"image-container\">
-						<img src=\"{$imgFolder['uploaded']['small']}/$row[uid].jpg\">
+					<div class=\"image-container\"> " . 
+						//<img src=\"{$imgFolder['uploaded']['small']}/$row[uid].jpg\">
+						"<img src=\"$globals[media_board_root_url]/{$imgFolder['uploaded']['small']}/$row[uid].jpg\">" .
+						"
 					</div>
 					<div class=\"image-details\">
 						<h4>Details: </h4>
