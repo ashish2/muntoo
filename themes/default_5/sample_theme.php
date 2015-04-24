@@ -150,6 +150,60 @@ function viewpoll_theme()
 	}
 }
 
+function angular_theme()
+{
+	global $globals, $mysql, $theme, $done, $errors, $error, $notice;
+	global $user, $l;
+	global $board, $replies, $qe;
+	
+	error_handler($error);
+	notice_handler($notice);
+	
+	if($error)
+		return false;
+	
+	?>
+	
+	<div class="angular-main" data-ng-app="MyTutorialApp">
+
+
+		<div class="ang-lee" data-ng-controller="Customers">
+			<div>
+				<input type="text" data-ng-model="filter.myName">Hi, {{myName}}!
+			</div>
+
+			<h4>
+				Init the list here: This list will get filtered according to what u type in the input above:
+			</h4>
+			<ul>
+				<li data-ng-repeat="n in customers|filter:filter.myName|orderBy:'name'">
+					{{n.name|uppercase}} - {{n.city}}
+				</li>
+			</ul>
+			<br />
+			Customer name:
+			<input type="text" data-ng-model="newCustomer.name">
+			<br />
+			Customer City:
+			<input type="text" data-ng-model="newCustomer.city">
+			<br />
+			<button data-ng-click="addCustomer()">Add customer</button>
+			<br />
+			<a href="#/view2">View 2</a>
+
+		</div>
+
+		<div data-ng-view="">
+			I m view 2
+		</div>
+
+
+	</div>
+	
+	
+	<?php
+}
+
 function _main_theme()
 {
 	global $globals, $mysql, $theme, $done, $errors, $error, $notice;

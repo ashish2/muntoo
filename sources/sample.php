@@ -190,6 +190,16 @@ function apache_bench_test()
 	
 }
 
+function angular()
+{
+
+	global $globals, $theme, $reqPrivs, $error, $user;
+	
+	$theme['call_theme_func'] = __FUNCTION__;
+
+}
+
+
 
 // Main runs here
 // and routes to other pages/functions
@@ -202,7 +212,9 @@ function _main()
 	//~$theme['folder'] = __FUNCTION__;
 	
 	$theme['lang'] = 'sample';
-	$theme['name'] = 'sample';
+
+	if(!isset($theme['name']))
+		$theme['name'] = 'sample';
 	
 	$theme['call_theme_func'] = __FUNCTION__;
 	$theme['page_title'] = 'Sample: Main';
@@ -246,6 +258,12 @@ function _main()
 			// Show poll with module & its id(primary key) image id
 			viewpoll();
 			break;
+
+		case 'angular':
+			// Show poll with module & its id(primary key) image id
+			angular();
+			break;
+
 		
 		default:
 			// Else show main function

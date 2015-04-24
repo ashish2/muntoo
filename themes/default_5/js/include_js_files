@@ -14,8 +14,9 @@ javascript.js
 #BackBone
 #backbone-min.js
 
-#angular.min.js
-#angular_javascript.js
+angular.min.js
+angular_javascript.js
+# angular_app & angular_maincontroller are just modularised version of angular_javascript.js
 #angular_app.js
 #angular_maincontroller.js
 

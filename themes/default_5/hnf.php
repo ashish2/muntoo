@@ -22,7 +22,7 @@ function fheader($title='', $css='', $js='')
 	
 	echo '
 	<!DOCTYPE html>
-		<html ng-app>
+		<html>
 		<head>
 			<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 			<meta content="utf-8" http-equiv="encoding">
