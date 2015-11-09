@@ -31,6 +31,11 @@ app.config(function($routeProvider){
 		controller: 'Customers',
 		templateUrl: 'Partials/View1.html'
 	})
+	.when("/student",
+	{
+		controller: "Student",
+		templateUrl: "student.htm",
+	})
 	.otherwise({redirectTo: "/"});
 });
 
@@ -55,9 +60,34 @@ addCustomer = function($scope) {
 	});
 };
 
+controllers.Something = function( $scope ) {
+	//$scope.
+	console.log("scope", $scope);
+	$scope.something = {
+		mn: "this is mn",
+		some: [
+			{a: "aa"},
+			{a: "bb"},
+			{a: "cc"},
+			{a: "ss"},
+		]
+	};
+	
+	//$scope.
+	
+	return $scope.something;
+};
+
+controllers.Studentform = function($scope) {
+	
+};
+
+controllers.Student = function($scope) {
+	$scope.total = 100;
+};
+
 
 app.controller(controllers);
-
 
 console.log(app);
 

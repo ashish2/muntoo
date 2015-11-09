@@ -163,15 +163,15 @@ function angular_theme()
 		return false;
 	
 	?>
+	<br />
+	<br />
 	
 	<div class="angular-main" data-ng-app="MyTutorialApp">
-
-
+		
 		<div class="ang-lee" data-ng-controller="Customers">
 			<div>
 				<input type="text" data-ng-model="filter.myName">Hi, {{myName}}!
 			</div>
-
 			<h4>
 				Init the list here: This list will get filtered according to what u type in the input above:
 			</h4>
@@ -190,17 +190,64 @@ function angular_theme()
 			<button data-ng-click="addCustomer()">Add customer</button>
 			<br />
 			<a href="#/view2">View 2</a>
-
 		</div>
 
 		<div data-ng-view="">
 			I m view 2
 		</div>
 
-
+		<div class="" data-ng-controller="Something">
+			<ul>
+				<li data-ng-repeat="n in something.some">
+					{{n.a}}
+				</li>
+			</ul>
+			<input type="test" data-ng-model="something.mn">
+			<span data-ng-bind="something.mn"></span>!
+			<br />
+			<input type="test" placeholder="Type something here" data-ng-model="name">
+			<span data-ng-bind="name"></span>
+			
+			<div>
+				<input type="checkbox" checked="checked" data-ng-model="showHideButton">
+				<button data-ng-show="showHideButton">Show Hide</button>
+			</div>
+			
+		</div>
+		
+		<div data-ng-controller="Studentform">
+			<form name="student" novalidate>
+				<input name="firstname" type="text" data-ng-model="firstName" required>
+				<span style="color: red;" data-ng-show="student.firstname.$dirty && student.firstname.$invalid">
+					<span data-ng-show="student.firstname.$error.required">First name is required</span>
+				</span>
+			</form>
+		</div>
+		
+		<!--
+		<div data-ng-view></div>
+		-->
+		
+		<script type="text/ng-template" id="student.htm">
+			<h2>Add Student</h2>
+			{{message}}
+			Total students: {{total}}
+		</script>
+		<script type="text/ng-template" id="viewstudents.htm">
+			<h2>View Student</h2>
+			{{message}}
+			Total students: {{total}}
+		</script>
+		
+		
+		
 	</div>
 	
-	
+	<!-- Before i close my browser,
+	Thank you to everyone for this amazing journey.
+	It has truly been a fruitful and an amazing journey with all of you.
+	And i hope to meet you all, soon
+	-->
 	<?php
 }
 
